@@ -11,14 +11,12 @@ const initialState = {
 
 const cheeses = (state = initialState, action) => {
   if (action.type === FETCH_CHEESE_REQUEST) {
-    console.log('cheese loading screen')
     return ({
       ...state,
       loading: true
     })
   }
   else if (action.type === FETCH_CHEESE_SUCCESS) {
-    console.log('cheese submitted hopefully' + action.cheeses)
     return ({
       cheeses: action.cheeses,
       loading: false,

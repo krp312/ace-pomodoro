@@ -7,7 +7,6 @@ import './index.css';
 import CheeseList from './components/cheese-list';
 import store from './store'
 
-console.log()
 ReactDOM.render(
   <Provider store={store}>
     {/* <App />*/}

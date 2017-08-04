@@ -17,7 +17,6 @@ export class CheeseList extends React.Component {
   }
 
   render() {
-    console.log('hello' + JSON.stringify(this.props))
 
     return (
       <div className="cheeseList">
