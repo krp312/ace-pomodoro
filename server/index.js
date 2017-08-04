@@ -1,7 +1,9 @@
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser')
 
 const app = express();
+app.use(bodyParser.json());
 
 // push to here
 let cheeses =
@@ -30,10 +32,14 @@ app.get('/api/cheeses', (req, res) => {
   res.json(cheeses);
 });
 
-app.post('/api/cheeses', (req, res) => {
-
-
-})
+app.post('/api/addcheeses', (req, res) => {
+  console.log('body' + req.body.test);
+  // console.log('body' + JSON.stringify(req.headers));
+  // console.log('body' + req.body.data);
+  cheeses.push(req.body.test);
+  res.json(cheeses);
+  //res.json('fad' + req.body)
+});
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));

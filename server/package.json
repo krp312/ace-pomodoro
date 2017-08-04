@@ -9,6 +9,7 @@
   "author": "Joe Turner <jturner@thinkful.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.14.1",
     "nodemon": "^1.11.0"
   }

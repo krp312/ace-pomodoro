@@ -17,9 +17,16 @@ const postCheesesError = (message) => ({
 export const postCheese = (inputBody) => {
   return (dispatch) => {
     dispatch(postCheeseRequest())
-
+    console.log('input valu' + inputBody.value)
     setTimeout(() => {
-      fetch('/api/cheeses')
+      fetch('/api/addcheeses', {
+        method: 'POST',
+        body: JSON.stringify({test: inputBody.value}),
+        headers: {
+          Accept: 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
       .then(response => response.json())
       .then(cheeses => dispatch(postCheeseSuccess(inputBody.value)))
       .catch(err => dispatch(postCheesesError(err.message)))
