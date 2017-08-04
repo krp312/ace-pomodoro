@@ -14,7 +14,7 @@ const postCheesesError = (message) => ({
   type: POST_CHEESE_ERROR,
 });
 
-export const postCheese = () => {
+export const postCheese = (inputBody) => {
   return (dispatch) => {
     dispatch(postCheeseRequest())
 
