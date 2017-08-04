@@ -9,7 +9,7 @@ const initialState = {
   error: null
 }
 
-const cheeses = (state = initialState, action) => {
+const addCheese = (state = initialState, action) => {
   if (action.type === POST_CHEESE_REQUEST) {
     return ({
       ...state,
@@ -18,7 +18,7 @@ const cheeses = (state = initialState, action) => {
   }
   else if (action.type === POST_CHEESE_SUCCESS) {
     return ({
-      cheeses: action.cheeses,
+      cheeses: [...state.cheeses, action.cheese],
       loading: false,
       error: null
     })
@@ -32,4 +32,4 @@ const cheeses = (state = initialState, action) => {
   return state
 }
 
-export default cheeses
+export default addCheese

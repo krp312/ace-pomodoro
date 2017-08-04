@@ -4,8 +4,9 @@ const postCheeseRequest = () => ({
 });
 
 export const POST_CHEESE_SUCCESS = 'POST_CHEESE_SUCCESS';
-const postCheeseSuccess = (cheeses) => ({
+const postCheeseSuccess = (cheese) => ({
   type: POST_CHEESE_SUCCESS,
+  cheese
 });
 
 export const POST_CHEESE_ERROR = 'POST_CHEESE_ERROR';
@@ -13,7 +14,7 @@ const postCheesesError = (message) => ({
   type: POST_CHEESE_ERROR,
 });
 
-export const postCheeses = () => {
+export const postCheese = () => {
   return (dispatch) => {
     dispatch(postCheeseRequest())
 

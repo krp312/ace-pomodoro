@@ -1,7 +1,3 @@
-// Make an async action called fetchCheeses
-// Use fetch API to make GET request to api/cheeses
-// Make three sync actions: fetchCheeseRequest, fetchCheesesSuccess, fetchCheesesError
-
 export const FETCH_CHEESE_REQUEST = 'FETCH_CHEESE_REQUEST';
 const fetchCheeseRequest = () => ({
   type: FETCH_CHEESE_REQUEST

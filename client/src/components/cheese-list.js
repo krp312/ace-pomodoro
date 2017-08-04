@@ -1,7 +1,5 @@
 // make form for user input + onSubmit to dispatch postCheeses
 // make postCheeses async action plus related sync actions
-// make new reducer for post stuff
-  // add new to rootReducer
 // get store/state to update server variable
 // setup post request to send persisted list
 
@@ -9,7 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCheeses } from '../actions/cheese'
-
+import AddCheeseForm from 'cheese-form';
 
 export class CheeseList extends React.Component {
   componentDidMount(){
@@ -21,6 +19,7 @@ export class CheeseList extends React.Component {
     return (
       <div className="cheeseList">
         <p> Hello!! </p>
+        <AddCheeseForm />
         {this.props.loading ?
         <p> Loading... </p>
         :
