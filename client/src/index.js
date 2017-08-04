@@ -10,10 +10,8 @@ import store from './store'
 console.log()
 ReactDOM.render(
   <Provider store={store}>
-    // <App />
-    <CheeseList cheeses={["Bath Blue",
-      "Barkham Blue",
-      "Buxton Blue"]}/>
+    {/* <App />*/}
+    <CheeseList/>
   </Provider>,
   document.getElementById('root')
 );
