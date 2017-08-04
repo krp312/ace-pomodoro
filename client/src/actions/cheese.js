@@ -25,7 +25,7 @@ export const fetchCheeses = () => {
 
     setTimeout(() => {
       fetch('/api/cheeses')
-      .then(response =>response.json())
+      .then(response => response.json())
       .then(cheeses => dispatch(fetchCheeseSuccess(cheeses)))
       .catch(err => dispatch(fetchCheesesError(err.message)))
     }, 2000)
