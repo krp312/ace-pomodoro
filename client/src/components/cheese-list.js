@@ -1,7 +1,10 @@
-// cheeselist
-// cheeselist will take a single prop called cheeses
-// cheeses is an array of strings
-// render a ul with an li for each string in the cheeses prop
+// make form for user input + onSubmit to dispatch postCheeses
+// make postCheeses async action plus related sync actions
+// make new reducer for post stuff
+  // add new to rootReducer
+// get store/state to update server variable
+// setup post request to send persisted list
+
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -14,15 +17,15 @@ export class CheeseList extends React.Component {
 
   render() {
     console.log('hello' + JSON.stringify(this.props))
-    
+
     return (
-      <div className="cheeseList"> 
+      <div className="cheeseList">
         <p> Hello!! </p>
-        {this.props.loading ? 
-        <p> Loading... </p> 
+        {this.props.loading ?
+        <p> Loading... </p>
         :
         <ul>
-          {this.props.cheeses.map((cheese, index) => 
+          {this.props.cheeses.map((cheese, index) =>
           <li key={index}>{cheese}</li>
             )}
         </ul>
@@ -30,7 +33,7 @@ export class CheeseList extends React.Component {
       </div>
     )
   }
-} 
+}
 
 const mapStateToProps = (state) => (
   {
