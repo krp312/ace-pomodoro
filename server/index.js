@@ -3,30 +3,38 @@ const express = require('express');
 
 const app = express();
 
+// push to here
+let cheeses =
+  [
+    'Bath Blue',
+    'Barkham Blue',
+    'Buxton Blue',
+    'Cheshire Blue',
+    'Devon Blue',
+    'Dorset Blue Vinney',
+    'Dovedale',
+    'Exmoor Blue',
+    'Harbourne Blue',
+    'Lanark Blue',
+    'Lymeswold',
+    'Oxford Blue',
+    'Shropshire Blue',
+    'Stichelton',
+    'Stilton',
+    'Blue Wensleydale',
+    'Yorkshire Blue'
+  ];
+
 // API endpoints go here!
 app.get('/api/cheeses', (req, res) => {
-  const cheeses = 
-    [
-      'Bath Blue',
-      'Barkham Blue',
-      'Buxton Blue',
-      'Cheshire Blue',
-      'Devon Blue',
-      'Dorset Blue Vinney',
-      'Dovedale',
-      'Exmoor Blue',
-      'Harbourne Blue',
-      'Lanark Blue',
-      'Lymeswold',
-      'Oxford Blue',
-      'Shropshire Blue',
-      'Stichelton',
-      'Stilton',
-      'Blue Wensleydale',
-      'Yorkshire Blue'
-    ];
+
   res.json(cheeses);
 });
+
+app.post('/api/cheeses', (req, res) => {
+
+
+})
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
