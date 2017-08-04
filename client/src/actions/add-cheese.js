@@ -20,9 +20,9 @@ export const postCheese = (inputBody) => {
 
     setTimeout(() => {
       fetch('/api/cheeses')
-      // .then(response => response.json())
-      // .then(cheeses => dispatch(postCheeseSuccess(cheeses)))
-      // .catch(err => dispatch(postCheesesError(err.message)))
+      .then(response => response.json())
+      .then(cheeses => dispatch(postCheeseSuccess(inputBody.value)))
+      .catch(err => dispatch(postCheesesError(err.message)))
     }, 2000)
   }
 }

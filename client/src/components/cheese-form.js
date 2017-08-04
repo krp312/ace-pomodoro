@@ -7,7 +7,6 @@ export class AddCheeseForm extends React.Component {
     e.preventDefault();
     const inputBody = this.input;
     this.props.dispatch(postCheese(inputBody));
-    this.input.value = '';
   }
 
   render() {
