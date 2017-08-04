@@ -14,8 +14,9 @@ const fetchCheeseSuccess = (cheeses) => ({
 });
 
 const FETCH_CHEESE_ERROR = 'FETCH_CHEESEE_ERROR';
-const fetchCheesesError = () => ({
-  type: FETCH_CHEESE_ERROR
+const fetchCheesesError = (message) => ({
+  type: FETCH_CHEESE_ERROR,
+  message
 });
 
 export default const fetchCheeses = () => {
