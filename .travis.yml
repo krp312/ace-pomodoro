@@ -1,0 +1,10 @@
+language: node_js
+node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: jq7Vt7hvt+bZGbtcttSxW+oMRGlr830hYBonjfyLsvhPmo3wW43ioXlb2EuAZ8lQJl8QvsTnB63UHlx/slHddOTOyXydVelqNMn05fHBPXeuaG8maOnbkKxHD5F51rsYkHa/cDCkdTmBZNzRnhUNlNJw0QRuMbs0zmkcTJ5h5tmTjxARyMPZ60PR0CG1PczG202rNMAljB2kiU3casgyyDhG0hh6el6cyaJYd7kxcxS+xW+HvJfyIU0R6kWWGkILV/tQq07EiUWrPlxOZcD7nqmB5gIbMI5xnOyMv4q+uY14MrU6Z96gw+5z31g1YNJ81jyCSduha1Hfyw5aeJeQEss9l4v2X31r40zZl5h7Vp4zHk0QfxeRtCJzaM+i7LV523y4PZX5jIwcuV+IYFNvuN5p7MOZQUcyiV/dibLAA8Bz0LMfVOOHhOmBE4Tedjh+56fDSAXjPOUYL+0Pj3qN9x3w2ZejdJd14JlXqd81/Bf2q3Q+ujc4x2BbH3/lSu3rZlCWPMD2TDY3Ofga8RAv0EXMEmIUJulQAl0lFAkfzwCdhg9YEJPi4+TofICydwydyMPbP2x8zzU4iaoiroTKTANiaycRPYTD3BaPm+am+HlQHXwt10LVqruDucUYEaVPdLK/eogkeYps2wWG+b7I+Q8ELsZRR2hYK/gRgaUFe/U=
+  app: ace-pomodoro
+  on:
+    repo: krp312/ace-pomodoro
+    branch: feature/ci-and-heroku
