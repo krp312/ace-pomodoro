@@ -4,9 +4,10 @@
   "description": "Server portion of a full-stack starter template",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "mocha"
   },
-  "author": "Joe Turner <jturner@thinkful.com>",
+  "author": "3 really cool guys",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
