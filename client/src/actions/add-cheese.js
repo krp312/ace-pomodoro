@@ -17,7 +17,6 @@ const postCheesesError = (message) => ({
 export const postCheese = (inputBody) => {
   return (dispatch) => {
     dispatch(postCheeseRequest())
-    console.log('input valu' + inputBody.value)
     setTimeout(() => {
       fetch('/api/addcheeses', {
         method: 'POST',
