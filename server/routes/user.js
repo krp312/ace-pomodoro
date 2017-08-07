@@ -29,6 +29,8 @@ router.post('/', (req, res) => {
   }
 
   let {username, password, email} = req.body;
+  username = username.trim();
+  password = password.trim();
   return res.status(201).json(req.body);
 });
 
