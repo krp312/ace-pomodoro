@@ -7,4 +7,4 @@ deploy:
   app: ace-pomodoro
   on:
     repo: krp312/ace-pomodoro
-    branch: feature/ci-and-heroku
+    branch: master
