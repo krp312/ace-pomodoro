@@ -11,6 +11,5 @@ deploy:
 notifications:
   email:
     - krp312@me.com
-    - kris@kitnz.com
     - echarris@smcm.edu
     - david.g.dinnison@gmail.com
