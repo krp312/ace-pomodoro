@@ -8,12 +8,12 @@ router.use(bodyParser.json());
 
 // Get all users from DB
 router.get('/', (req, res) => {
-
+  // What occurs in here depends on postgres data structure
 });
 
 // Query single user from DB
 router.get('/:id', (req, res) => {
-
+  // What occurs in here depends on postgres data structure
 });
 
 // Create a new user in DB 
@@ -26,3 +26,10 @@ router.post('/', (req, res) => {
     });
   }
 });
+
+// Alter user data - should require auth
+router.put('/:id', (req, res) => {
+
+});
+
+module.exports = router;
