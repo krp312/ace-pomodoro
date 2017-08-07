@@ -11,18 +11,8 @@ const timerRouter = require('./routes/timer');
 const userRouter = require('./routes/user');
 
 // Set routers
-app.use('/api/timer', timerRouter);
+// app.use('/api/timer', timerRouter);
 app.use('/api/user', userRouter);
-
-// API endpoints go here!
-// app.get('/api/cheeses', (req, res) => {
-//   res.json();
-// });
-
-// app.post('/api/addcheeses', (req, res) => {
-//   cheeses.push(req.body.test);
-//   res.json();
-// });
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
