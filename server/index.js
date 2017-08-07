@@ -33,12 +33,8 @@ app.get('/api/cheeses', (req, res) => {
 });
 
 app.post('/api/addcheeses', (req, res) => {
-  console.log('body' + req.body.test);
-  // console.log('body' + JSON.stringify(req.headers));
-  // console.log('body' + req.body.data);
   cheeses.push(req.body.test);
   res.json(cheeses);
-  //res.json('fad' + req.body)
 });
 
 // Serve the built client

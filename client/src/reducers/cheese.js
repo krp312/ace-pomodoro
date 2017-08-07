@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   error: null
 }
+// I made an info modal
 
 const cheeses = (state = initialState, action) => {
   if (action.type === FETCH_CHEESE_REQUEST) {
