@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "test": "mocha",
     "heroku-postbuild": "cd client && npm install --only=dev && npm run build",
     "dev": "run-p dev:server dev:client start",
     "dev:client": "cd client && cross-env BROWSER=none npm start -- --color=always | xp http://localhost:3000/ http://localhost:8080/",
@@ -26,5 +27,11 @@
     "http-proxy-middleware": "^0.17.3",
     "npm-run-all": "^4.0.1",
     "xp": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0",
+    "faker": "^4.1.0",
+    "mocha": "^3.5.0"
   }
 }
