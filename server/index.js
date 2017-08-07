@@ -7,11 +7,11 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const timerRouter = require('./routes/timer');
+const sessionRouter = require('./routes/session');
 const userRouter = require('./routes/user');
 
 // Set routers
-// app.use('/api/timer', timerRouter);
+app.use('/api/session', sessionRouter);
 app.use('/api/user', userRouter);
 
 // Serve the built client
