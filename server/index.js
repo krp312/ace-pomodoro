@@ -1,3 +1,5 @@
+'use strict'
+
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -5,37 +7,22 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-// push to here
-let cheeses =
-  [
-    'Bath Blue',
-    'Barkham Blue',
-    'Buxton Blue',
-    'Cheshire Blue',
-    'Devon Blue',
-    'Dorset Blue Vinney',
-    'Dovedale',
-    'Exmoor Blue',
-    'Harbourne Blue',
-    'Lanark Blue',
-    'Lymeswold',
-    'Oxford Blue',
-    'Shropshire Blue',
-    'Stichelton',
-    'Stilton',
-    'Blue Wensleydale',
-    'Yorkshire Blue'
-  ];
+const timerRouter = require('./routes/timer');
+const userRouter = require('./routes/user');
+
+// Set routers
+app.use('/api/timer', timerRouter);
+app.use('/api/user', userRouter);
 
 // API endpoints go here!
-app.get('/api/cheeses', (req, res) => {
-  res.json(cheeses);
-});
+// app.get('/api/cheeses', (req, res) => {
+//   res.json();
+// });
 
-app.post('/api/addcheeses', (req, res) => {
-  cheeses.push(req.body.test);
-  res.json(cheeses);
-});
+// app.post('/api/addcheeses', (req, res) => {
+//   cheeses.push(req.body.test);
+//   res.json();
+// });
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
