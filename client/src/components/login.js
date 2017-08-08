@@ -9,15 +9,16 @@ export class LogIn extends React.Component {
   // componentDidMount(){
   //   this.props.dispatch(fetchCheeses())
   // }
-  formSubmit(event) {
+  loginSubmit(event) {
     event.preventDefault();
+    this.props.history.push(`/set-pomo`);
     this.props.dispatch(loginUserRequest());
   }
 
   render() {
     return (
       <div className="login">
-        <form onSubmit={e => this.formSubmit(e)}>
+        <form onSubmit={e => this.loginSubmit(e)}>
           <input type="text" placeholder="username"></input>
           <input type="password" placeholder="password"></input>
           <button type="submit">Login</button>
@@ -27,10 +28,10 @@ export class LogIn extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => (
-  {
-  // cheeses: state.cheeses.cheeses,
-  // loading: state.cheeses.loading
-})
+// const mapStateToProps = (state) => (
+//   {
+//   // cheeses: state.cheeses.cheeses,
+//   // loading: state.cheeses.loading
+// })
 
 export default connect()(LogIn);

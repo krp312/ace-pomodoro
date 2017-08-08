@@ -25,6 +25,8 @@
     "express": "^4.14.1",
     "http-proxy-middleware": "^0.17.3",
     "npm-run-all": "^4.0.1",
+    "react": "^15.6.1",
+    "react-router-dom": "^4.1.2",
     "xp": "^1.0.1"
   }
 }

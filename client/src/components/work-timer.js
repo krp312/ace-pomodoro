@@ -1,18 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './styles/work-timer.css';
-// import { fetchCheeses } from '../actions/cheese'
+import { submitPomodoro } from '../actions/actions'
 
 export class WorkTimer extends React.Component {
   // componentDidMount(){
   //   this.props.dispatch(fetchCheeses())
   // }
+  submitPomoForm(event) {
+    event.preventDefault();
+    this.props.history.push(`/break-timer`);
+    this.props.dispatch(submitPomodoro());
+  }
 
   render() {
-
+    
     return (
       <div className="work-timer">
         <p>this is the main pomo timer component for work period</p>
+        <button className="break-timer-button" onClick={e => this.submitPomoForm(e)}>Break Timer</button>
       </div>
     )
   }
