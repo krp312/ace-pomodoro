@@ -1,0 +1,17 @@
+/*header  */
+
+
+
+/*buttons  */
+button {
+  display: inline-block;
+}
+
+.users-button {
+  float: left;
+}
+
+.pomo-button {
+  float: right;
+}
+

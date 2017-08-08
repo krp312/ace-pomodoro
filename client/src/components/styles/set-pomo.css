@@ -1,0 +1,8 @@
+.set-pomo {
+  border: 1px solid black;
+}
+
+input[type=text] {
+  display: block;
+  margin: 0px auto;
+}
