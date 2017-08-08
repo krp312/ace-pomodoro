@@ -11,16 +11,16 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const sessionRouter = require('./routes/session');
-const userRouter = require('./routes/user');
+const sessionRouter = require('./routes/sessions');
+const userRouter = require('./routes/users');
 
 const { DATABASE, PORT } = require('./config');
 
 app.use(morgan(':method :url :res[location] :status'));
 
 // Set routers
-app.use('/api/session', sessionRouter);
-app.use('/api/user', userRouter);
+app.use('/api/sessions', sessionRouter);
+app.use('/api/users', userRouter);
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
@@ -44,7 +44,11 @@ let knex;
 function runServer(database = DATABASE, port = PORT) {
   return new Promise((resolve, reject) => {
     try {
-      knex = require('knex')(database);
+      // http://expressjs.com/en/4x/api.html#app.locals
+      // app.locals is an object that has local variables
+      // throughout the life of the app
+      // access the object via `req.app.whatever-property`
+      app.locals.knex = require('knex')(database);
       server = app.listen(port, () => {
         console.info(`App listening on port ${server.address().port}`);
         resolve();
@@ -58,7 +62,7 @@ function runServer(database = DATABASE, port = PORT) {
 }
 
 function closeServer() {
-  return knex.destroy().then(() => {
+  return app.locals.knex.destroy().then(() => {
     return new Promise((resolve, reject) => {
       console.log('Closing servers');
       server.close(err => {

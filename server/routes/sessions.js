@@ -6,10 +6,14 @@ const bodyParser = require('body-parser');
 
 router.use(bodyParser.json());
 
-// Get all sessions from DB
+// get sessions by user id (user id from req.user)
 router.get('/', (req, res) => {
-  // What occurs in here depends on postgres data structure
-  return res.status(200).json();
+  // return req.app.locals.knex
+  //   .select()
+  //   .from('sessions')
+  //   .then(result => {
+  //     return res.status(200).json(result);
+  //   });
 });
 
 // Query single session from DB
@@ -20,9 +24,7 @@ router.get('/:id', (req, res) => {
 
 // Create a new session in DB 
 router.post('/', (req, res) => {
-  // The requiredFields must match whatever is going to be produced by 
-  // User form submission of a tag name on the front end
-  const requiredFields = ['tagName'];
+  const requiredFields = ['name', 'workDuration', 'breakDuration'];
   const missingIndex = requiredFields.findIndex(field => !req.body[field]);
   if (missingIndex !== -1) {
     return res.status(400).json({
@@ -30,7 +32,29 @@ router.post('/', (req, res) => {
     });
   }
 
-  return res.status(201).json(req.body);
+  // update for req.user
+  return req.app.locals.knex
+    .insert({ 
+      name: req.body.name, 
+      work_duration: req.body.workDuration, 
+      break_duration: req.body.breakDuration, 
+      user_id: 2
+    })
+    .into('sessions')
+    .returning([
+      'id', 
+      'modified', 
+      'name', 
+      'work_duration', 
+      'break_duration', 
+      'completed_intervals', 
+      'total_work_time', 
+      'total_break_time', 
+      'user_id'
+    ])
+    .then(result => {
+      return res.status(201).json(result);
+    });
 });
 
 // Alter session data - should require auth
