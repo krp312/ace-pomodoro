@@ -8,38 +8,25 @@ import SetPomo from './set-pomo';
 import WorkTimer from './work-timer';
 import BreakTimer from './break-timer';
 import PomoInfo from './pomo-info';
+import Header from './header';
 
 import './styles/container.css';
 
-
-
-export class Container extends React.Component {
-  // componentDidMount(){
-  //   this.props.dispatch(fetchCheeses())
-  // }
-
-  render() {
-
+export default function App(props) {
     return (
-      <Router> 
-        <div className="container">
-          <Route exact path="/" component={LogIn} />
-          <Route exact path="/user-data" component={UserData} />
-          <Route exact path="/work-timer" component={WorkTimer}/>
-          <Route exact path="/break-timer" component={BreakTimer}/>
-          <Route exact path="/pomo-info" component={PomoInfo} />
-          <Route exact path="/set-pomo" component={SetPomo}/>
-        </div>
-      </Router>
-
-    )
-  }
+        <Router>
+            <div className="app">
+                <Header/>
+                <main>
+                    <Route exact path="/" component={LogIn} />
+                    <Route exact path="/user-data" component={UserData} />
+                    <Route exact path="/work-timer" component={WorkTimer}/>
+                    <Route exact path="/break-timer" component={BreakTimer}/>
+                    <Route exact path="/pomo-info" component={PomoInfo} />
+                    <Route exact path="/set-pomo" component={SetPomo}/>
+                </main>
+            </div>
+        </Router>
+    );
 }
 
-const mapStateToProps = (state) => (
-  {
-  // cheeses: state.cheeses.cheeses,
-  // loading: state.cheeses.loading
-})
-
-export default connect(mapStateToProps)(Container);
