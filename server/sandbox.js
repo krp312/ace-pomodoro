@@ -1,9 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-require('dotenv').config();
-const { DATABASE, PORT } = require('./config');
+const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL || 'postgresql://localhost/dev-restaurants-app';
+
+const DATABASE = {
+  client: 'pg',
+  connection: DATABASE_URL,
+  pool: { min: 0, max: 3 },
+  debug: true
+};
+
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
@@ -50,4 +59,9 @@ if (require.main === module) {
   });
 }
 
-module.exports = { app, runServer, closeServer };
+knex.select()
+  .where( { id: 256 } )
+  .from('restaurants')
+  .then(results => {
+    console.log(results);
+  });
