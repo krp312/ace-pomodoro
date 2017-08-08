@@ -58,7 +58,13 @@ export default (state, action) => {
     console.log('minutes posted');
     return ({
       ...state,
-      workMinutes: action.minutesRemaining,
+      workMinutes: action.minutesRemaining
+    })
+  }
+  else if (action.type === POST_SECONDS) {
+    console.log('seconds posted');
+    return ({
+      ...state,
       workSeconds: action.secondsRemaining
     })
   }

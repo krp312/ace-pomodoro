@@ -16,12 +16,13 @@ export class SetPomo extends React.Component {
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
 
+    let setIntervalProps = this.props
     setInterval(function() {
       duration = moment.duration(duration + interval, "milliseconds");
-      this.props.dispatch(postMinutes(Math.abs(duration.minutes())));
-      this.props.dispatch(postSeconds(Math.abs(duration.seconds())));
+      setIntervalProps.dispatch(postMinutes(Math.abs(duration.minutes())));
+      setIntervalProps.dispatch(postSeconds(Math.abs(duration.seconds())));
       // console.log(Math.abs(duration.hours()) + ":" + Math.abs(duration.minutes()) + ":" + Math.abs(duration.seconds()));
-    }, interval, this.props);
+    }, interval, setIntervalProps);
   }
 
   render() {
