@@ -10,8 +10,8 @@ POST_SECONDS} from '../actions/actions'
 const initialState = {
   users: [],
   display: 'login',
-  minutesRemaining: null,
-  secondsRemaining: null
+  minutesRemaining: 0,
+  secondsRemaining: 0
   //displays - login, userData, setPomo, workPomo, pomoInfo
 }
 //d
