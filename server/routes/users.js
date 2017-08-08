@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -8,8 +6,14 @@ router.use(bodyParser.json());
 
 // Get all users from DB
 router.get('/', (req, res) => {
-  // What occurs in here depends on postgres data structure
-  return res.status(200).json();
+  // http://expressjs.com/en/4x/api.html#app.locals
+  // app.locals is an object that has local variables
+  // throughout the life of the app
+  // access the object via `req.app.whatever-property`
+  return req.app.locals.knex.select().from('users')
+    .then(result => {
+      res.status(200).json(result);
+    });
 });
 
 // Query single user from DB
