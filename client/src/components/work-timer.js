@@ -14,14 +14,14 @@ export class WorkTimer extends React.Component {
   }
 
   render() {
-    
+    console.log('this stuff' + this.props.secondsRemaining)
     return (
       <div className="work-timer">
         <p>this is the main pomo timer component for work period</p>
           <div className="clock">
-            <span className="minutes">25</span>
+            <span className="minutes">{this.props.minutesRemaining ? this.props.minutesRemaining : 0}</span>
             <span className="colon">:</span>
-            <span className="seconds">00</span>
+            <span className="seconds">{this.props.secondsRemaining ? this.props.secondsRemaining : 0}</span>
           </div>
         <button className="break-timer-button" onClick={e => this.submitPomoForm(e)}>Break Timer</button>
       </div>
@@ -31,8 +31,8 @@ export class WorkTimer extends React.Component {
 
 const mapStateToProps = (state) => (
   {
-  // cheeses: state.cheeses.cheeses,
-  // loading: state.cheeses.loading
+    minutesRemaining: state.minutesRemaining,
+    secondsRemaining: state.secondsRemaining
 })
 
 export default connect(mapStateToProps)(WorkTimer);

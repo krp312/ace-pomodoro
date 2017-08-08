@@ -16,13 +16,24 @@ export class SetPomo extends React.Component {
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
 
-    let setIntervalProps = this.props
-    setInterval(function() {
-      duration = moment.duration(duration + interval, "milliseconds");
-      setIntervalProps.dispatch(postMinutes(Math.abs(duration.minutes())));
-      setIntervalProps.dispatch(postSeconds(Math.abs(duration.seconds())));
-      // console.log(Math.abs(duration.hours()) + ":" + Math.abs(duration.minutes()) + ":" + Math.abs(duration.seconds()));
-    }, interval, setIntervalProps);
+    let setIntervalProps = this.props;
+    setInterval(
+      function() {
+        duration = moment.duration(duration + interval, "milliseconds");
+        if (
+          Math.abs(duration.seconds()) === 0 &&
+          Math.abs(duration.minutes()) === 0
+        ) {
+          // Dispatch some action regarding stopping the current timer and displaying 
+          // The break timer page
+        }
+        setIntervalProps.dispatch(postMinutes(Math.abs(duration.minutes())));
+        setIntervalProps.dispatch(postSeconds(Math.abs(duration.seconds())));
+        // console.log(Math.abs(duration.hours()) + ":" + Math.abs(duration.minutes()) + ":" + Math.abs(duration.seconds()));
+      },
+      interval,
+      setIntervalProps
+    );
   }
 
   render() {
@@ -46,7 +57,7 @@ export class SetPomo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-minutes: state.minutes,
-seconds: state.seconds
+  minutes: state.minutes,
+  seconds: state.seconds
 });
 export default connect(mapStateToProps)(SetPomo);

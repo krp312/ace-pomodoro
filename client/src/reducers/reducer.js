@@ -10,8 +10,8 @@ POST_SECONDS} from '../actions/actions'
 const initialState = {
   users: [],
   display: 'login',
-  workMinutes: 0,
-  workSeconds: 0
+  minutesRemaining: null,
+  secondsRemaining: null
   //displays - login, userData, setPomo, workPomo, pomoInfo
 }
 //d
@@ -55,17 +55,17 @@ export default (state, action) => {
     })
   }
   else if (action.type === POST_MINUTES) {
-    console.log('minutes posted');
+    // console.log('minutes posted');
     return ({
       ...state,
-      workMinutes: action.minutesRemaining
+      minutesRemaining: action.minutesRemaining
     })
   }
   else if (action.type === POST_SECONDS) {
-    console.log('seconds posted');
+    // console.log('seconds posted');
     return ({
       ...state,
-      workSeconds: action.secondsRemaining
+      secondsRemaining: action.secondsRemaining
     })
   }
   else if (action.type === SHOW_POMO_INFO) {
