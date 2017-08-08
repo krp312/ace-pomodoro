@@ -1,44 +1,28 @@
+'use strict';
+
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
 
-// push to here
-let cheeses =
-  [
-    'Bath Blue',
-    'Barkham Blue',
-    'Buxton Blue',
-    'Cheshire Blue',
-    'Devon Blue',
-    'Dorset Blue Vinney',
-    'Dovedale',
-    'Exmoor Blue',
-    'Harbourne Blue',
-    'Lanark Blue',
-    'Lymeswold',
-    'Oxford Blue',
-    'Shropshire Blue',
-    'Stichelton',
-    'Stilton',
-    'Blue Wensleydale',
-    'Yorkshire Blue'
-  ];
+const sessionRouter = require('./routes/session');
+const userRouter = require('./routes/user');
 
-// API endpoints go here!
-app.get('/api/cheeses', (req, res) => {
-  res.json(cheeses);
-});
-
-app.post('/api/addcheeses', (req, res) => {
-  cheeses.push(req.body.test);
-  res.json(cheeses);
-});
+// Set routers
+app.use('/api/session', sessionRouter);
+app.use('/api/user', userRouter);
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+// Allows CORS
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
