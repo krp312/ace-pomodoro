@@ -1,0 +1,22 @@
+/*header  */
+
+
+
+h1 {
+  text-align: center;
+}
+
+
+/*buttons  */
+button {
+  display: inline-block;
+}
+
+.users-button {
+  float: left;
+}
+
+.pomo-button {
+  float: right;
+}
+
