@@ -8,3 +8,8 @@ deploy:
   on:
     repo: krp312/ace-pomodoro
     branch: master
+notifications:
+  email:
+    - krp312@me.com
+    - echarris@smcm.edu
+    - david.g.dinnison@gmail.com
