@@ -1,5 +1,9 @@
 'use strict';
 
+require('dotenv').config();
+
+const morgan = require('morgan');
+
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,6 +13,10 @@ app.use(bodyParser.json());
 
 const sessionRouter = require('./routes/session');
 const userRouter = require('./routes/user');
+
+const { DATABASE, PORT } = require('./config');
+
+app.use(morgan(':method :url :res[location] :status'));
 
 // Set routers
 app.use('/api/session', sessionRouter);
@@ -32,21 +40,33 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(port=3001) {
+let knex;
+function runServer(database = DATABASE, port = PORT) {
   return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      resolve();
-    }).on('error', reject);
+    try {
+      knex = require('knex')(database);
+      server = app.listen(port, () => {
+        console.info(`App listening on port ${server.address().port}`);
+        resolve();
+      });
+    }
+    catch (err) {
+      console.error(`Can't start server: ${err}`);
+      reject(err);
+    }
   });
 }
 
 function closeServer() {
-  return new Promise((resolve, reject) => {
-    server.close(err => {
-      if (err) {
-        return reject(err);
-      }
-      resolve();
+  return knex.destroy().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing servers');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
     });
   });
 }
