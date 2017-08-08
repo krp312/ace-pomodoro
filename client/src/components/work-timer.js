@@ -18,6 +18,11 @@ export class WorkTimer extends React.Component {
     return (
       <div className="work-timer">
         <p>this is the main pomo timer component for work period</p>
+          <div className="clock">
+            <span className="minutes">25</span>
+            <span className="colon">:</span>
+            <span className="seconds">00</span>
+          </div>
         <button className="break-timer-button" onClick={e => this.submitPomoForm(e)}>Break Timer</button>
       </div>
     )

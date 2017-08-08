@@ -24,6 +24,18 @@ export const submitPomodoro = () => ({
   type: SUBMIT_POMODORO,
 });
 
+export const POST_MINUTES = 'POST_MINUTES';
+export const postMinutes = (minutesRemaining) => ({
+  type: POST_MINUTES,
+  minutesRemaining
+})
+
+export const POST_SECONDS = 'POST_SECONDS';
+export const postSeconds = (secondsRemaining) => ({
+  type: POST_SECONDS,
+  secondsRemaining
+})
+
 export const SHOW_POMO_INFO = 'SHOW_POMO_INFO';
 export const showPomoInfo = () => ({
   type: SHOW_POMO_INFO,

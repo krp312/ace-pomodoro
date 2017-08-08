@@ -3,11 +3,15 @@ LOGIN_USER_SUCCESS,
 LOGIN_USER_ERROR,
 SUBMIT_POMODORO,
 VIEW_USER_DATA,
-SHOW_POMO_INFO} from '../actions/actions'
+SHOW_POMO_INFO,
+POST_MINUTES,
+POST_SECONDS} from '../actions/actions'
 
 const initialState = {
   users: [],
-  display: 'login'
+  display: 'login',
+  workMinutes: 0,
+  workSeconds: 0
   //displays - login, userData, setPomo, workPomo, pomoInfo
 }
 //d
@@ -48,6 +52,14 @@ export default (state, action) => {
     return ({
       ...state,
       display: 'workPomo'
+    })
+  }
+  else if (action.type === POST_MINUTES) {
+    console.log('minutes posted');
+    return ({
+      ...state,
+      workMinutes: action.minutesRemaining,
+      workSeconds: action.secondsRemaining
     })
   }
   else if (action.type === SHOW_POMO_INFO) {
