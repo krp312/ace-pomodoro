@@ -57,7 +57,7 @@ export class SetPomo extends React.Component {
     return (
       <div className="set-pomo">
         <p><em>Set pomodoro duration (minutes).</em></p>
-        <p><em>Label your pomodoro sessions for progress tracking.</em></p>
+        <p><em>Label your pomodoro sessions to track your goals.</em></p>
         <form onSubmit={e => this.submitPomoForm(e)}>
           <input
             aria-label="Pomodoro duration"
