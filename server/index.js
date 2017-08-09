@@ -9,12 +9,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
+global.app = app;
 app.use(bodyParser.json());
 
 const sessionRouter = require('./routes/sessions');
 const userRouter = require('./routes/users');
 
 const { DATABASE, PORT } = require('./config');
+
+const { passportMiddleware } = require('./auth')
+
+app.use(passportMiddleware);
 
 app.use(morgan(':method :url :res[location] :status'));
 
