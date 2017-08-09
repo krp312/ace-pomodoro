@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/work-timer.css";
-import { submitPomodoro, showBreakTimer, postBreakDuration } from "../actions/actions";
+import {
+  submitPomodoro,
+  showBreakTimer,
+  postBreakDuration
+} from "../actions/actions";
 import moment from "moment";
 
 export class WorkTimer extends React.Component {
@@ -9,13 +13,20 @@ export class WorkTimer extends React.Component {
     event.preventDefault();
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
-    
+
     const currentTime = new Date().getTime();
-    const eventTime = new Date(currentTime - (5* 60000)).getTime();
+    const eventTime = new Date(currentTime - 5 * 60000).getTime();
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
 
+    // Displays starting time difference to DOM
+    this.props.dispatch(
+      postBreakDuration(
+        Math.abs(duration.minutes()),
+        Math.abs(duration.seconds())
+      )
+    );
     let setIntervalProps = this.props;
     setInterval(
       function() {
