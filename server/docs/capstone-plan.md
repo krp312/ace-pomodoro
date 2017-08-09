@@ -9,8 +9,10 @@
 * how to do auth with postgres
 
 ## next steps
+* implement joe's sessions solution
+  * completed intervals to a boolean, called `is_completed`
+  * update the get sessions to count the completed intervals
 first priority: getting timer to display, and upon completion, updates the backend
-implemenet joe's sessions solution
 user creation endpoint doesn't accommodate non-required fields
 getting sessions by user id, order by doesn't work
 adding time in postgres

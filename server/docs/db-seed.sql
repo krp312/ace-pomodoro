@@ -20,9 +20,6 @@ CREATE TABLE sessions(
   user_id               integer REFERENCES users ON DELETE CASCADE
 );
 
-
-
-
 INSERT INTO users (username, password, first_name, last_name, email) VALUES
   ('liz123', 'nbc', 'Liz', 'Lemon', 'liz@nbc.com'),
   ('thePrez', '123', 'Donald', 'Trump', 'thedonaldfd@whitehouse.gov')  
