@@ -13,7 +13,7 @@ export class SetPomo extends React.Component {
     event.preventDefault();
     this.props.history.push(`/work-timer`);
     this.props.dispatch(submitPomodoro());
-    
+
     const userInput = parseInt(this.input.value);
     const currentTime = new Date().getTime();
     const eventTime = new Date(currentTime - userInput * 60000).getTime();
@@ -21,6 +21,13 @@ export class SetPomo extends React.Component {
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
 
+    // Displays starting time difference to DOM
+    this.props.dispatch(
+      postSessionDuration(
+        Math.abs(duration.minutes()),
+        Math.abs(duration.seconds())
+      )
+    );
     let setIntervalProps = this.props;
     setInterval(
       function() {
@@ -67,7 +74,7 @@ export class SetPomo extends React.Component {
   }
 }
 
-// When trying to access the state on this component make sure to check that reducer state 
+// When trying to access the state on this component make sure to check that reducer state
 // key(s) matches
 // const mapStateToProps = state => ({
 //   minutes: state.minutesRemaining,
