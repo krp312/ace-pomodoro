@@ -12,7 +12,6 @@ export class BreakTimer extends React.Component {
     let { secondsRemaining, minutesRemaining } = this.props;
     return (
       <div className="break-timer">
-        <p>this is the main pomo timer component for the break period</p>
         <div className="clock" role="timer">
           <span className="minutes">
             {minutesRemaining < 10 ? "0" + minutesRemaining : minutesRemaining}

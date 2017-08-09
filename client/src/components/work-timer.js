@@ -48,7 +48,6 @@ export class WorkTimer extends React.Component {
     let { secondsRemaining, minutesRemaining } = this.props;
     return (
       <div className="work-timer">
-        <p>this is the main pomo timer component for work period</p>
         <div className="clock" role="timer">
           <span className="minutes">
             {minutesRemaining < 10 ? "0" + minutesRemaining : minutesRemaining}
