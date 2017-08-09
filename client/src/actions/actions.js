@@ -14,6 +14,11 @@ export const loginUserError = (message) => ({
   type: LOGIN_USER_ERROR,
 });
 
+export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
+export const createUserRequest = () => ({
+  type: CREATE_USER_REQUEST,
+});
+
 export const VIEW_USER_DATA = 'VIEW_USER_DATA';
 export const viewUserData = () => ({
   type: VIEW_USER_DATA,

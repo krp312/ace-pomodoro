@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './styles/login.css';
-// import * as actions from './actions';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 import { loginUserRequest } from '../actions/actions';
 
+import './styles/login.css';
+
 export class LogIn extends React.Component {
-  // componentDidMount(){
-  //   this.props.dispatch(fetchCheeses())
-  // }
+
   loginSubmit(event) {
     event.preventDefault();
     this.props.history.push(`/set-pomo`);
@@ -18,20 +17,16 @@ export class LogIn extends React.Component {
   render() {
     return (
       <div className="login">
+        <h2>Login</h2>
         <form onSubmit={e => this.loginSubmit(e)}>
           <input type="text" placeholder="username"></input>
           <input type="password" placeholder="password"></input>
           <button type="submit">Login</button>
         </form>
+        <span className="create-account-span"><Link to="/create-user">create user</Link></span> 
       </div>
     )
   }
 }
 
-// const mapStateToProps = (state) => (
-//   {
-//   // cheeses: state.cheeses.cheeses,
-//   // loading: state.cheeses.loading
-// })
-
-export default connect()(LogIn);
+export default LogIn;

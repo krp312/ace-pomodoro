@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import './styles/user-data.css';
 
 export class UserData extends React.Component {
-  // componentDidMount(){
-  //   this.props.dispatch(fetchCheeses())
-  // }
 
   render() {
     return (
