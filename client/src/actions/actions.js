@@ -24,7 +24,7 @@ export const submitPomodoro = () => ({
   type: SUBMIT_POMODORO,
 });
 
-export const POST_SESSION_DURATION = 'POST_SESSION_DURATOIN';
+export const POST_SESSION_DURATION = 'POST_SESSION_DURATION';
 export const postSessionDuration = (minutesRemaining, secondsRemaining) => ({
   type: POST_SESSION_DURATION,
   minutesRemaining,
@@ -42,6 +42,12 @@ export const showBreakTimer = () => ({
   type: SHOW_BREAK_TIMER
 })
 
+export const POST_BREAK_DURATION = 'POST_BREAK_DURATION';
+export const postBreakDuration = (minutesRemaining, secondsRemaining) => ({
+  type: POST_BREAK_DURATION,
+  minutesRemaining,
+  secondsRemaining
+});
 // export const loginUserAttempt = (inputBody) => {
 //   return (dispatch) => {
 //     dispatch(loginUserRequest())

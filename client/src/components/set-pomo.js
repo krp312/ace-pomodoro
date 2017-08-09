@@ -73,4 +73,4 @@ export class SetPomo extends React.Component {
 //   minutes: state.minutesRemaining,
 //   seconds: state.secondsRemaining
 // });
-export default connect(mapStateToProps)(SetPomo);
+export default connect()(SetPomo);

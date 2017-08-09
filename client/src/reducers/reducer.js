@@ -6,19 +6,24 @@ import {
   VIEW_USER_DATA,
   SHOW_POMO_INFO,
   POST_SESSION_DURATION,
-  SHOW_BREAK_TIMER
+  SHOW_BREAK_TIMER,
+  POST_BREAK_DURATION
 } from "../actions/actions";
 
 const initialState = {
   users: [],
   display: "login",
   sessionMinutesRemaining: 0,
-  sessionSecondsRemaining: 0
+  sessionSecondsRemaining: 0,
+  breakMinutesRemaining: 0,
+  breakSecondsRemaining: 0
   //displays - login, userData, setPomo, workPomo, pomoInfo
 };
 //d
 export default (state, action) => {
   state = state || initialState;
+  // console.log('What action is being submitted: ' + action.type)
+
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
     console.log("login request");
@@ -63,12 +68,18 @@ export default (state, action) => {
       ...state,
       display: "pomoInfo"
     };
-  } else if ((action.type = SHOW_BREAK_TIMER)) {
+  } else if ((action.type === SHOW_BREAK_TIMER)) {
     console.log("break timer clicked");
     return {
       ...state,
       display: "breakTimer"
     };
-  }
+  } else if ((action.type === POST_BREAK_DURATION)) {
+    return {
+      ...state,
+      breakMinutesRemaining: action.minutesRemaining,
+      breakSecondsRemaining: action.secondsRemaining
+    }
+  };
   return state;
 };
