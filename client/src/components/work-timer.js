@@ -31,8 +31,8 @@ export class WorkTimer extends React.Component {
 // key(s) matches.
 const mapStateToProps = (state) => (
   {
-    minutesRemaining: state.minutesRemaining,
-    secondsRemaining: state.secondsRemaining
+    minutesRemaining: state.sessionMinutesRemaining,
+    secondsRemaining: state.sessionSecondsRemaining
 })
 
 export default connect(mapStateToProps)(WorkTimer);

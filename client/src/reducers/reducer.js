@@ -5,8 +5,7 @@ import {
   SUBMIT_POMODORO,
   VIEW_USER_DATA,
   SHOW_POMO_INFO,
-  POST_MINUTES,
-  POST_SECONDS,
+  POST_SESSION_DURATION,
   SHOW_BREAK_TIMER
 } from "../actions/actions";
 
@@ -52,26 +51,33 @@ export default (state, action) => {
       ...state,
       display: "workPomo"
     };
-  } else if (action.type === POST_MINUTES) {
-    // console.log('minutes posted');
+  } else if (action.type === POST_SESSION_DURATION) {
     return {
       ...state,
-      sessionMinutesRemaining: action.minutesRemaining
-    };
-  } else if (action.type === POST_SECONDS) {
-    // console.log('seconds posted');
-    return {
-      ...state,
+      sessionMinutesRemaining: action.minutesRemaining,
       sessionSecondsRemaining: action.secondsRemaining
     };
   } else if (action.type === SHOW_POMO_INFO) {
+    // else if (action.type === POST_MINUTES) {
+    //   // console.log('minutes posted');
+    //   return {
+    //     ...state,
+    //     sessionMinutesRemaining: action.minutesRemaining
+    //   };
+    // }
+    // else if (action.type === POST_SECONDS) {
+    //   // console.log('seconds posted');
+    //   return {
+    //     ...state,
+    //     sessionSecondsRemaining: action.secondsRemaining
+    //   };
+    // }
     console.log("pomoInfo");
     return {
       ...state,
       display: "pomoInfo"
     };
-  } 
-  else if ((action.type = SHOW_BREAK_TIMER)) {
+  } else if ((action.type = SHOW_BREAK_TIMER)) {
     console.log("break timer clicked");
     return {
       ...state,

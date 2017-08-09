@@ -24,24 +24,19 @@ export const submitPomodoro = () => ({
   type: SUBMIT_POMODORO,
 });
 
-export const POST_MINUTES = 'POST_MINUTES';
-export const postMinutes = (minutesRemaining) => ({
-  type: POST_MINUTES,
-  minutesRemaining
-})
-
-export const POST_SECONDS = 'POST_SECONDS';
-export const postSeconds = (secondsRemaining) => ({
-  type: POST_SECONDS,
+export const POST_SESSION_DURATION = 'POST_SESSION_DURATOIN';
+export const postSessionDuration = (minutesRemaining, secondsRemaining) => ({
+  type: POST_SESSION_DURATION,
+  minutesRemaining,
   secondsRemaining
-})
+});
 
 export const SHOW_POMO_INFO = 'SHOW_POMO_INFO';
 export const showPomoInfo = () => ({
   type: SHOW_POMO_INFO,
 });
 
-// After dinner: add reducer handling for this action, console.logs, use login.js as ex. flow
+// Add reducer handling for this action, console.logs, use login.js as ex. flow
 export const SHOW_BREAK_TIMER = 'SHOW_BREAK_TIMER';
 export const showBreakTimer = () => ({
   type: SHOW_BREAK_TIMER
