@@ -47,3 +47,5 @@ SELECT users.id as "user ID", users.username, users.first_name, users.last_name,
 }
 
 postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm
+
+SELECT * FROM sessions
