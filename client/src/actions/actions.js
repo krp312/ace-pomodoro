@@ -1,17 +1,17 @@
-export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
+export const LOGIN_USER_REQUEST = "LOGIN_USER_REQUEST";
 export const loginUserRequest = () => ({
   type: LOGIN_USER_REQUEST
 });
 
-export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
-export const loginUserSuccess = (user) => ({
+export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
+export const loginUserSuccess = user => ({
   type: LOGIN_USER_SUCCESS,
   user
 });
 
-export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
-export const loginUserError = (message) => ({
-  type: LOGIN_USER_ERROR,
+export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR";
+export const loginUserError = message => ({
+  type: LOGIN_USER_ERROR
 });
 
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
@@ -19,32 +19,61 @@ export const createUserRequest = () => ({
   type: CREATE_USER_REQUEST,
 });
 
-export const VIEW_USER_DATA = 'VIEW_USER_DATA';
+export const VIEW_USER_DATA = "VIEW_USER_DATA";
 export const viewUserData = () => ({
-  type: VIEW_USER_DATA,
+  type: VIEW_USER_DATA
 });
 
-export const SUBMIT_POMODORO = 'SUBMIT_POMODORO';
+export const SUBMIT_POMODORO = "SUBMIT_POMODORO";
 export const submitPomodoro = () => ({
-  type: SUBMIT_POMODORO,
+  type: SUBMIT_POMODORO
 });
 
-export const POST_MINUTES = 'POST_MINUTES';
-export const postMinutes = (minutesRemaining) => ({
-  type: POST_MINUTES,
-  minutesRemaining
-})
-
-export const POST_SECONDS = 'POST_SECONDS';
-export const postSeconds = (secondsRemaining) => ({
-  type: POST_SECONDS,
+export const POST_SESSION_DURATION = "POST_SESSION_DURATION";
+export const postSessionDuration = (minutesRemaining, secondsRemaining) => ({
+  type: POST_SESSION_DURATION,
+  minutesRemaining,
   secondsRemaining
-})
-
-export const SHOW_POMO_INFO = 'SHOW_POMO_INFO';
-export const showPomoInfo = () => ({
-  type: SHOW_POMO_INFO,
 });
+
+export const SHOW_POMO_INFO = "SHOW_POMO_INFO";
+export const showPomoInfo = () => ({
+  type: SHOW_POMO_INFO
+});
+
+export const SHOW_BREAK_TIMER = "SHOW_BREAK_TIMER";
+export const showBreakTimer = () => ({
+  type: SHOW_BREAK_TIMER
+});
+
+export const POST_BREAK_DURATION = "POST_BREAK_DURATION";
+export const postBreakDuration = (minutesRemaining, secondsRemaining) => ({
+  type: POST_BREAK_DURATION,
+  minutesRemaining,
+  secondsRemaining
+});
+
+export const POST_SESSION_NAME = "POST_SESSION_NAME";
+export const postSessionName = sessionName => ({
+  type: POST_SESSION_NAME,
+  sessionName
+});
+
+// export const sendSessionDuration = (minutes, seconds) => {
+//   return dispatch => {
+//     // Create action for attempt to send data
+//     fetch("/api/sessions", {
+//       method: "POST",
+//       body: JSON.stringify({ minutes: 1, seconds: 45 }),
+//       headers: {
+//         Accept: "application/json",
+//         "Content-type": "application/json"
+//       }
+//     })
+//     .then(response => response.json())
+//     .then(users => dispatch)
+//   };
+// };
 // export const loginUserAttempt = (inputBody) => {
 //   return (dispatch) => {
 //     dispatch(loginUserRequest())

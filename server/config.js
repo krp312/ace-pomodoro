@@ -1,4 +1,4 @@
-const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL || 'postgresql://localhost/dev-restaurants-app';
+const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL || 'postgresql://localhost/ace-pomodoro';
 
 exports.DATABASE = {
   client: 'pg',
@@ -7,4 +7,4 @@ exports.DATABASE = {
   debug: true
 };
 
-exports.PORT = process.env.PORT || 8080;
+exports.PORT = process.env.PORT || 3001;
