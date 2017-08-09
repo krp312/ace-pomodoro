@@ -42,10 +42,6 @@ export class SetPomo extends React.Component {
         // For live version: we want to dispatch 
         if (Math.abs(duration) === 59000) {
           let elapsedTime = moment.utc(Math.abs(diffTime) - Math.abs(duration)).format('HH:mm:ss');
-          // console.log('Formatted elapsed time:  ' + elapsedTime);
-
-          // setIntervalProps.dispatch(sendBoolToggle());
-            // Backend endpoint /api/sessions/:id: reveives {isCompleted: true}
           setIntervalProps.dispatch(sendSessionDuration(elapsedTime, sessionName));
           return null;
         }
@@ -56,8 +52,6 @@ export class SetPomo extends React.Component {
               Math.abs(duration.seconds())
             )
           );
-
-        // console.log(Math.abs(duration.hours()) + ":" + Math.abs(duration.minutes()) + ":" + Math.abs(duration.seconds()));
       },
       interval,
       setIntervalProps

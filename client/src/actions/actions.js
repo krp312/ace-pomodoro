@@ -72,7 +72,7 @@ export const sendSessionDuration = (sessionDuration, sessionName) => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Basic YmFyYWNrb2JhbWE6YmFza2V0YmFsbA=='
+      'Authorization': 'Basic bWFya3p1Y2s6ZmFjZWJvb2s='
     },
     method: 'POST',
     body: JSON.stringify(formattedPostRequest)
