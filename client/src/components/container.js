@@ -14,6 +14,7 @@ import Header from './header';
 import './styles/container.css';
 
 export default function App(props) {
+    const sessionActive = false;
     return (
         <Router>
             <div className="app">
@@ -25,7 +26,7 @@ export default function App(props) {
                     <Route exact path="/work-timer" component={WorkTimer}/>
                     <Route exact path="/break-timer" component={BreakTimer}/>
                     <Route exact path="/pomo-info" component={PomoInfo} />
-                    <Route exact path="/set-pomo" component={SetPomo}/>
+                    <Route exact path="/set-pomo" render={() => sessionActive ? <UserData /> : <SetPomo />}/>
                 </main>
             </div>
         </Router>
