@@ -1,7 +1,18 @@
+// features/frontend
+// import {LOGIN_USER_REQUEST,
+// LOGIN_USER_SUCCESS,
+// LOGIN_USER_ERROR,
+// CREATE_USER_REQUEST,
+// SUBMIT_POMODORO,
+// VIEW_USER_DATA,
+// SHOW_POMO_INFO,
+// POST_MINUTES,
+// POST_SECONDS} from '../actions/actions'
 import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  CREATE_USER_REQUEST,
   SUBMIT_POMODORO,
   VIEW_USER_DATA,
   SHOW_POMO_INFO,
@@ -10,6 +21,7 @@ import {
   POST_BREAK_DURATION,
   POST_SESSION_NAME
 } from "../actions/actions";
+
 
 const initialState = {
   users: [],
@@ -44,7 +56,13 @@ export default (state, action) => {
     return {
       loading: false,
       error: action.message
-    };
+    }
+  }
+  else if (action.type === CREATE_USER_REQUEST) {
+    console.log('create user request')
+    return ({
+      ...state
+    })
   } else if (action.type === VIEW_USER_DATA) {
     console.log("checking user data");
     return {
