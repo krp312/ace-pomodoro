@@ -58,20 +58,6 @@ export default (state, action) => {
       sessionSecondsRemaining: action.secondsRemaining
     };
   } else if (action.type === SHOW_POMO_INFO) {
-    // else if (action.type === POST_MINUTES) {
-    //   // console.log('minutes posted');
-    //   return {
-    //     ...state,
-    //     sessionMinutesRemaining: action.minutesRemaining
-    //   };
-    // }
-    // else if (action.type === POST_SECONDS) {
-    //   // console.log('seconds posted');
-    //   return {
-    //     ...state,
-    //     sessionSecondsRemaining: action.secondsRemaining
-    //   };
-    // }
     console.log("pomoInfo");
     return {
       ...state,

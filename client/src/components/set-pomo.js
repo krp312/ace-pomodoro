@@ -67,8 +67,10 @@ export class SetPomo extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  minutes: state.minutesRemaining,
-  seconds: state.secondsRemaining
-});
+// When trying to access the state on this component make sure to check that reducer state 
+// key(s) matches
+// const mapStateToProps = state => ({
+//   minutes: state.minutesRemaining,
+//   seconds: state.secondsRemaining
+// });
 export default connect(mapStateToProps)(SetPomo);
