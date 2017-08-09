@@ -13,9 +13,11 @@ import moment from "moment";
 export class SetPomo extends React.Component {
   submitPomoForm(event) {
     event.preventDefault();
+        let sessionName = this.sessionName.value;
+
     this.props.history.push(`/work-timer`);
     this.props.dispatch(submitPomodoro());
-    this.props.dispatch(postSessionName(this.sessionName.value));
+    this.props.dispatch(postSessionName(sessionName));
 
     const userDurationInput = parseInt(this.durationInput.value);
     const currentTime = new Date().getTime();
@@ -38,14 +40,18 @@ export class SetPomo extends React.Component {
     setInterval(
       function() {
         // console.log('elapsed time: ' + (Math.abs(diffTime) - Math.abs(duration)))
-          let elapsedTime = (Math.abs(diffTime) - Math.abs(duration));
-          console.log('Formatted elapsed time:  ' + moment.utc(elapsedTime).format('HH:mm:ss'));
+          // let elapsedTime = (Math.abs(diffTime) - Math.abs(duration));
+          // console.log('Formatted elapsed time:  ' + moment.utc(elapsedTime).format('HH:mm:ss'));
         // console.log('should be positive duration' + duration);
-        if (Math.abs(duration) === 0) {
-          console.log('popo')
+          // let elapsedTime = moment.utc(Math.abs(diffTime) - Math.abs(duration)).format('HH:mm:ss');
+          // console.log('Formatted elapsed time:  ' + elapsedTime);
+        if (Math.abs(duration) === 59000) {
+          let elapsedTime = moment.utc(Math.abs(diffTime) - Math.abs(duration)).format('HH:mm:ss');
+          // console.log('Formatted elapsed time:  ' + elapsedTime);
+
           // setIntervalProps.dispatch(sendBoolToggle());
             // Backend endpoint /api/sessions/:id: reveives {isCompleted: true}
-          setIntervalProps.dispatch(sendSessionDuration());
+          setIntervalProps.dispatch(sendSessionDuration(elapsedTime, sessionName));
           return null;
         }
           duration = moment.duration(duration + interval, "milliseconds");

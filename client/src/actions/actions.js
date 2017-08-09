@@ -59,6 +59,35 @@ export const postSessionName = sessionName => ({
   sessionName
 });
 
+export const sendSessionDuration = (sessionDuration, sessionName) => {
+  console.log('got it' + sessionDuration + sessionName);
+  let formattedPostRequest = {
+    name: sessionName,
+    work_duration: sessionDuration,
+    break_duration: '00:05:00'
+  }
+
+  // Going to need to add auth to post for this to work.
+  const opts = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YmFyYWNrb2JhbWE6YmFza2V0YmFsbA=='
+    },
+    method: 'POST',
+    body: JSON.stringify(formattedPostRequest)
+  };
+  return dispatch => {
+    fetch(`/api/sessions`, opts)
+      .then(function(res){
+        console.log('attempting to post');
+        return res;
+      })
+      .catch(err => {
+        return err;
+      })
+  }
+}
 // export const sendSessionDuration = (minutes, seconds) => {
 //   return dispatch => {
 //     // Create action for attempt to send data
