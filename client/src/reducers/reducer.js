@@ -19,12 +19,16 @@ import {
   POST_SESSION_DURATION,
   SHOW_BREAK_TIMER,
   POST_BREAK_DURATION,
-  POST_SESSION_NAME
+  POST_SESSION_NAME,
+  GET_SESSIONS_REQUEST,
+  GET_SESSIONS_SUCCESS,
+  GET_SESSIONS_ERROR
 } from "../actions/actions";
 
 
 const initialState = {
-  users: [],
+  user: [],
+  sessions: [],
   display: "login",
   sessionMinutesRemaining: 0,
   sessionSecondsRemaining: 0,
@@ -104,6 +108,22 @@ export default (state, action) => {
       ...state,
       currentSessionName: action.sessionName
     }
-  }
-  return state;
+  } else if ((action.type === GET_SESSIONS_REQUEST)) {
+    console.log('session request');
+    return Object.assign({}, state, {
+            loading: true,
+            error: null
+        });
+  } else if (action.type === GET_SESSIONS_SUCCESS) {
+        return Object.assign({}, state, {
+            sessions: action.sessions,
+            loading: false,
+            error: null
+        });
+    } else if (action.type === GET_SESSIONS_ERROR) {
+        return Object.assign({}, state, {
+            error: action.error,
+            loading: false
+        });
+    } return state;
 };
