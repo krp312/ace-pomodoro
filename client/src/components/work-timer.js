@@ -14,8 +14,9 @@ export class WorkTimer extends React.Component {
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
 
+    const userInput = parseInt(this.input.value);
     const currentTime = new Date().getTime();
-    const eventTime = new Date(currentTime - 5 * 60000).getTime();
+    const eventTime = new Date(currentTime - userInput * 60000).getTime();
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
@@ -57,12 +58,21 @@ export class WorkTimer extends React.Component {
             {secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining}
           </span>
         </div>
-        <button
-          className="break-timer-button"
-          onClick={e => this.submitPomoForm(e)}
-        >
-          Start Break Timer
-        </button>
+        <form onSubmit={e => this.submitPomoForm(e)}>
+          <fieldset>
+            <input
+              aria-label="Pomodoro break duration"
+              type="text"
+              placeholder="5"
+              required
+              id="sessionDuration"
+              ref={input => (this.input = input)}
+            />
+          </fieldset>
+          <button className="break-timer-button" type="submit">
+            Start Break Timer
+          </button>
+        </form>
       </div>
     );
   }

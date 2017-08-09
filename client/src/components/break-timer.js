@@ -1,12 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/break-timer.css";
-// import { fetchCheeses } from '../actions/cheese'
 
 export class BreakTimer extends React.Component {
-  // componentDidMount(){
-  //   this.props.dispatch(fetchCheeses())
-  // }
 
   render() {
     let { secondsRemaining, minutesRemaining } = this.props;
