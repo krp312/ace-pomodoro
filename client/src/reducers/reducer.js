@@ -36,7 +36,7 @@ const initialState = {
 //d
 export default (state, action) => {
   state = state || initialState;
-  // console.log('What action is being submitted: ' + action.type)
+  console.log('What type of action is being submitted: ' + action.type)
 
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
