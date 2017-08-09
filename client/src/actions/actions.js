@@ -60,14 +60,14 @@ export const postSessionName = sessionName => ({
 });
 
 export const sendSessionDuration = (sessionDuration, sessionName) => {
-  console.log('got it' + sessionDuration + sessionName);
   let formattedPostRequest = {
     name: sessionName,
     work_duration: sessionDuration,
-    break_duration: '00:05:00'
+    break_duration: '00:05:00',
+    is_completed: true
   }
 
-  // Going to need to add auth to post for this to work.
+  // The User barackobama is hardcoded in for demo purposes
   const opts = {
     headers: {
       'Accept': 'application/json',
@@ -80,7 +80,6 @@ export const sendSessionDuration = (sessionDuration, sessionName) => {
   return dispatch => {
     fetch('/api/sessions', opts)
       .then(function(res){
-        console.log('attempting to post');
         return res;
       })
       .catch(err => {
@@ -88,37 +87,3 @@ export const sendSessionDuration = (sessionDuration, sessionName) => {
       })
   }
 }
-// export const sendSessionDuration = (minutes, seconds) => {
-//   return dispatch => {
-//     // Create action for attempt to send data
-//     fetch("/api/sessions", {
-//       method: "POST",
-//       body: JSON.stringify({ minutes: 1, seconds: 45 }),
-//       headers: {
-//         Accept: "application/json",
-//         "Content-type": "application/json"
-//       }
-//     })
-//     .then(response => response.json())
-//     .then(users => dispatch)
-//   };
-// };
-
-// export const loginUserAttempt = (inputBody) => {
-//   return (dispatch) => {
-//     dispatch(loginUserRequest())
-//     setTimeout(() => {
-//       fetch('/api/users', {
-//         method: 'POST',
-//         body: JSON.stringify({test: inputBody.value}),
-//         headers: {
-//           Accept: 'application/json',
-//           'Content-type': 'application/json'
-//         }
-//       })
-//       .then(response => response.json())
-//       .then(users => dispatch(loginUserSuccess(inputBody.value)))
-//       .catch(err => dispatch(loginUserError(err.message)))
-//     }, 2000)
-//   }
-// }

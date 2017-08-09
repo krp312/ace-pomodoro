@@ -39,12 +39,7 @@ export class SetPomo extends React.Component {
     const interval = 1000;
     setInterval(
       function() {
-        // console.log('elapsed time: ' + (Math.abs(diffTime) - Math.abs(duration)))
-          // let elapsedTime = (Math.abs(diffTime) - Math.abs(duration));
-          // console.log('Formatted elapsed time:  ' + moment.utc(elapsedTime).format('HH:mm:ss'));
-        // console.log('should be positive duration' + duration);
-          // let elapsedTime = moment.utc(Math.abs(diffTime) - Math.abs(duration)).format('HH:mm:ss');
-          // console.log('Formatted elapsed time:  ' + elapsedTime);
+        // For live version: we want to dispatch 
         if (Math.abs(duration) === 59000) {
           let elapsedTime = moment.utc(Math.abs(diffTime) - Math.abs(duration)).format('HH:mm:ss');
           // console.log('Formatted elapsed time:  ' + elapsedTime);
