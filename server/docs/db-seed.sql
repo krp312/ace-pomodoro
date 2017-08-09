@@ -14,10 +14,10 @@ CREATE TABLE sessions(
   name                  text NOT NULL,
   work_duration         interval NOT NULL,
   break_duration        interval NOT NULL,
-  completed_intervals   integer DEFAULT 0,
   total_work_time       interval DEFAULT '0 00:00:00',
   total_break_time      interval DEFAULT '0 00:00:00',
-  user_id               integer REFERENCES users ON DELETE CASCADE
+  user_id               integer REFERENCES users ON DELETE CASCADE,
+  is_completed          boolean DEFAULT false
 );
 
 INSERT INTO users (username, password, first_name, last_name, email) VALUES

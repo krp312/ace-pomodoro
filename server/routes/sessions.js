@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -8,6 +6,9 @@ const { authenticator } = require('../auth');
 router.use(bodyParser.json());
 
 // get sessions by user id
+// return completed intervals count here
+// return only one instance of the same session id
+// completed intervals by day, week, and month
 router.get('/', authenticator, (req, res) => {
   return req.app.locals.knex
     .select()
@@ -21,31 +22,31 @@ router.get('/', authenticator, (req, res) => {
 });
 
 // increment on completed intervals
-router.get('/:id', (req, res) => {
-  let incrementor;
-  return req.app.locals.knex
-    .select()
-    .from('sessions')
-    .where( { id: req.params.id } )
-    .then(result => {
-      incrementor = result[0].completed_intervals;
+// router.get('/:id', (req, res) => {
+//   let incrementor;
+//   return req.app.locals.knex
+//     .select()
+//     .from('sessions')
+//     .where( { id: req.params.id } )
+//     .then(result => {
+//       incrementor = result[0].completed_intervals;
 
-      return req.app.locals.knex
-        .select()
-        .from('sessions')
-        .where( { id: req.params.id } )
-        .update( { completed_intervals: ++incrementor } )
-        .returning(['id', 'name', 'completed_intervals']);
-    })
-    .then(result => {
-      return res.status(200).json(result);
-    })
-    .catch(err => res.status(500).send(err));
-});
+//       return req.app.locals.knex
+//         .select()
+//         .from('sessions')
+//         .where( { id: req.params.id } )
+//         .update( { completed_intervals: ++incrementor } )
+//         .returning(['id', 'name', 'completed_intervals']);
+//     })
+//     .then(result => {
+//       return res.status(200).json(result);
+//     })
+//     .catch(err => res.status(500).send(err));
+// });
 
 // Create a new session in DB 
 router.post('/', authenticator, (req, res) => {
-  const requiredFields = ['name', 'work_duration', 'break_duration'];
+  const requiredFields = ['name', 'work_duration', 'break_duration', 'is_completed'];
   const missingIndex = requiredFields.findIndex(field => !req.body[field]);
   if (missingIndex !== -1) {
     return res.status(400).json({
@@ -53,13 +54,14 @@ router.post('/', authenticator, (req, res) => {
     });
   }
 
-  let { name, work_duration, break_duration } = req.body;
+  let { name, work_duration, break_duration, is_completed } = req.body;
 
   return req.app.locals.knex
     .insert({ 
       name,
       work_duration,
       break_duration,
+      is_completed,
       user_id: req.user.id
     })
     .into('sessions')
@@ -69,7 +71,7 @@ router.post('/', authenticator, (req, res) => {
       'name', 
       'work_duration', 
       'break_duration', 
-      'completed_intervals', 
+      'is_completed', 
       'total_work_time', 
       'total_break_time', 
       'user_id'

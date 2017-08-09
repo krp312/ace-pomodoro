@@ -1,4 +1,5 @@
 ## questions
+* make changes to master on the local, then checkout?
 * incomplete work time
 * display branch in working dir
 * knex testing
@@ -9,16 +10,13 @@
 * how to do auth with postgres
 
 ## next steps
-* implement joe's sessions solution
-  * completed intervals to a boolean, called `is_completed`
-  * update the get sessions to count the completed intervals
 first priority: getting timer to display, and upon completion, updates the backend
 user creation endpoint doesn't accommodate non-required fields
 getting sessions by user id, order by doesn't work
 adding time in postgres
-7. during breaks, update glossary/notebook
-8. user sign up page
-9. responsive design
+during breaks, update glossary/notebook
+user sign up page
+responsive design
 
 ## backend capstone things to fix, or apply next time
 * he said this could be a portfolio project!!!
