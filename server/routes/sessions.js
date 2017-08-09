@@ -7,15 +7,17 @@ const { authenticator } = require('../auth');
 
 router.use(bodyParser.json());
 
-// get sessions by user id (user id from req.user)
-// router.get('/', authenticator, (req, res) => {
-//   return req.app.locals.knex
-//     .select()
-//     .from('sessions')
-//     .then(result => {
-//       return res.status(200).json(result);
-//     });
-// });
+// get sessions by user id
+router.get('/', authenticator, (req, res) => {
+  return req.app.locals.knex
+    .select()
+    .from('sessions')
+    .where('sessions.user_id', req.user.id)
+    .innerJoin('users', 'sessions.user_id', 'users.id')
+    .then(result => {
+      return res.status(200).json(result);
+    });
+});
 
 // increment on completed intervals
 router.get('/:id', (req, res) => {
