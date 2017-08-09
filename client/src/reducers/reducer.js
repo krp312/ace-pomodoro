@@ -29,7 +29,6 @@ export default (state, action) => {
     console.log("login request");
     return {
       ...state,
-      // loading: true
       display: "setPomo"
     };
   } else if (action.type === LOGIN_USER_SUCCESS) {

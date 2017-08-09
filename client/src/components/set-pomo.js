@@ -13,10 +13,14 @@ export class SetPomo extends React.Component {
     event.preventDefault();
     this.props.history.push(`/work-timer`);
     this.props.dispatch(submitPomodoro());
+    // this.props.dispatch(this.sessionName.value);
+    // console.log('access' + this.sessionName.value);
 
-    const userInput = parseInt(this.input.value);
+    const userDurationInput = parseInt(this.durationInput.value);
     const currentTime = new Date().getTime();
-    const eventTime = new Date(currentTime - userInput * 60000).getTime();
+    const eventTime = new Date(
+      currentTime - userDurationInput * 60000
+    ).getTime();
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
@@ -56,8 +60,12 @@ export class SetPomo extends React.Component {
   render() {
     return (
       <div className="set-pomo">
-        <p><em>Set pomodoro duration (minutes).</em></p>
-        <p><em>Label your pomodoro sessions to track your goals.</em></p>
+        <p>
+          <em>Set pomodoro duration (minutes).</em>
+        </p>
+        <p>
+          <em>Label your pomodoro sessions to track your goals.</em>
+        </p>
         <form onSubmit={e => this.submitPomoForm(e)}>
           <input
             aria-label="Pomodoro duration"
@@ -65,9 +73,15 @@ export class SetPomo extends React.Component {
             placeholder="25"
             required
             id="sessionDuration"
-            ref={input => (this.input = input)}
+            ref={input => (this.durationInput = input)}
           />
-          <input aria-label="Pomodoro session name" type="text" placeholder="tag" id="sessionName" />
+          <input
+            aria-label="Pomodoro session name"
+            type="text"
+            placeholder="Develop Udemy Course"
+            id="sessionName"
+            ref={input => (this.sessionName = input)}
+          />
           <button type="submit">Start Pomodoro</button>
         </form>
       </div>
