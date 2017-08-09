@@ -12,6 +12,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  CREATE_USER_REQUEST,
   SUBMIT_POMODORO,
   VIEW_USER_DATA,
   SHOW_POMO_INFO,
@@ -55,7 +56,7 @@ export default (state, action) => {
     return {
       loading: false,
       error: action.message
-    })
+    }
   }
   else if (action.type === CREATE_USER_REQUEST) {
     console.log('create user request')
