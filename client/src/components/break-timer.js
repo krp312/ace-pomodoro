@@ -20,8 +20,8 @@ export class BreakTimer extends React.Component {
 
 const mapStateToProps = (state) => (
   {
-  // cheeses: state.cheeses.cheeses,
-  // loading: state.cheeses.loading
+    minutesRemaining: state.minutesRemaining,
+    secondsRemaining: state.secondsRemaining
 })
 
 export default connect(mapStateToProps)(BreakTimer);

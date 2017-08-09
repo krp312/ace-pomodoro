@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/set-pomo.css";
-import { submitPomodoro, postMinutes, postSeconds } from "../actions/actions";
+import { submitPomodoro, postMinutes, postSeconds, showBreakTimer } from "../actions/actions";
 import moment from "moment";
 
 export class SetPomo extends React.Component {
@@ -15,20 +15,23 @@ export class SetPomo extends React.Component {
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
-
+    
     let setIntervalProps = this.props;
     setInterval(
       function() {
         duration = moment.duration(duration + interval, "milliseconds");
         if (
-          Math.abs(duration.seconds()) === 0 &&
+          Math.abs(duration.seconds()) === 0 && 
           Math.abs(duration.minutes()) === 0
         ) {
-          // Dispatch some action regarding stopping the current timer and displaying 
+          // Dispatch some action regarding stopping the current timer and displaying
           // The break timer page
+          //  setIntervalProps.dispatch(showBreakTimer());
         }
-        setIntervalProps.dispatch(postMinutes(Math.abs(duration.minutes())));
-        setIntervalProps.dispatch(postSeconds(Math.abs(duration.seconds())));
+          setIntervalProps.dispatch(postMinutes(Math.abs(duration.minutes())));
+          setIntervalProps.dispatch(postSeconds(Math.abs(duration.seconds())));
+        
+
         // console.log(Math.abs(duration.hours()) + ":" + Math.abs(duration.minutes()) + ":" + Math.abs(duration.seconds()));
       },
       interval,
@@ -37,13 +40,14 @@ export class SetPomo extends React.Component {
   }
 
   render() {
+
     return (
       <div className="set-pomo">
         <em>set pomo</em>
         <form onSubmit={e => this.submitPomoForm(e)}>
-          <input
+          <input aria-label="Pomodoro duration"
             type="text"
-            placeholder="25"
+            placeholder="25 minutes"
             required
             id="sessionDuration"
             ref={input => (this.input = input)}
@@ -57,7 +61,7 @@ export class SetPomo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  minutes: state.minutes,
-  seconds: state.seconds
+  minutes: state.minutesRemaining,
+  seconds: state.secondsRemaining
 });
 export default connect(mapStateToProps)(SetPomo);

@@ -40,6 +40,13 @@ export const SHOW_POMO_INFO = 'SHOW_POMO_INFO';
 export const showPomoInfo = () => ({
   type: SHOW_POMO_INFO,
 });
+
+// After dinner: add reducer handling for this action, console.logs, use login.js as ex. flow
+export const SHOW_BREAK_TIMER = 'SHOW_BREAK_TIMER';
+export const showBreakTimer = () => ({
+  type: SHOW_BREAK_TIMER
+})
+
 // export const loginUserAttempt = (inputBody) => {
 //   return (dispatch) => {
 //     dispatch(loginUserRequest())

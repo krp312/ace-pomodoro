@@ -1,79 +1,82 @@
-import {LOGIN_USER_REQUEST,
-LOGIN_USER_SUCCESS,
-LOGIN_USER_ERROR,
-SUBMIT_POMODORO,
-VIEW_USER_DATA,
-SHOW_POMO_INFO,
-POST_MINUTES,
-POST_SECONDS} from '../actions/actions'
+import {
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_ERROR,
+  SUBMIT_POMODORO,
+  VIEW_USER_DATA,
+  SHOW_POMO_INFO,
+  POST_MINUTES,
+  POST_SECONDS,
+  SHOW_BREAK_TIMER
+} from "../actions/actions";
 
 const initialState = {
   users: [],
-  display: 'login',
-  minutesRemaining: 0,
-  secondsRemaining: 0
+  display: "login",
+  sessionMinutesRemaining: 0,
+  sessionSecondsRemaining: 0
   //displays - login, userData, setPomo, workPomo, pomoInfo
-}
+};
 //d
 export default (state, action) => {
   state = state || initialState;
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
-    console.log('login request');
-    return ({
+    console.log("login request");
+    return {
       ...state,
       // loading: true
-      display: 'setPomo'
-    })
-  }
-  else if (action.type === LOGIN_USER_SUCCESS) {
-    return ({
+      display: "setPomo"
+    };
+  } else if (action.type === LOGIN_USER_SUCCESS) {
+    return {
       users: [...state.users, action.users],
-      display: 'setPomo',
+      display: "setPomo",
       loading: false,
       error: null
-    })
-  }
-  else if (action.type === LOGIN_USER_ERROR) {
-    return ({
+    };
+  } else if (action.type === LOGIN_USER_ERROR) {
+    return {
       loading: false,
       error: action.message
-    })
-  }
-  else if (action.type === VIEW_USER_DATA) {
-    console.log('checking user data');
-    return ({
+    };
+  } else if (action.type === VIEW_USER_DATA) {
+    console.log("checking user data");
+    return {
       ...state,
-      display: 'userData'
-    })
-  }
-  else if (action.type === SUBMIT_POMODORO) {
-    console.log('submitted pomodoro');
-    return ({
+      display: "userData"
+    };
+  } else if (action.type === SUBMIT_POMODORO) {
+    console.log("submitted pomodoro");
+    return {
       ...state,
-      display: 'workPomo'
-    })
-  }
-  else if (action.type === POST_MINUTES) {
+      display: "workPomo"
+    };
+  } else if (action.type === POST_MINUTES) {
     // console.log('minutes posted');
-    return ({
+    return {
       ...state,
-      minutesRemaining: action.minutesRemaining
-    })
-  }
-  else if (action.type === POST_SECONDS) {
+      sessionMinutesRemaining: action.minutesRemaining
+    };
+  } else if (action.type === POST_SECONDS) {
     // console.log('seconds posted');
-    return ({
+    return {
       ...state,
-      secondsRemaining: action.secondsRemaining
-    })
-  }
-  else if (action.type === SHOW_POMO_INFO) {
-    console.log('pomoInfo');
-    return ({
+      sessionSecondsRemaining: action.secondsRemaining
+    };
+  } else if (action.type === SHOW_POMO_INFO) {
+    console.log("pomoInfo");
+    return {
       ...state,
-      display: 'pomoInfo'
-    })
+      display: "pomoInfo"
+    };
+  } 
+  else if ((action.type = SHOW_BREAK_TIMER)) {
+    console.log("break timer clicked");
+    return {
+      ...state,
+      display: "breakTimer"
+    };
   }
-  return state
-}
+  return state;
+};
