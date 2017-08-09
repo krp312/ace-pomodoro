@@ -1,13 +1,8 @@
 ## questions
 * make changes to master on the local, then checkout?
-* incomplete work time
 * display branch in working dir
-* knex testing
-* close garage door
 * how did elias find what he found?
 * port proxy
-* what endpoints to prioritize
-* how to do auth with postgres
 
 ## next steps
 first priority: getting timer to display, and upon completion, updates the backend

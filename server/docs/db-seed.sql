@@ -48,4 +48,27 @@ SELECT users.id as "user ID", users.username, users.first_name, users.last_name,
 
 postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm
 
+select everything from the same user
+select sessions with the same name
+get the count, per name
+
+-- total overall completed intervals
 SELECT * FROM sessions
+  WHERE user_id=9
+
+-- totals
+SELECT name,
+SUM(work_duration) as "working", 
+SUM(break_duration) as "not working",
+count(*) as "intervals completed"
+FROM sessions
+  WHERE user_id=9
+  GROUP BY name;
+
+-- averages
+
+-- totals by day
+
+-- totals by week
+
+-- totals by month
