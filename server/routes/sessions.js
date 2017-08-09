@@ -16,7 +16,8 @@ router.get('/', authenticator, (req, res) => {
     .innerJoin('users', 'sessions.user_id', 'users.id')
     .then(result => {
       return res.status(200).json(result);
-    });
+    })
+    .catch(err => res.status(500).send(err));
 });
 
 // increment on completed intervals
