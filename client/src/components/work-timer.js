@@ -1,38 +1,88 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import './styles/work-timer.css';
-import { submitPomodoro } from '../actions/actions'
+import React from "react";
+import { connect } from "react-redux";
+import "./styles/work-timer.css";
+import {
+  showBreakTimer,
+  postBreakDuration,
+  sendSessionDuration
+} from "../actions/actions";
+import moment from "moment";
 
 export class WorkTimer extends React.Component {
-  // componentDidMount(){
-  //   this.props.dispatch(fetchCheeses())
-  // }
   submitPomoForm(event) {
     event.preventDefault();
     this.props.history.push(`/break-timer`);
-    this.props.dispatch(submitPomodoro());
+    this.props.dispatch(showBreakTimer());
+    console.log('Add async dispatch of session time to send data to backend');
+
+    const userInput = parseInt(this.input.value);
+    const currentTime = new Date().getTime();
+    const eventTime = new Date(currentTime - userInput * 60000).getTime();
+    let diffTime = eventTime - currentTime;
+    let duration = moment.duration(diffTime, "milliseconds");
+    const interval = 1000;
+    // Displays starting time difference to DOM
+    this.props.dispatch(
+      postBreakDuration(
+        Math.abs(duration.minutes()),
+        Math.abs(duration.seconds())
+      )
+    );
+    let setIntervalProps = this.props;
+    setInterval(
+      function() {
+        duration = moment.duration(duration + interval, "milliseconds");
+
+        setIntervalProps.dispatch(
+          postBreakDuration(
+            Math.abs(duration.minutes()),
+            Math.abs(duration.seconds())
+          )
+        );
+      },
+      interval,
+      setIntervalProps
+    );
   }
 
   render() {
-    console.log('this stuff' + this.props.secondsRemaining)
+    let { secondsRemaining, minutesRemaining } = this.props;
     return (
       <div className="work-timer">
-        <p>this is the main pomo timer component for work period</p>
-          <div className="clock">
-            <span className="minutes">{this.props.minutesRemaining ? this.props.minutesRemaining : 0}</span>
-            <span className="colon">:</span>
-            <span className="seconds">{this.props.secondsRemaining ? this.props.secondsRemaining : 0}</span>
-          </div>
-        <button className="break-timer-button" onClick={e => this.submitPomoForm(e)}>Break Timer</button>
+        <div className="clock" role="timer">
+          <span className="minutes">
+            {minutesRemaining < 10 ? "0" + minutesRemaining : minutesRemaining}
+          </span>
+          <span className="colon">:</span>
+          <span className="seconds">
+            {secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining}
+          </span>
+        </div>
+        <form onSubmit={e => this.submitPomoForm(e)}>
+          <fieldset>
+            <input
+              aria-label="Pomodoro break duration"
+              type="text"
+              placeholder="5"
+              required
+              id="sessionDuration"
+              ref={input => (this.input = input)}
+            />
+          </fieldset>
+          <button className="break-timer-button" type="submit">
+            Start Break Timer
+          </button>
+        </form>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => (
-  {
-    minutesRemaining: state.minutesRemaining,
-    secondsRemaining: state.secondsRemaining
-})
+// When trying to access the state on this component make sure to check that reducer state
+// key(s) matches.
+const mapStateToProps = state => ({
+  minutesRemaining: state.sessionMinutesRemaining,
+  secondsRemaining: state.sessionSecondsRemaining
+});
 
 export default connect(mapStateToProps)(WorkTimer);
