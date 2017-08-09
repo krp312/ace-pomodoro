@@ -4,7 +4,8 @@ import "./styles/set-pomo.css";
 import {
   submitPomodoro,
   postSessionDuration,
-  showBreakTimer
+  showBreakTimer,
+  postSessionName
 } from "../actions/actions";
 import moment from "moment";
 
@@ -13,8 +14,7 @@ export class SetPomo extends React.Component {
     event.preventDefault();
     this.props.history.push(`/work-timer`);
     this.props.dispatch(submitPomodoro());
-    // this.props.dispatch(this.sessionName.value);
-    // console.log('access' + this.sessionName.value);
+    this.props.dispatch(postSessionName(this.sessionName.value));
 
     const userDurationInput = parseInt(this.durationInput.value);
     const currentTime = new Date().getTime();
@@ -32,6 +32,7 @@ export class SetPomo extends React.Component {
         Math.abs(duration.seconds())
       )
     );
+
     let setIntervalProps = this.props;
     setInterval(
       function() {

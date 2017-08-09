@@ -7,7 +7,8 @@ import {
   SHOW_POMO_INFO,
   POST_SESSION_DURATION,
   SHOW_BREAK_TIMER,
-  POST_BREAK_DURATION
+  POST_BREAK_DURATION,
+  POST_SESSION_NAME
 } from "../actions/actions";
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   sessionMinutesRemaining: 0,
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
-  breakSecondsRemaining: 0
+  breakSecondsRemaining: 0,
+  currentSessionName: ''
   //displays - login, userData, setPomo, workPomo, pomoInfo
 };
 //d
@@ -78,7 +80,12 @@ export default (state, action) => {
       ...state,
       breakMinutesRemaining: action.minutesRemaining,
       breakSecondsRemaining: action.secondsRemaining
+    };
+  } else if ((action.type === POST_SESSION_NAME)) {
+    return {
+      ...state,
+      currentSessionName: action.sessionName
     }
-  };
+  }
   return state;
 };

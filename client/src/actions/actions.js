@@ -36,7 +36,6 @@ export const showPomoInfo = () => ({
   type: SHOW_POMO_INFO,
 });
 
-// Add reducer handling for this action, console.logs, use login.js as ex. flow
 export const SHOW_BREAK_TIMER = 'SHOW_BREAK_TIMER';
 export const showBreakTimer = () => ({
   type: SHOW_BREAK_TIMER
@@ -47,6 +46,12 @@ export const postBreakDuration = (minutesRemaining, secondsRemaining) => ({
   type: POST_BREAK_DURATION,
   minutesRemaining,
   secondsRemaining
+});
+
+export const POST_SESSION_NAME = 'POST_SESSION_NAME';
+export const postSessionName = (sessionName) => ({
+  type: POST_SESSION_NAME,
+  sessionName
 });
 
 // export const loginUserAttempt = (inputBody) => {
