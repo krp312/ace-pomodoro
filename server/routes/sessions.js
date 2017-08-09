@@ -21,29 +21,6 @@ router.get('/', authenticator, (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-// increment on completed intervals
-// router.get('/:id', (req, res) => {
-//   let incrementor;
-//   return req.app.locals.knex
-//     .select()
-//     .from('sessions')
-//     .where( { id: req.params.id } )
-//     .then(result => {
-//       incrementor = result[0].completed_intervals;
-
-//       return req.app.locals.knex
-//         .select()
-//         .from('sessions')
-//         .where( { id: req.params.id } )
-//         .update( { completed_intervals: ++incrementor } )
-//         .returning(['id', 'name', 'completed_intervals']);
-//     })
-//     .then(result => {
-//       return res.status(200).json(result);
-//     })
-//     .catch(err => res.status(500).send(err));
-// });
-
 // Create a new session in DB 
 router.post('/', authenticator, (req, res) => {
   const requiredFields = ['name', 'work_duration', 'break_duration', 'is_completed'];
@@ -81,15 +58,5 @@ router.post('/', authenticator, (req, res) => {
     })
     .catch(err => res.status(500).send(err));
 });
-
-// // Alter session data - should require auth
-// router.put('/:id', (req, res) => {
-//   return res.status(204).json({tagName: 'Super Fun Postgres Study'});
-// });
-
-// // Delete session data - require auth
-// router.delete('/:id', (req, res) => {
-//   return res.status(204).end();
-// });
 
 module.exports = router;
