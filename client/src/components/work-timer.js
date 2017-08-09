@@ -3,15 +3,14 @@ import { connect } from "react-redux";
 import "./styles/work-timer.css";
 import {
   showBreakTimer,
-  postBreakDuration,
-  sendSessionDuration
+  postBreakDuration
 } from "../actions/actions";
 import moment from "moment";
 
 export class WorkTimer extends React.Component {
   submitPomoForm(event) {
     event.preventDefault();
-    this.props.history.push(`/break-timer`);
+    this.props.history.push(`/break-timer`);    
     this.props.dispatch(showBreakTimer());
     console.log('Add async dispatch of session time to send data to backend');
 
@@ -21,6 +20,7 @@ export class WorkTimer extends React.Component {
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
+
     // Displays starting time difference to DOM
     this.props.dispatch(
       postBreakDuration(

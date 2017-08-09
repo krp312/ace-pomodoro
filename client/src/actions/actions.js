@@ -59,36 +59,31 @@ export const postSessionName = sessionName => ({
   sessionName
 });
 
-// export const sendSessionDuration = (minutes, seconds) => {
-//   return dispatch => {
-//     // Create action for attempt to send data
-//     fetch("/api/sessions", {
-//       method: "POST",
-//       body: JSON.stringify({ minutes: 1, seconds: 45 }),
-//       headers: {
-//         Accept: "application/json",
-//         "Content-type": "application/json"
-//       }
-//     })
-//     .then(response => response.json())
-//     .then(users => dispatch)
-//   };
-// };
-// export const loginUserAttempt = (inputBody) => {
-//   return (dispatch) => {
-//     dispatch(loginUserRequest())
-//     setTimeout(() => {
-//       fetch('/api/users', {
-//         method: 'POST',
-//         body: JSON.stringify({test: inputBody.value}),
-//         headers: {
-//           Accept: 'application/json',
-//           'Content-type': 'application/json'
-//         }
-//       })
-//       .then(response => response.json())
-//       .then(users => dispatch(loginUserSuccess(inputBody.value)))
-//       .catch(err => dispatch(loginUserError(err.message)))
-//     }, 2000)
-//   }
-// }
+export const sendSessionDuration = (sessionDuration, sessionName) => {
+  let formattedPostRequest = {
+    name: sessionName,
+    work_duration: sessionDuration,
+    break_duration: '00:05:00',
+    is_completed: true
+  }
+
+  // The User barackobama is hardcoded in for demo purposes
+  const opts = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic bWFya3p1Y2s6ZmFjZWJvb2s='
+    },
+    method: 'POST',
+    body: JSON.stringify(formattedPostRequest)
+  };
+  return dispatch => {
+    fetch('/api/sessions', opts)
+      .then(function(res){
+        return res;
+      })
+      .catch(err => {
+        return err;
+      })
+  }
+}
