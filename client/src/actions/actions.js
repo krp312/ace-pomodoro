@@ -78,7 +78,7 @@ export const sendSessionDuration = (sessionDuration, sessionName) => {
     body: JSON.stringify(formattedPostRequest)
   };
   return dispatch => {
-    fetch(`/api/sessions`, opts)
+    fetch('/api/sessions', opts)
       .then(function(res){
         console.log('attempting to post');
         return res;
