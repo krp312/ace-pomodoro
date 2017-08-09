@@ -14,14 +14,11 @@ CREATE TABLE sessions(
   name                  text NOT NULL,
   work_duration         interval NOT NULL,
   break_duration        interval NOT NULL,
-  completed_intervals   integer DEFAULT 0,
   total_work_time       interval DEFAULT '0 00:00:00',
   total_break_time      interval DEFAULT '0 00:00:00',
-  user_id               integer REFERENCES users ON DELETE CASCADE
+  user_id               integer REFERENCES users ON DELETE CASCADE,
+  is_completed          boolean DEFAULT false
 );
-
-
-
 
 INSERT INTO users (username, password, first_name, last_name, email) VALUES
   ('liz123', 'nbc', 'Liz', 'Lemon', 'liz@nbc.com'),
@@ -50,3 +47,5 @@ SELECT users.id as "user ID", users.username, users.first_name, users.last_name,
 }
 
 postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm
+
+SELECT * FROM sessions
