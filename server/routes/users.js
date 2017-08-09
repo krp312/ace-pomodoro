@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 router.use(bodyParser.json());
 
@@ -24,18 +25,42 @@ router.get('/:id', (req, res) => {
 
 // Create a new user in DB 
 router.post('/', (req, res) => {
-  const requiredFields = ['username', 'password', 'email'];
-  const missingIndex = requiredFields.findIndex(field => !req.body[field]);
-  if (missingIndex !== -1) {
-    return res.status(400).json({
-      message: `Missing field: ${requiredFields[missingIndex]}`
-    });
-  }
+  let hashedPassword;
 
-  let {username, password, email} = req.body;
-  username = username.trim();
-  password = password.trim();
-  return res.status(201).json(req.body);
+  bcrypt.hash(req.body.password, 10)
+    .then(result => {
+      hashedPassword = result;
+
+      return req.app.locals.knex
+        .insert({
+          username: req.body.username,
+          password: hashedPassword
+        })
+        .into('users')
+        .returning([
+          'username',
+          'password'
+        ]);
+    })
+    .then(result => {
+      res.status(201).send(result);
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'error creating user' });
+    });
+
+  // const requiredFields = ['username', 'password', 'email'];
+  // const missingIndex = requiredFields.findIndex(field => !req.body[field]);
+  // if (missingIndex !== -1) {
+  //   return res.status(400).json({
+  //     message: `Missing field: ${requiredFields[missingIndex]}`
+  //   });
+  // }
+
+  // let {username, password, email} = req.body;
+  // username = username.trim();
+  // password = password.trim();
+  // return res.status(201).json(req.body);
 });
 
 // Alter user data - should require auth

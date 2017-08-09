@@ -1,19 +1,26 @@
-// const { app } = require('./index');
-
 const passport = require('passport');
 const { BasicStrategy } = require('passport-http');
+const bcrypt = require('bcryptjs');
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
+  // rows is the row(s) selection from the db, which should just be one row
+  let rows;
+
   global.app.locals.knex
     .select()
     .from('users')
     .where({username})
-    .then(rows => {
+    .then(_rows => {
+      rows = _rows;
+
       if (rows.length !== 1) {
         return callback(null, false);
       }
 
-      if (rows[0].password === password) {
+      return bcrypt.compare(password, rows[0].password);
+    })
+    .then(result => {
+      if (result) {
         return callback(null, rows[0]);
       }
       else {
@@ -23,10 +30,8 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
     .catch(error => callback(error));
 });
 
-// 'config' steps
 passport.use(basicStrategy);
-let authenticator = passport.authenticate('basic', { session: false });
-
 const passportMiddleware = passport.initialize();
+let authenticator = passport.authenticate('basic', { session: false });
 
 module.exports = { authenticator, passportMiddleware };
