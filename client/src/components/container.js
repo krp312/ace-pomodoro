@@ -15,6 +15,9 @@ import './styles/container.css';
 
 export default function App(props) {
     const sessionActive = false;
+    // Create state variable to keep track of when sessionMinutesRemaining and secondsRemaining === 0
+    // Make sure that both create user button and login user button LEAD to WorkTimer component while
+        // The session is still active
     return (
         <Router>
             <div className="app">
