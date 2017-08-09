@@ -26,13 +26,13 @@ describe('Ace Pomodoro', function() {
     });
   });
 
-  describe('sessions endpoints', function() {
-    it('/api/sessions/ should get all sessions', function() {
-      return chai.request(app)
-        .get('/api/sessions')
-        .then(result => {
-          console.log(result.body)
-        })
-    })
-  })
+  // describe('sessions endpoints', function() {
+  //   it('/api/sessions/ should get all sessions', function() {
+  //     return chai.request(app)
+  //       .get('/api/sessions')
+  //       .then(result => {
+  //         console.log(result.body);
+  //       });
+  //   });
+  // });
 });

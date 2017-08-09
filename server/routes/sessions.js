@@ -3,17 +3,18 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const { authenticator } = require('../auth');
 
 router.use(bodyParser.json());
 
 // get sessions by user id (user id from req.user)
-router.get('/', (req, res) => {
-  // return req.app.locals.knex
-  //   .select()
-  //   .from('sessions')
-  //   .then(result => {
-  //     return res.status(200).json(result);
-  //   });
+router.get('/', authenticator, (req, res) => {
+  return req.app.locals.knex
+    .select()
+    .from('sessions')
+    .then(result => {
+      return res.status(200).json(result);
+    });
 });
 
 // Query single session from DB
