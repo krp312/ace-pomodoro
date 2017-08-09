@@ -1,4 +1,4 @@
-'use strict';
+
 
 const express = require('express');
 const router = express.Router();
@@ -17,11 +17,28 @@ router.use(bodyParser.json());
 //     });
 // });
 
-// // Query single session from DB
-// router.get('/:id', (req, res) => {
-//   // What occurs in here depends on postgres data structure
-//   return res.status(200).json({tagName: 'Postgres Study'});
-// });
+// increment on completed intervals
+router.get('/:id', (req, res) => {
+  let incrementor;
+  return req.app.locals.knex
+    .select()
+    .from('sessions')
+    .where( { id: req.params.id } )
+    .then(result => {
+      incrementor = result[0].completed_intervals;
+
+      return req.app.locals.knex
+        .select()
+        .from('sessions')
+        .where( { id: req.params.id } )
+        .update( { completed_intervals: ++incrementor } )
+        .returning(['id', 'name', 'completed_intervals']);
+    })
+    .then(result => {
+      return res.status(200).json(result);
+    })
+    .catch(err => res.status(500).send(err));
+});
 
 // Create a new session in DB 
 router.post('/', authenticator, (req, res) => {
@@ -57,9 +74,7 @@ router.post('/', authenticator, (req, res) => {
     .then(result => {
       return res.status(201).json(result);
     })
-    .catch(error => {
-      return res.status(500).send(error);
-    });
+    .catch(err => res.status(500).send(err));
 });
 
 // // Alter session data - should require auth
