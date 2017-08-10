@@ -27,7 +27,9 @@ import {
 
 
 const initialState = {
-  user: [],
+  user: 'pomodoro_enthusiast',
+  // user: '',
+  loggedIn: true,
   sessions: [],
   display: "login",
   sessionMinutesRemaining: 0,
@@ -35,7 +37,6 @@ const initialState = {
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
   currentSessionName: ''
-  //displays - login, userData, setPomo, workPomo, pomoInfo
 };
 //d
 export default (state, action) => {
