@@ -81,12 +81,36 @@ ORDER BY
   date(modified);
 
 -- totals by week
-SELECT date_trunc('week', date(modified)) AS weekly,
-       COUNT(*)           
+SELECT 
+  date_trunc('week', date(modified)) AS weekly,
+  name,
+  sum(total_work_time) as "total time working", 
+  sum(total_break_time) as "total time not working", 
+  COUNT(*) as "completed pomos"
 FROM sessions
-GROUP BY weekly
+GROUP BY weekly, name
 ORDER BY weekly;
 
 -- totals by month
+SELECT 
+  date_trunc('month', date(modified)) AS monthly,
+  name,
+  sum(total_work_time) as "total time working", 
+  sum(total_break_time) as "total time not working", 
+  COUNT(*) as "completed pomos"
+FROM sessions
+GROUP BY monthly, name
+ORDER BY monthly;
 
 -- averages
+SELECT
+  name as "pomo task", 
+  avg(total_work_time) as "average time working per day", 
+  avg(total_break_time) as "average time not working per day",
+  max(total_work_time) as "longest work session",
+  min(total_work_time) as "shortest work session",
+  max(total_break_time) as "longest break",
+  min(total_break_time) as "shortest break"
+FROM sessions WHERE user_id=15
+GROUP BY
+  name;
