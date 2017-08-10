@@ -1,17 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/work-timer.css";
-import { showBreakTimer, postBreakDuration, pauseTimer} from "../actions/actions";
+import {
+  showBreakTimer,
+  postBreakDuration,
+  pauseTimer,
+  sendBreakDuration
+} from "../actions/actions";
 import moment from "moment";
 
 export class WorkTimer extends React.Component {
   submitPomoForm(event) {
+    console.log(
+      "Break duration to be passed as user input: " +
+        typeof this.props.breakDuration
+    );
     event.preventDefault();
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
 
     clearInterval(this.props.intervalId);
-    const userInput = parseInt(this.input.value);
+    const userInput = this.props.breakDuration;
     const currentTime = new Date().getTime();
     const eventTime = new Date(currentTime - userInput * 60000).getTime();
     let diffTime = eventTime - currentTime;
@@ -26,8 +35,19 @@ export class WorkTimer extends React.Component {
       )
     );
     let setIntervalProps = this.props;
-    setInterval(
+    const breakIntervalId = setInterval(
       function() {
+        // For live version: we want the condition set to 0
+        if (Math.abs(duration) === 55000) {
+          let elapsedTime = moment
+            .utc(Math.abs(diffTime) - Math.abs(duration))
+            .format("HH:mm:ss");
+          setIntervalProps.dispatch(
+            sendBreakDuration(elapsedTime, setIntervalProps.sessionName)
+          );
+          clearInterval(breakIntervalId);
+          return null;
+        }
         duration = moment.duration(duration + interval, "milliseconds");
 
         setIntervalProps.dispatch(
@@ -44,17 +64,18 @@ export class WorkTimer extends React.Component {
 
   toggleTimer(e) {
     // Need to implement unclearing of the setInterval function in set-pomo.js
-      // Also likely issue of access the setInterval function from this page.
-          // Will face another problem if attempting to setup pause for break timer
+    // Also likely issue of access the setInterval function from this page.
+    // Will face another problem if attempting to setup pause for break timer
     this.props.dispatch(pauseTimer());
-      if (this.props.paused) {
-      console.log('clicked pause button');
+    if (this.props.paused) {
+      console.log("clicked pause button");
       clearInterval(this.props.intervalId);
     } else if (!this.props.paused) {
       console.log("unclear interval here");
       clearInterval(this.props.intervalId);
     }
   }
+
   render() {
     let { secondsRemaining, minutesRemaining } = this.props;
     return (
@@ -75,21 +96,13 @@ export class WorkTimer extends React.Component {
         >
           Stop Timer
         </button>
-        <form onSubmit={e => this.submitPomoForm(e)}>
-          <fieldset>
-            <input
-              aria-label="Pomodoro break duration"
-              type="text"
-              placeholder="5"
-              required
-              id="sessionDuration"
-              ref={input => (this.input = input)}
-            />
-          </fieldset>
-          <button className="break-timer-button" type="submit">
-            Start Break Timer
-          </button>
-        </form>
+        <button
+          onClick={e => this.submitPomoForm(e)}
+          className="break-timer-button"
+          type="submit"
+        >
+          Start Break Timer
+        </button>
       </div>
     );
   }
@@ -101,7 +114,9 @@ const mapStateToProps = state => ({
   minutesRemaining: state.sessionMinutesRemaining,
   secondsRemaining: state.sessionSecondsRemaining,
   intervalId: state.intervalId,
-  paused: state.paused
+  paused: state.paused,
+  breakDuration: state.breakDuration,
+  sessionName: state.currentSessionName
 });
 
 export default connect(mapStateToProps)(WorkTimer);
