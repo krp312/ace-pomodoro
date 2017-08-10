@@ -10,6 +10,7 @@ import moment from "moment";
 
 export class WorkTimer extends React.Component {
   submitPomoForm(event) {
+    console.log('Break duration to be passed as user input: ' + this.props.breakDuration)
     event.preventDefault();
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
@@ -101,7 +102,7 @@ export class WorkTimer extends React.Component {
               ref={input => (this.input = input)}
             />
           </fieldset>
-          <button className="break-timer-button" type="submit">
+          <button onClick={e => this.submitPomoForm(e)} className="break-timer-button" type="submit">
             Start Break Timer
           </button>
         </form>
@@ -116,7 +117,8 @@ const mapStateToProps = state => ({
   minutesRemaining: state.sessionMinutesRemaining,
   secondsRemaining: state.sessionSecondsRemaining,
   intervalId: state.intervalId,
-  paused: state.paused
+  paused: state.paused,
+  breakDuration: state.breakDuration
 });
 
 export default connect(mapStateToProps)(WorkTimer);

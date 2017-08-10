@@ -115,6 +115,18 @@ export const pauseTimer = () => ({
   type: PAUSE_TIMER,
 });
 
+export const POST_BREAK_SETTING = "POST_BREAK_SETTING"
+export const postBreakSetting = breakDuration => ({
+  type: POST_BREAK_SETTING,
+  breakDuration
+})
+
+export const POST_WORK_SETTING = "POST_WORK_SETTING";
+export const postWorkSetting = workDuration => ({
+  type: POST_WORK_SETTING,
+  workDuration
+})
+
 export const POST_SESSIONS_ERROR = "POST_SESSIONS_ERROR";
 export const postSessionsError = error => ({
   type: POST_SESSIONS_ERROR,
@@ -122,16 +134,15 @@ export const postSessionsError = error => ({
 });
 
 // send over total work time and total break time
-export const sendSessionDuration = (sessionDuration, sessionName) => {
+export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {
   let formattedPostRequest = {
     name: sessionName,
-    work_duration: "00:25:00",
-    break_duration: "00:05:00",
+    work_duration: workDurationSetting,
+    break_duration: breakDurationSetting,
     total_work_time: sessionDuration,
     // total_break_time: breakDuration,
     is_completed: true
   };
-
   // The User barackobama is hardcoded in for demo purposes
   const opts = {
     headers: {

@@ -15,7 +15,9 @@ import {
   GET_SESSIONS_ERROR,
   STOP_POMO_TIMER,
   POST_SESSIONS_ERROR,
-  PAUSE_TIMER
+  PAUSE_TIMER,
+  POST_BREAK_SETTING,
+  POST_WORK_SETTING
 } from "../actions/actions";
 
 
@@ -28,6 +30,8 @@ const initialState = {
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
   currentSessionName: '',
+  breakDuration: null,
+  workDuration: null,
   intervalId: null,
   paused: false
   //displays - login, userData, setPomo, workPomo, pomoInfo
@@ -98,7 +102,18 @@ export default (state, action) => {
       breakMinutesRemaining: action.minutesRemaining,
       breakSecondsRemaining: action.secondsRemaining
     };
-  } else if ((action.type === POST_SESSION_NAME)) {
+  } else if (action.type === POST_BREAK_SETTING) {
+    return {
+      ...state,
+      breakDuration: action.breakDuration
+    }
+  } else if (action.type === POST_WORK_SETTING) {
+    return {
+      ...state,
+      workDuration: action.workDuration
+    }
+  }
+  else if ((action.type === POST_SESSION_NAME)) {
     return {
       ...state,
       currentSessionName: action.sessionName
