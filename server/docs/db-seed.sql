@@ -63,12 +63,41 @@ SUM(break_duration) as "not working",
 count(*) as "intervals completed"
 FROM sessions
   WHERE user_id=9
-  GROUP BY name;
+  GROUP BY name
 
 -- averages
 
--- totals by day
+-- totals per user, per day, per session name
+
+select name, total_time from 
+(select date::DATE, id, name, total_time from
+(select * from testsessions where user_id=1) as "inside"
+group by date::DATE, id, name, total_time) as "middle layer" 
+group by name, total_time;
 
 -- totals by week
 
 -- totals by month
+
+select modified::DATE, name, SUM(work_duration) as "working"
+from sessions group by modified::DATE, name, sessions.work_duration
+order by modified::DATE;
+
+
+CREATE TABLE testusers(
+  id          serial PRIMARY KEY, 
+  username    text
+);
+
+CREATE TABLE testsessions(
+  id                    serial PRIMARY KEY,
+  name                  text,
+  total_time            interval DEFAULT '0 00:00:00',
+  user_id               integer REFERENCES testusers ON DELETE CASCADE,
+  date                  date
+);
+
+INSERT INTO testsessions (name, total_time, user_id, date) VALUES 
+('civilization 6', '0 12:30:00', 1, '2017-08-01'),
+('hiking', '0 5:30:00', 1, '2017-08-02'),
+('sleeping', '0 6:30:00', 1, '2017-08-03');
