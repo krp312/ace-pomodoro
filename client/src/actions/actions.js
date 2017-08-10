@@ -110,6 +110,17 @@ export const fetchSessions = () => dispatch => {
 //         .catch(error => dispatch(searchCharactersError(error)));
 // };
 
+export const PAUSE_TIMER = "PAUSE_TIMER";
+export const pauseTimer = () => ({
+  type: PAUSE_TIMER,
+});
+
+export const POST_SESSIONS_ERROR = "POST_SESSIONS_ERROR";
+export const postSessionsError = error => ({
+  type: POST_SESSIONS_ERROR,
+  error
+});
+
 export const sendSessionDuration = (sessionDuration, sessionName) => {
   let formattedPostRequest = {
     name: sessionName,
@@ -133,8 +144,8 @@ export const sendSessionDuration = (sessionDuration, sessionName) => {
       .then(function(res) {
         return res;
       })
-      .catch(err => {
-        return err;
-      });
+    .catch(err => {
+      dispatch(postSessionsError(err));
+    });
   };
 };

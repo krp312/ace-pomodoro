@@ -23,7 +23,9 @@ import {
   GET_SESSIONS_REQUEST,
   GET_SESSIONS_SUCCESS,
   GET_SESSIONS_ERROR,
-  STOP_POMO_TIMER
+  STOP_POMO_TIMER,
+  POST_SESSIONS_ERROR,
+  PAUSE_TIMER
 } from "../actions/actions";
 
 
@@ -36,7 +38,8 @@ const initialState = {
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
   currentSessionName: '',
-  intervalId: null
+  intervalId: null,
+  paused: false
   //displays - login, userData, setPomo, workPomo, pomoInfo
 };
 //d
@@ -131,6 +134,16 @@ export default (state, action) => {
       return {
         ...state, 
         intervalId: action.pomoIntervalId
+      }
+    } else if (action.type === POST_SESSIONS_ERROR) {
+      return {
+        ...state,
+        error: action.error
+      }
+    } else if (action.type === PAUSE_TIMER) {
+      return {
+        ...state,
+        paused: !state.paused
       }
     }
       return state;

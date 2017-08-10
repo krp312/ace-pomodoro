@@ -40,7 +40,7 @@ export class SetPomo extends React.Component {
     const interval = 1000;
     const pomoIntervalId = setInterval(
       function() {
-        // For live version: we want to dispatch
+        // For live version: we want the condition set to 0
         if (Math.abs(duration) === 0) {
           let elapsedTime = moment
             .utc(Math.abs(diffTime) - Math.abs(duration))
@@ -63,7 +63,6 @@ export class SetPomo extends React.Component {
       setIntervalProps
     );
     this.props.dispatch(stopPomoTimer(pomoIntervalId));
-    console.log()
   }
 
   render() {
