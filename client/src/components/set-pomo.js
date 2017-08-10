@@ -5,16 +5,20 @@ import {
   submitPomodoro,
   postSessionDuration,
   showBreakTimer,
-  postSessionName
+  postSessionName,
+  sendSessionDuration,
+  stopPomoTimer
 } from "../actions/actions";
 import moment from "moment";
 
 export class SetPomo extends React.Component {
   submitPomoForm(event) {
     event.preventDefault();
+    let sessionName = this.sessionName.value;
+
     this.props.history.push(`/work-timer`);
     this.props.dispatch(submitPomodoro());
-    this.props.dispatch(postSessionName(this.sessionName.value));
+    this.props.dispatch(postSessionName(sessionName));
 
     const userDurationInput = parseInt(this.durationInput.value);
     const currentTime = new Date().getTime();
@@ -23,7 +27,6 @@ export class SetPomo extends React.Component {
     ).getTime();
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime, "milliseconds");
-    const interval = 1000;
 
     // Displays starting time difference to DOM
     this.props.dispatch(
@@ -34,28 +37,32 @@ export class SetPomo extends React.Component {
     );
 
     let setIntervalProps = this.props;
-    setInterval(
+    const interval = 1000;
+    const pomoIntervalId = setInterval(
       function() {
-        duration = moment.duration(duration + interval, "milliseconds");
-        if (
-          Math.abs(duration.seconds()) === 0 &&
-          Math.abs(duration.minutes()) === 0
-        ) {
-          // Dispatch some action regarding stopping the current timer and displaying
-          // The break timer page
-          //  setIntervalProps.dispatch(showBreakTimer());
+        // For live version: we want the condition set to 0
+        if (Math.abs(duration) === 0) {
+          let elapsedTime = moment
+            .utc(Math.abs(diffTime) - Math.abs(duration))
+            .format("HH:mm:ss");
+          setIntervalProps.dispatch(
+            sendSessionDuration(elapsedTime, sessionName)
+          );
+          clearInterval(pomoIntervalId);
+          return null;
         }
+        duration = moment.duration(duration + interval, "milliseconds");
         setIntervalProps.dispatch(
           postSessionDuration(
             Math.abs(duration.minutes()),
             Math.abs(duration.seconds())
           )
         );
-        // console.log(Math.abs(duration.hours()) + ":" + Math.abs(duration.minutes()) + ":" + Math.abs(duration.seconds()));
       },
       interval,
       setIntervalProps
     );
+    this.props.dispatch(stopPomoTimer(pomoIntervalId));
   }
 
   render() {

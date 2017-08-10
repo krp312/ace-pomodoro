@@ -22,7 +22,10 @@ import {
   POST_SESSION_NAME,
   GET_SESSIONS_REQUEST,
   GET_SESSIONS_SUCCESS,
-  GET_SESSIONS_ERROR
+  GET_SESSIONS_ERROR,
+  STOP_POMO_TIMER,
+  POST_SESSIONS_ERROR,
+  PAUSE_TIMER
 } from "../actions/actions";
 
 
@@ -36,12 +39,14 @@ const initialState = {
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
-  currentSessionName: ''
+  currentSessionName: '',
+  intervalId: null,
+  paused: false
 };
 //d
 export default (state, action) => {
   state = state || initialState;
-  // console.log('What action is being submitted: ' + action.type)
+  // console.log('What type of action is being submitted: ' + action.type)
 
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
@@ -126,5 +131,21 @@ export default (state, action) => {
             error: action.error,
             loading: false
         });
-    } return state;
+    } else if (action.type === STOP_POMO_TIMER) {
+      return {
+        ...state, 
+        intervalId: action.pomoIntervalId
+      }
+    } else if (action.type === POST_SESSIONS_ERROR) {
+      return {
+        ...state,
+        error: action.error
+      }
+    } else if (action.type === PAUSE_TIMER) {
+      return {
+        ...state,
+        paused: !state.paused
+      }
+    }
+      return state;
 };

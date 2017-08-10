@@ -1,11 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/work-timer.css";
-import {
-  showBreakTimer,
-  postBreakDuration,
-  sendSessionDuration
-} from "../actions/actions";
+import { showBreakTimer, postBreakDuration, pauseTimer} from "../actions/actions";
 import moment from "moment";
 
 export class WorkTimer extends React.Component {
@@ -13,14 +9,15 @@ export class WorkTimer extends React.Component {
     event.preventDefault();
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
-    console.log('Add async dispatch of session time to send data to backend');
 
+    clearInterval(this.props.intervalId);
     const userInput = parseInt(this.input.value);
     const currentTime = new Date().getTime();
     const eventTime = new Date(currentTime - userInput * 60000).getTime();
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime, "milliseconds");
     const interval = 1000;
+
     // Displays starting time difference to DOM
     this.props.dispatch(
       postBreakDuration(
@@ -45,6 +42,19 @@ export class WorkTimer extends React.Component {
     );
   }
 
+  toggleTimer(e) {
+    // Need to implement unclearing of the setInterval function in set-pomo.js
+      // Also likely issue of access the setInterval function from this page.
+          // Will face another problem if attempting to setup pause for break timer
+    this.props.dispatch(pauseTimer());
+      if (this.props.paused) {
+      console.log('clicked pause button');
+      clearInterval(this.props.intervalId);
+    } else if (!this.props.paused) {
+      console.log("unclear interval here");
+      clearInterval(this.props.intervalId);
+    }
+  }
   render() {
     let { secondsRemaining, minutesRemaining } = this.props;
     return (
@@ -58,6 +68,13 @@ export class WorkTimer extends React.Component {
             {secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining}
           </span>
         </div>
+        <button
+          onClick={e => this.toggleTimer(e)}
+          className="pause-timer-button"
+          type="butotn"
+        >
+          Stop Timer
+        </button>
         <form onSubmit={e => this.submitPomoForm(e)}>
           <fieldset>
             <input
@@ -82,7 +99,9 @@ export class WorkTimer extends React.Component {
 // key(s) matches.
 const mapStateToProps = state => ({
   minutesRemaining: state.sessionMinutesRemaining,
-  secondsRemaining: state.sessionSecondsRemaining
+  secondsRemaining: state.sessionSecondsRemaining,
+  intervalId: state.intervalId,
+  paused: state.paused
 });
 
 export default connect(mapStateToProps)(WorkTimer);
