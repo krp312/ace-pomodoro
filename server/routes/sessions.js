@@ -120,13 +120,15 @@ router.post('/', authenticator, (req, res) => {
   //   });
   // }
 
-  let { name, 
+  let { 
+    name, 
     work_duration, 
     break_duration, 
     total_work_time,
     total_break_time,
     user_id,
-    is_completed } = req.body;
+    is_completed 
+  } = req.body;
 
   return req.app.locals.knex
     .insert({ 
