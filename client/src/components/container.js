@@ -14,10 +14,6 @@ import Header from "./header";
 import "./styles/container.css";
 
 export class App extends React.Component {
-  // const sessionActive = false;
-  // Create state variable to keep track of when sessionMinutesRemaining and secondsRemaining === 0
-  // Make sure that both create user button and login user button LEAD to WorkTimer component while
-  // The session is still active
   render() {
     return (
       <Router>
