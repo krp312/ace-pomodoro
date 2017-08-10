@@ -1,8 +1,10 @@
 ## questions
+* got rid of mocha command in root package.json, is this okay?
 * make changes to master on the local, then checkout?
 * display branch in working dir
 * how did elias find what he found?
 * port proxy
+* terminal saved output from rohan
 
 ## next steps
 first priority: getting timer to display, and upon completion, updates the backend

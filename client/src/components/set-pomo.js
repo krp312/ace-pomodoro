@@ -6,14 +6,15 @@ import {
   postSessionDuration,
   showBreakTimer,
   postSessionName,
-  sendSessionDuration
+  sendSessionDuration,
+  stopPomoTimer
 } from "../actions/actions";
 import moment from "moment";
 
 export class SetPomo extends React.Component {
   submitPomoForm(event) {
     event.preventDefault();
-        let sessionName = this.sessionName.value;
+    let sessionName = this.sessionName.value;
 
     this.props.history.push(`/work-timer`);
     this.props.dispatch(submitPomodoro());
@@ -37,25 +38,31 @@ export class SetPomo extends React.Component {
 
     let setIntervalProps = this.props;
     const interval = 1000;
-    setInterval(
+    const pomoIntervalId = setInterval(
       function() {
-        // For live version: we want to dispatch 
+        // For live version: we want the condition set to 0
         if (Math.abs(duration) === 0) {
-          let elapsedTime = moment.utc(Math.abs(diffTime) - Math.abs(duration)).format('HH:mm:ss');
-          setIntervalProps.dispatch(sendSessionDuration(elapsedTime, sessionName));
+          let elapsedTime = moment
+            .utc(Math.abs(diffTime) - Math.abs(duration))
+            .format("HH:mm:ss");
+          setIntervalProps.dispatch(
+            sendSessionDuration(elapsedTime, sessionName)
+          );
+          clearInterval(pomoIntervalId);
           return null;
         }
-          duration = moment.duration(duration + interval, "milliseconds");
-          setIntervalProps.dispatch(
-            postSessionDuration(
-              Math.abs(duration.minutes()),
-              Math.abs(duration.seconds())
-            )
-          );
+        duration = moment.duration(duration + interval, "milliseconds");
+        setIntervalProps.dispatch(
+          postSessionDuration(
+            Math.abs(duration.minutes()),
+            Math.abs(duration.seconds())
+          )
+        );
       },
       interval,
       setIntervalProps
     );
+    this.props.dispatch(stopPomoTimer(pomoIntervalId));
   }
 
   render() {

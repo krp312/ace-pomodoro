@@ -15,7 +15,7 @@ export class LogIn extends React.Component {
     ) {
       this.props.history.push(`/work-timer`);
     } else if (this.props.seconds === 0 && this.props.minutes === 0) {
-    this.props.history.push(`/set-pomo`);
+      this.props.history.push(`/set-pomo`);
     }
     this.props.dispatch(loginUserRequest());
   }
