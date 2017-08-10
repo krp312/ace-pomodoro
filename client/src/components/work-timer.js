@@ -10,13 +10,16 @@ import moment from "moment";
 
 export class WorkTimer extends React.Component {
   submitPomoForm(event) {
-    console.log('Break duration to be passed as user input: ' + this.props.breakDuration)
+    console.log(
+      "Break duration to be passed as user input: " +
+        typeof this.props.breakDuration
+    );
     event.preventDefault();
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
 
     clearInterval(this.props.intervalId);
-    const userInput = parseInt(this.input.value);
+    const userInput = this.props.breakDuration;
     const currentTime = new Date().getTime();
     const eventTime = new Date(currentTime - userInput * 60000).getTime();
     let diffTime = eventTime - currentTime;
@@ -71,6 +74,7 @@ export class WorkTimer extends React.Component {
       clearInterval(this.props.intervalId);
     }
   }
+
   render() {
     let { secondsRemaining, minutesRemaining } = this.props;
     return (
@@ -91,21 +95,13 @@ export class WorkTimer extends React.Component {
         >
           Stop Timer
         </button>
-        <form onSubmit={e => this.submitPomoForm(e)}>
-          <fieldset>
-            <input
-              aria-label="Pomodoro break duration"
-              type="text"
-              placeholder="5"
-              required
-              id="sessionDuration"
-              ref={input => (this.input = input)}
-            />
-          </fieldset>
-          <button onClick={e => this.submitPomoForm(e)} className="break-timer-button" type="submit">
-            Start Break Timer
-          </button>
-        </form>
+        <button
+          onClick={e => this.submitPomoForm(e)}
+          className="break-timer-button"
+          type="submit"
+        >
+          Start Break Timer
+        </button>
       </div>
     );
   }
