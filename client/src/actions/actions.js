@@ -185,9 +185,14 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
       .then(function(res) {
         return res;
       })
+      .then(() => dispatch(resetState()))
     .catch(err => {
       return err;
     });
   };
 };
 
+export const RESET_STATE = "RESET_STATE";
+export const resetState = () => ({
+  type: RESET_STATE
+});
