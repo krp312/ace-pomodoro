@@ -12,8 +12,8 @@ export class WorkTimer extends React.Component {
     event.preventDefault();
     this.props.history.push(`/break-timer`);    
     this.props.dispatch(showBreakTimer());
-    console.log('Add async dispatch of session time to send data to backend');
 
+    clearInterval(this.props.intervalId)
     const userInput = parseInt(this.input.value);
     const currentTime = new Date().getTime();
     const eventTime = new Date(currentTime - userInput * 60000).getTime();
@@ -82,7 +82,8 @@ export class WorkTimer extends React.Component {
 // key(s) matches.
 const mapStateToProps = state => ({
   minutesRemaining: state.sessionMinutesRemaining,
-  secondsRemaining: state.sessionSecondsRemaining
+  secondsRemaining: state.sessionSecondsRemaining,
+  intervalId: state.intervalId
 });
 
 export default connect(mapStateToProps)(WorkTimer);

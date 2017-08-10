@@ -22,7 +22,8 @@ import {
   POST_SESSION_NAME,
   GET_SESSIONS_REQUEST,
   GET_SESSIONS_SUCCESS,
-  GET_SESSIONS_ERROR
+  GET_SESSIONS_ERROR,
+  STOP_POMO_TIMER
 } from "../actions/actions";
 
 
@@ -34,7 +35,8 @@ const initialState = {
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
-  currentSessionName: ''
+  currentSessionName: '',
+  intervalId: null
   //displays - login, userData, setPomo, workPomo, pomoInfo
 };
 //d
@@ -125,5 +127,11 @@ export default (state, action) => {
             error: action.error,
             loading: false
         });
-    } return state;
+    } else if (action.type === STOP_POMO_TIMER) {
+      return {
+        ...state, 
+        intervalId: action.pomoIntervalId
+      }
+    }
+      return state;
 };
