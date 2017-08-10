@@ -25,15 +25,6 @@ INSERT INTO users (username, password, first_name, last_name, email) VALUES
   ('thePrez', '123', 'Donald', 'Trump', 'thedonaldfd@whitehouse.gov')  
   RETURNING id, modified, username, password, first_name, last_name, email;
 
--- BUT the select query in the 4th arg is going to come from the user object in passport, `req.user.id`, something like that
-INSERT INTO sessions (name, work_duration, break_duration, user_id) VALUES 
-  ('classic pomodoro', '0:25:00', '0:05:00', ( SELECT id FROM users WHERE username = 'liz123') ),
-  ('hiit', '0:01:00', '0:00:15', ( SELECT id FROM users WHERE username = 'liz123') ),
-  ('legislating', '0:10:00', '0:01:00', ( SELECT id FROM users WHERE username = 'thePrez') ),
-  ('press conferencing', '0:20:00', '0:00:00', ( SELECT id FROM users WHERE username = 'thePrez') ),
-  ('tweeting', '4 15:53:00', '0:01:00', ( SELECT id FROM users WHERE username = 'thePrez') )
-  RETURNING name, work_duration, break_duration, user_id;
-
 SELECT users.id as "user ID", users.username, users.first_name, users.last_name, sessions.name as "session name", sessions.work_duration, sessions.user_id as "session ID"
   FROM users
   INNER JOIN sessions
@@ -48,56 +39,54 @@ SELECT users.id as "user ID", users.username, users.first_name, users.last_name,
 
 postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm
 
-select everything from the same user
-select sessions with the same name
-get the count, per name
+16
+password = dboy
+$2a$10$z5MF8izNXcr8PvSZyeoPkeGi7vjF7/FQFqC66DVcPmrJdCdH2nGQa
 
--- total overall completed intervals
-SELECT * FROM sessions
-  WHERE user_id=9
+15
+evan
+password = headphones
+$2a$10$dLvbawcu1PHGk4RZbQ358uc1EtcL26yqboeLboBu.LSPb0gW/3dlC
 
--- totals
-SELECT name,
-SUM(work_duration) as "working", 
-SUM(break_duration) as "not working",
-count(*) as "intervals completed"
+-- per user, totals
+SELECT
+  sum(total_work_time) as "total time working", 
+  sum(total_break_time) as "total time not working", 
+  count(*) as "completed pomos"
 FROM sessions
-  WHERE user_id=9
-  GROUP BY name
+  WHERE user_id=15;
 
--- averages
+-- per user, per pomo task: total time working, breaking, and completed pomos
+SELECT 
+  name as "pomo task", 
+  sum(total_work_time) as "total time working", 
+  sum(total_break_time) as "total time not working", 
+  count(*) as "completed pomos today"
+FROM sessions WHERE user_id=15
+GROUP BY 
+  name;
 
--- totals per user, per day, per session name
-
-select name, total_time from 
-(select date::DATE, id, name, total_time from
-(select * from testsessions where user_id=1) as "inside"
-group by date::DATE, id, name, total_time) as "middle layer" 
-group by name, total_time;
+-- per user, per day, per pomo task: total time working, breaking, and completed pomos
+SELECT
+  date(modified),
+  name as "pomo task", 
+  sum(total_work_time) as "total time working", 
+  sum(total_break_time) as "total time not working", 
+  count(*) as "completed pomos today"
+FROM sessions WHERE user_id=15
+GROUP BY
+  date(modified),
+  name
+ORDER BY
+  date(modified);
 
 -- totals by week
+SELECT date_trunc('week', date(modified)) AS weekly,
+       COUNT(*)           
+FROM sessions
+GROUP BY weekly
+ORDER BY weekly;
 
 -- totals by month
 
-select modified::DATE, name, SUM(work_duration) as "working"
-from sessions group by modified::DATE, name, sessions.work_duration
-order by modified::DATE;
-
-
-CREATE TABLE testusers(
-  id          serial PRIMARY KEY, 
-  username    text
-);
-
-CREATE TABLE testsessions(
-  id                    serial PRIMARY KEY,
-  name                  text,
-  total_time            interval DEFAULT '0 00:00:00',
-  user_id               integer REFERENCES testusers ON DELETE CASCADE,
-  date                  date
-);
-
-INSERT INTO testsessions (name, total_time, user_id, date) VALUES 
-('civilization 6', '0 12:30:00', 1, '2017-08-01'),
-('hiking', '0 5:30:00', 1, '2017-08-02'),
-('sleeping', '0 6:30:00', 1, '2017-08-03');
+-- averages
