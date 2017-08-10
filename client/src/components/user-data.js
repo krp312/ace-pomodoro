@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+
 import { fetchSessions } from '../actions/actions';
 // import Spinner from 'react-spinkit';
 
@@ -13,7 +15,7 @@ export class UserData extends React.Component {
     renderResults() {
         if (this.props.loading) {
             // return <Spinner spinnerName="circle" noFadeIn />;
-            return <div>loading...</div>
+            return <div>loading sessions...</div>
         }
         if (this.props.error) {
             return <strong>{this.props.error}</strong>;
@@ -27,9 +29,9 @@ export class UserData extends React.Component {
                 <th>total completed sessions</th>
               </tr>
               <tr>
-                <th>{sessionItem.name}</th>
-                <th>{sessionItem.work_duration.hours} hours</th>
-                <th>{sessionItem.break_duration.hours} hours</th>
+                <th><Link to='/set-pomo'>{sessionItem.name}</Link></th>
+                <th>{sessionItem.work_duration.minutes} minutes</th>
+                <th>{sessionItem.break_duration.minutes} minutes</th>
                 <th>do later</th>
               </tr>
             </table>
