@@ -69,12 +69,13 @@ export class SetPomo extends React.Component {
     return (
       <div className="set-pomo">
         <p>
-          <em>Set pomodoro duration (minutes).</em>
+          <em>Set pomodoro work and break durations (minutes).</em>
         </p>
         <p>
-          <em>Label your pomodoro sessions to track your goals.</em>
+          <em>Label your pomodoro sessions to track your progress towards your goals over time.</em>
         </p>
         <form onSubmit={e => this.submitPomoForm(e)}>
+          <label for="sessionDuration"> Work duration: </label>
           <input
             aria-label="Pomodoro duration"
             type="text"
@@ -83,11 +84,22 @@ export class SetPomo extends React.Component {
             id="sessionDuration"
             ref={input => (this.durationInput = input)}
           />
+          <label for="breakDuration"> Break duration: </label>
+          <input
+            aria-label="Break duration"
+            type="text"
+            placeholder="5"
+            required
+            id="breakDuration"
+            ref={input => (this.braekDuration = input)}
+          />
+          <label for="sessionName">Session Name: </label>
           <input
             aria-label="Pomodoro session name"
             type="text"
             placeholder="Develop Udemy Course"
-            id="sessionName" required
+            id="sessionName"
+            required
             ref={input => (this.sessionName = input)}
           />
           <button type="submit">Start Pomodoro</button>

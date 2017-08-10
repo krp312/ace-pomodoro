@@ -121,11 +121,14 @@ export const postSessionsError = error => ({
   error
 });
 
+// send over total work time and total break time
 export const sendSessionDuration = (sessionDuration, sessionName) => {
   let formattedPostRequest = {
     name: sessionName,
-    work_duration: sessionDuration,
+    work_duration: "00:25:00",
     break_duration: "00:05:00",
+    total_work_time: sessionDuration,
+    // total_break_time: breakDuration,
     is_completed: true
   };
 
