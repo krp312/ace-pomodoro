@@ -196,3 +196,9 @@ export const RESET_STATE = "RESET_STATE";
 export const resetState = () => ({
   type: RESET_STATE
 });
+
+export const STOP_BREAK_TIMER = "STOP_BREAK_TIMER";
+export const stopBreakTimer = (pomoIntervalId) => ({
+  type: STOP_BREAK_TIMER,
+  pomoIntervalId
+})

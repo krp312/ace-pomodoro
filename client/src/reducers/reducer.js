@@ -18,7 +18,8 @@ import {
   PAUSE_TIMER,
   POST_BREAK_SETTING,
   POST_WORK_SETTING,
-  RESET_STATE
+  RESET_STATE,
+  STOP_BREAK_TIMER
 } from "../actions/actions";
 
 const initialState = {
@@ -35,6 +36,7 @@ const initialState = {
   breakDuration: null,
   workDuration: null,
   intervalId: null,
+  breakId: null,
   paused: false
 };
 //d
@@ -139,7 +141,13 @@ export default (state, action) => {
       ...state,
       intervalId: action.pomoIntervalId
     };
-  } else if (action.type === POST_SESSIONS_ERROR) {
+  } else if (action.type === STOP_BREAK_TIMER) {
+    return {
+      ...state,
+      breakId: action.pomoIntervalId
+    }
+  }
+  else if (action.type === POST_SESSIONS_ERROR) {
     return {
       ...state,
       error: action.error

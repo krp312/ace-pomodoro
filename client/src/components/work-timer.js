@@ -5,7 +5,8 @@ import {
   showBreakTimer,
   postBreakDuration,
   pauseTimer,
-  sendBreakDuration
+  sendBreakDuration,
+  stopBreakTimer
 } from "../actions/actions";
 import moment from "moment";
 
@@ -15,7 +16,6 @@ export class WorkTimer extends React.Component {
       "Break duration to be passed as user input: " +
         typeof this.props.breakDuration
     );
-    event.preventDefault();
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
 
@@ -60,6 +60,7 @@ export class WorkTimer extends React.Component {
       interval,
       setIntervalProps
     );
+    this.props.dispatch(stopBreakTimer(breakIntervalId));
   }
 
   toggleTimer(e) {
