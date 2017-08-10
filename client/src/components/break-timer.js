@@ -8,7 +8,7 @@ export class BreakTimer extends React.Component {
     let { secondsRemaining, minutesRemaining } = this.props;
     return (
       <div className="break-timer">
-        <div className="clock" role="timer">
+        <div className="break-clock" role="timer">
           <span className="minutes">
             {minutesRemaining < 10 ? "0" + minutesRemaining : minutesRemaining}
           </span>
