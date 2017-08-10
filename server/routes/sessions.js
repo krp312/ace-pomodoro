@@ -6,14 +6,12 @@ const { authenticator } = require('../auth');
 router.use(bodyParser.json());
 
 // get sessions by user id
-// return completed intervals count here
-// return only one instance of the same session id
-// completed intervals by day, week, and month
-router.get('/', authenticator, (req, res) => {
+// router.get('/', authenticator, (req, res) => {
+router.get('/',  (req, res) => {
   return req.app.locals.knex
     .select()
     .from('sessions')
-    .where('sessions.user_id', req.user.id)
+    .where('sessions.user_id', 15)
     .innerJoin('users', 'sessions.user_id', 'users.id')
     .then(result => {
       return res.status(200).json(result);

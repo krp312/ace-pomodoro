@@ -58,6 +58,49 @@ export const postSessionName = sessionName => ({
   type: POST_SESSION_NAME,
   sessionName
 });
+//              SESSIONS
+export const GET_SESSIONS_REQUEST = "GET_SESSIONS_REQUEST";
+export const getSessionsRequest = () => ({
+  type: GET_SESSIONS_REQUEST
+});
+
+export const GET_SESSIONS_SUCCESS = "GET_SESSIONS_SUCCESS";
+export const getSessionsSuccess = sessions => ({
+  type: GET_SESSIONS_SUCCESS,
+  sessions
+});
+
+export const GET_SESSIONS_ERROR = "GET_SESSIONS_ERROR";
+export const getSessionsError = error => ({ 
+  type: GET_SESSIONS_ERROR,
+  error
+});
+
+export const fetchSessions = () => dispatch => {
+  console.log('fetch session action started');
+  dispatch(getSessionsRequest());
+  fetch('/api/sessions/')
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(sessions => {
+      dispatch(getSessionsSuccess(sessions));
+    })
+    .catch(err => {
+      dispatch(getSessionsError(err));
+    });
+};
+
+// export const searchCharacters = name => dispatch => {
+//     dispatch(searchCharactersRequest());
+//     search(name)
+//         .then(characters => dispatch(searchCharactersSuccess(characters)))
+//         .catch(error => dispatch(searchCharactersError(error)));
+// };
+
 
 export const sendSessionDuration = (sessionDuration, sessionName) => {
   let formattedPostRequest = {

@@ -1,20 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchSessions } from '../actions/actions';
+// import Spinner from 'react-spinkit';
 
 import './styles/user-data.css';
 
 export class UserData extends React.Component {
+    componentDidMount() {
+      this.props.dispatch(fetchSessions());
+    }
+
+    renderResults() {
+        if (this.props.loading) {
+            // return <Spinner spinnerName="circle" noFadeIn />;
+            return <div>loading...</div>
+        }
+        if (this.props.error) {
+            return <strong>{this.props.error}</strong>;
+        }
+        const sessions = this.props.sessions.map((sessionItem, index) => (
+            <table className="session-result" key={index}>  
+              <tr>
+                <th>session</th>
+                <th>total work time</th>
+                <th>total break time</th>
+                <th>total completed sessions</th>
+              </tr>
+              <tr>
+                <th>{sessionItem.name}</th>
+                <th>{sessionItem.work_duration.hours} hours</th>
+                <th>{sessionItem.break_duration.hours} hours</th>
+                <th>do later</th>
+              </tr>
+            </table>
+        ));
+        return (
+            <div className="single-session-container">
+                {sessions}
+            </div>
+        );
+    }
 
   render() {
     return (
       <div className="user-data">
-        <p>this will be user data, which will track things like:</p>
-        <ul>
-          <li>session name</li>
-          <li>total work time</li>
-          <li>total break time</li>
-          <li>total session time</li>
-        </ul>
+        <div className="user-sessions-container">
+          {this.renderResults()}
+        </div>
       </div>
     )
   }
@@ -22,8 +54,9 @@ export class UserData extends React.Component {
 
 const mapStateToProps = (state) => (
   {
-  // cheeses: state.cheeses.cheeses,
-  // loading: state.cheeses.loading
+  sessions: state.sessions,
+  loading: state.loading,
+  error: state.error
 })
 
 export default connect(mapStateToProps)(UserData);

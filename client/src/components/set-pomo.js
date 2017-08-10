@@ -40,7 +40,7 @@ export class SetPomo extends React.Component {
     setInterval(
       function() {
         // For live version: we want to dispatch 
-        if (Math.abs(duration) === 59000) {
+        if (Math.abs(duration) === 0) {
           let elapsedTime = moment.utc(Math.abs(diffTime) - Math.abs(duration)).format('HH:mm:ss');
           setIntervalProps.dispatch(sendSessionDuration(elapsedTime, sessionName));
           return null;
