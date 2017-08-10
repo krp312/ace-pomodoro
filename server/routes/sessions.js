@@ -6,6 +6,7 @@ const { authenticator } = require('../auth');
 router.use(bodyParser.json());
 
 router.get('/', authenticator, (req, res) => {
+  let userId;
   let allTimeTotals;
   let totalsPerUserPerPomo;
   let totalsPerUserPerPomoPerDay;

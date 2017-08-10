@@ -20,6 +20,18 @@ CREATE TABLE sessions(
   is_completed          boolean DEFAULT false
 );
 
+CREATE TABLE sessions(
+  id                    serial PRIMARY KEY,
+  modified              timestamp DEFAULT current_timestamp,
+  name                  text,
+  work_duration         interval,
+  break_duration        interval,
+  total_work_time       interval DEFAULT '0 00:00:00',
+  total_break_time      interval DEFAULT '0 00:00:00',
+  user_id               integer REFERENCES users ON DELETE CASCADE,
+  is_completed          boolean DEFAULT false
+);
+
 INSERT INTO users (username, password, first_name, last_name, email) VALUES
   ('liz123', 'nbc', 'Liz', 'Lemon', 'liz@nbc.com'),
   ('thePrez', '123', 'Donald', 'Trump', 'thedonaldfd@whitehouse.gov')  
@@ -117,4 +129,9 @@ FROM sessions WHERE user_id=15
 GROUP BY
   name;
 
-  
+-- general table for react routes
+-- sort by most recent
+select distinct on (name)
+    name, work_duration, break_duration
+from sessions WHERE user_id=15
+ORDER BY name, modified desc;
