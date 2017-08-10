@@ -1,4 +1,5 @@
 ## questions
+* does react router need persisting id?
 * got rid of mocha command in root package.json, is this okay?
 * make changes to master on the local, then checkout?
 * display branch in working dir

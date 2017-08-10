@@ -142,3 +142,12 @@ if (require.main === module) {
 //   .then(results => {
 //     console.log(JSON.stringify(results, null, 2));
 //   });
+
+// knex
+//   .distinct(knex.raw('ON (name) name'))
+//   .select('name', 'work_duration', 'break_duration')
+//   .from('sessions')
+//   .where('user_id', 15)
+//   .orderBy(['name', 'modified'], 'desc')
+//   .then(result => {
+//   });
