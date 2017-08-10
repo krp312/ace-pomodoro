@@ -9,7 +9,8 @@ import {
   sendSessionDuration,
   stopPomoTimer,
   postBreakSetting,
-  postWorkSetting
+  postWorkSetting,
+  bindSessionLength
 } from "../actions/actions";
 import moment from "moment";
 
@@ -24,11 +25,15 @@ export class SetPomo extends React.Component {
 
     const breakDuration = parseInt(this.breakDuration.value);
     this.props.dispatch(postBreakSetting(breakDuration));
-    const formattedBreakDuration = moment.utc(breakDuration * 60000).format("HH:mm:ss");
+    const formattedBreakDuration = moment
+      .utc(breakDuration * 60000)
+      .format("HH:mm:ss");
 
     const userDurationInput = parseInt(this.durationInput.value);
     this.props.dispatch(postWorkSetting(userDurationInput));
-    const formattedWorkDuration = moment.utc(userDurationInput * 60000).format("HH:mm:ss");
+    const formattedWorkDuration = moment
+      .utc(userDurationInput * 60000)
+      .format("HH:mm:ss");
     // console.log('Break time in correct format in MS: ' + moment.utc(breakDuration * 60000).format("HH:mm:ss"));
 
     const currentTime = new Date().getTime();
@@ -46,6 +51,14 @@ export class SetPomo extends React.Component {
       )
     );
 
+    // Bind original durations for timer restart
+    this.props.dispatch(
+      bindSessionLength(
+        Math.abs(duration.minutes()),
+        Math.abs(duration.seconds())
+      )
+    );
+
     let setIntervalProps = this.props;
     const interval = 1000;
     const pomoIntervalId = setInterval(
@@ -56,7 +69,12 @@ export class SetPomo extends React.Component {
             .utc(Math.abs(diffTime) - Math.abs(duration))
             .format("HH:mm:ss");
           setIntervalProps.dispatch(
-            sendSessionDuration(elapsedTime, sessionName, formattedBreakDuration, formattedWorkDuration)
+            sendSessionDuration(
+              elapsedTime,
+              sessionName,
+              formattedBreakDuration,
+              formattedWorkDuration
+            )
           );
           clearInterval(pomoIntervalId);
           return null;
@@ -82,7 +100,10 @@ export class SetPomo extends React.Component {
           <em>Set pomodoro work and break durations (minutes).</em>
         </p>
         <p>
-          <em>Label your pomodoro sessions to track your progress towards your goals over time.</em>
+          <em>
+            Label your pomodoro sessions to track your progress towards your
+            goals over time.
+          </em>
         </p>
         <form onSubmit={e => this.submitPomoForm(e)}>
           <label htmlFor="sessionDuration"> Work duration: </label>

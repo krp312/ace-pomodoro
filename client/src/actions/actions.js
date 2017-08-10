@@ -202,3 +202,15 @@ export const stopBreakTimer = (pomoIntervalId) => ({
   type: STOP_BREAK_TIMER,
   pomoIntervalId
 })
+
+export const RESTART_WORK_TIMER = "RESTART_WORK_TIMER";
+export const restartWorkTimer = () => ({
+  type: RESTART_WORK_TIMER
+})
+
+export const BIND_SESSION_LENGTH = "BIND_SESSION_LENGTH";
+export const bindSessionLength = (minutes, seconds) => ({
+  type: BIND_SESSION_LENGTH,
+  minutes,
+  seconds
+})

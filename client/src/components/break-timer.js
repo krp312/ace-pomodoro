@@ -1,14 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/break-timer.css";
-import {resetState} from "../actions/actions";
+import {resetState, restartWorkTimer} from "../actions/actions";
 
 export class BreakTimer extends React.Component {
 restartSession(e) {
-  console.log('click  ')
    clearInterval(this.props.intervalId);
-   this.props.dispatch(resetState());
+  //  let {breakDuration, workDuration} = this.props;
+  //  this.props.dispatch(resetState());
+  //  console.log('the two numbers we want to send to work timer: ' + this.props.workDuration + ' ' + this.props.breakDuration)
    this.props.history.push(`/work-timer`);
+  this.props.dispatch(restartWorkTimer());
 }
   render() {
     let { secondsRemaining, minutesRemaining } = this.props;
@@ -36,6 +38,8 @@ const mapStateToProps = state => ({
   minutesRemaining: state.breakMinutesRemaining,
   secondsRemaining: state.breakSecondsRemaining,
   intervalId: state.breakId,
+  workDuration: state.workDuration,
+  breakDuration: state.breakDuration
 });
 
 export default connect(mapStateToProps)(BreakTimer);

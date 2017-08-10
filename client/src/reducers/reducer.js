@@ -19,7 +19,9 @@ import {
   POST_BREAK_SETTING,
   POST_WORK_SETTING,
   RESET_STATE,
-  STOP_BREAK_TIMER
+  STOP_BREAK_TIMER,
+  RESTART_WORK_TIMER,
+  BIND_SESSION_LENGTH
 } from "../actions/actions";
 
 const initialState = {
@@ -32,6 +34,8 @@ const initialState = {
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
+  initialMinutes: null,
+  initialSeconds: null,
   currentSessionName: "",
   breakDuration: null,
   workDuration: null,
@@ -42,7 +46,7 @@ const initialState = {
 //d
 export default (state, action) => {
   state = state || initialState;
-  console.log('What type of action is being submitted: ' + action.type)
+  console.log("What type of action is being submitted: " + action.type);
 
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
@@ -145,9 +149,8 @@ export default (state, action) => {
     return {
       ...state,
       breakId: action.pomoIntervalId
-    }
-  }
-  else if (action.type === POST_SESSIONS_ERROR) {
+    };
+  } else if (action.type === POST_SESSIONS_ERROR) {
     return {
       ...state,
       error: action.error
@@ -169,6 +172,23 @@ export default (state, action) => {
       workDuration: null,
       intervalId: null,
       paused: false
+    };
+  } else if (action.type === RESTART_WORK_TIMER) {
+    return {
+      ...state,
+      sessionMinutesRemaining: state.initialMinutes,
+      sessionSecondsRemaining: state.initialSeconds,
+      breakMinutesRemaining: 0,
+      breakSecondsRemaining: 0,
+      currentSessionName: "",
+      intervalId: null,
+      paused: false
+    };
+  } else if (action.type === BIND_SESSION_LENGTH) {
+    return {
+      ...state,
+      initialMinutes: action.minutes,
+      initialSeconds: action.seconds
     };
   }
   return state;
