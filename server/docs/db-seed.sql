@@ -61,7 +61,7 @@ SELECT
   name as "pomo task", 
   sum(total_work_time) as "total time working", 
   sum(total_break_time) as "total time not working", 
-  count(*) as "completed pomos today"
+  count(*) as "completed pomos all-time"
 FROM sessions WHERE user_id=15
 GROUP BY 
   name;
@@ -88,6 +88,7 @@ SELECT
   sum(total_break_time) as "total time not working", 
   COUNT(*) as "completed pomos"
 FROM sessions
+WHERE user_id=15
 GROUP BY weekly, name
 ORDER BY weekly;
 
@@ -99,6 +100,7 @@ SELECT
   sum(total_break_time) as "total time not working", 
   COUNT(*) as "completed pomos"
 FROM sessions
+WHERE user_id=15
 GROUP BY monthly, name
 ORDER BY monthly;
 
