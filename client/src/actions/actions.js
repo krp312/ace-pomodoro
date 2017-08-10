@@ -163,3 +163,31 @@ export const sendSessionDuration = (sessionDuration, sessionName, breakDurationS
     });
   };
 };
+
+export const sendBreakDuration = (breakDuration, sessionName) => {
+  let formattedPostRequest = {
+    name: sessionName,
+    total_break_time: breakDuration,
+  };
+  console.log('Break duration: ' + formattedPostRequest.total_break_time);
+  // The User barackobama is hardcoded in for demo purposes
+  const opts = {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Basic bWFya3p1Y2s6ZmFjZWJvb2s="
+    },
+    method: "POST",
+    body: JSON.stringify(formattedPostRequest)
+  };
+  return dispatch => {
+    fetch("/api/sessions", opts)
+      .then(function(res) {
+        return res;
+      })
+    .catch(err => {
+      return err;
+    });
+  };
+};
+

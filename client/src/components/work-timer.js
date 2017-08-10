@@ -4,7 +4,8 @@ import "./styles/work-timer.css";
 import {
   showBreakTimer,
   postBreakDuration,
-  pauseTimer
+  pauseTimer,
+  sendBreakDuration
 } from "../actions/actions";
 import moment from "moment";
 
@@ -41,9 +42,9 @@ export class WorkTimer extends React.Component {
           let elapsedTime = moment
             .utc(Math.abs(diffTime) - Math.abs(duration))
             .format("HH:mm:ss");
-          // setIntervalProps.dispatch(
-          //   sendPauseDuration(elapsedTime, sessionName)
-          // );
+          setIntervalProps.dispatch(
+            sendBreakDuration(elapsedTime, setIntervalProps.sessionName)
+          );
           clearInterval(breakIntervalId);
           return null;
         }
@@ -114,7 +115,8 @@ const mapStateToProps = state => ({
   secondsRemaining: state.sessionSecondsRemaining,
   intervalId: state.intervalId,
   paused: state.paused,
-  breakDuration: state.breakDuration
+  breakDuration: state.breakDuration,
+  sessionName: state.currentSessionName
 });
 
 export default connect(mapStateToProps)(WorkTimer);
