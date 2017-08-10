@@ -1,13 +1,10 @@
 ## questions
+* got rid of mocha command in root package.json, is this okay?
 * make changes to master on the local, then checkout?
-* incomplete work time
 * display branch in working dir
-* knex testing
-* close garage door
 * how did elias find what he found?
 * port proxy
-* what endpoints to prioritize
-* how to do auth with postgres
+* terminal saved output from rohan
 
 ## next steps
 first priority: getting timer to display, and upon completion, updates the backend
