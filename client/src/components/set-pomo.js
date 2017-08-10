@@ -87,7 +87,7 @@ export class SetPomo extends React.Component {
             aria-label="Pomodoro session name"
             type="text"
             placeholder="Develop Udemy Course"
-            id="sessionName"
+            id="sessionName" required
             ref={input => (this.sessionName = input)}
           />
           <button type="submit">Start Pomodoro</button>

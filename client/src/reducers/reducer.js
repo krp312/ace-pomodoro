@@ -1,13 +1,3 @@
-// features/frontend
-// import {LOGIN_USER_REQUEST,
-// LOGIN_USER_SUCCESS,
-// LOGIN_USER_ERROR,
-// CREATE_USER_REQUEST,
-// SUBMIT_POMODORO,
-// VIEW_USER_DATA,
-// SHOW_POMO_INFO,
-// POST_MINUTES,
-// POST_SECONDS} from '../actions/actions'
 import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
