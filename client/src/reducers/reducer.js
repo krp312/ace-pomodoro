@@ -19,18 +19,27 @@ import {
   POST_SESSION_DURATION,
   SHOW_BREAK_TIMER,
   POST_BREAK_DURATION,
-  POST_SESSION_NAME
+  POST_SESSION_NAME,
+  GET_SESSIONS_REQUEST,
+  GET_SESSIONS_SUCCESS,
+  GET_SESSIONS_ERROR,
+  STOP_POMO_TIMER,
+  POST_SESSIONS_ERROR,
+  PAUSE_TIMER
 } from "../actions/actions";
 
 
 const initialState = {
-  users: [],
+  user: [],
+  sessions: [],
   display: "login",
   sessionMinutesRemaining: 0,
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
-  currentSessionName: ''
+  currentSessionName: '',
+  intervalId: null,
+  paused: false
   //displays - login, userData, setPomo, workPomo, pomoInfo
 };
 //d
@@ -104,6 +113,38 @@ export default (state, action) => {
       ...state,
       currentSessionName: action.sessionName
     }
-  }
-  return state;
+  } else if ((action.type === GET_SESSIONS_REQUEST)) {
+    console.log('session request');
+    return Object.assign({}, state, {
+            loading: true,
+            error: null
+        });
+  } else if (action.type === GET_SESSIONS_SUCCESS) {
+        return Object.assign({}, state, {
+            sessions: action.sessions,
+            loading: false,
+            error: null
+        });
+    } else if (action.type === GET_SESSIONS_ERROR) {
+        return Object.assign({}, state, {
+            error: action.error,
+            loading: false
+        });
+    } else if (action.type === STOP_POMO_TIMER) {
+      return {
+        ...state, 
+        intervalId: action.pomoIntervalId
+      }
+    } else if (action.type === POST_SESSIONS_ERROR) {
+      return {
+        ...state,
+        error: action.error
+      }
+    } else if (action.type === PAUSE_TIMER) {
+      return {
+        ...state,
+        paused: !state.paused
+      }
+    }
+      return state;
 };
