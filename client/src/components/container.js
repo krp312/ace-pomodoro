@@ -14,7 +14,7 @@ import EnsureLoggedInContainer from './ensure-logged-in-container';
 
 import "./styles/container.css";
 
-export default function App(props) {
+export function App(props) {
     return (
         <Router>
             <div className="app">
@@ -33,8 +33,7 @@ export default function App(props) {
                 </main>
             </div>
         </Router>
-    );
+    )
   }
-}
 
 export default connect()(App);
