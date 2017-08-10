@@ -112,21 +112,29 @@ router.get('/', authenticator, (req, res) => {
 
 // Create a new session in DB 
 router.post('/', authenticator, (req, res) => {
-  const requiredFields = ['name', 'work_duration', 'break_duration', 'is_completed'];
-  const missingIndex = requiredFields.findIndex(field => !req.body[field]);
-  if (missingIndex !== -1) {
-    return res.status(400).json({
-      message: `Missing field: ${requiredFields[missingIndex]}`
-    });
-  }
+  // const requiredFields = ['name', 'work_duration', 'break_duration', 'is_completed'];
+  // const missingIndex = requiredFields.findIndex(field => !req.body[field]);
+  // if (missingIndex !== -1) {
+  //   return res.status(400).json({
+  //     message: `Missing field: ${requiredFields[missingIndex]}`
+  //   });
+  // }
 
-  let { name, work_duration, break_duration, is_completed } = req.body;
+  let { name, 
+    work_duration, 
+    break_duration, 
+    total_work_time,
+    total_break_time,
+    user_id,
+    is_completed } = req.body;
 
   return req.app.locals.knex
     .insert({ 
       name,
       work_duration,
       break_duration,
+      total_work_time,
+      total_break_time,
       is_completed,
       user_id: req.user.id
     })

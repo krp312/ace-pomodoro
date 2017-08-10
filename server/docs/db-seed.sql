@@ -116,3 +116,5 @@ SELECT
 FROM sessions WHERE user_id=15
 GROUP BY
   name;
+
+  
