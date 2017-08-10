@@ -130,8 +130,17 @@ GROUP BY
   name;
 
 -- general table for react routes
--- sort by most recent
-select distinct on (name)
-    name, work_duration, break_duration
+select distinct on (name) 
+name, work_duration, break_duration
+from sessions WHERE user_id=15
+ORDER BY name, modified desc;
+
+select distinct on (name) 
+row_number() OVER() AS row_number, name, work_duration, break_duration
+from sessions WHERE user_id=15
+ORDER BY name, modified desc;
+
+select distinct on (name) 
+row_number() OVER() AS row_number, name, work_duration, break_duration
 from sessions WHERE user_id=15
 ORDER BY name, modified desc;

@@ -6,7 +6,7 @@ const { authenticator } = require('../auth');
 router.use(bodyParser.json());
 
 router.get('/', authenticator, (req, res) => {
-  let userId;
+  let sessionInfo;
   let allTimeTotals;
   let totalsPerUserPerPomo;
   let totalsPerUserPerPomoPerDay;
@@ -99,7 +99,20 @@ router.get('/', authenticator, (req, res) => {
     .then(results => {
       dailyAverages = results;
 
+      // info needed for pomo when clicked from user-stats page
+      return req.app.locals.knex
+        .distinct(req.app.locals.knex.raw('ON (name) name'))
+        .select('name', 'work_duration', 'break_duration')
+        .from('sessions')
+        .where('user_id', 15)
+        .orderBy(['name', 'modified'], 'desc')
+    })
+    .then(results => {
+      sessionInfo = results;
+
       return res.status(200).json({
+        user_id: req.user.id,
+        sessionInfo,
         allTimeTotals,
         totalsPerUserPerPomo,
         totalsPerUserPerPomoPerDay,
@@ -107,7 +120,7 @@ router.get('/', authenticator, (req, res) => {
         totalsPerUserPerMonth,
         dailyAverages
       });
-    })  
+    })
     .catch(err => res.status(500).send(err));
 });
 
