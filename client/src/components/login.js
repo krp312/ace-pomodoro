@@ -25,7 +25,7 @@ export class LogIn extends React.Component {
     return (
       <div className="login">
         <h2>Login</h2>
-        <form onSubmit={e => this.loginSubmit(e)}>
+        <form class="login-form" onSubmit={e => this.loginSubmit(e)}>
           <input
             aria-label="username"
             id="username"
