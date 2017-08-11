@@ -28,9 +28,10 @@ import {
 } from "../actions/actions";
 
 const initialState = {
-  user: "pomodoro_enthusiast",
+  user: "",
   // user: '',
-  loggedIn: true,
+  // loggedIn: true,
+  loggedIn: false,
   sessions: [],
   display: "login",
   sessionMinutesRemaining: 0,
@@ -73,6 +74,8 @@ export default (state, action) => {
     } 
   } else if (action.type === UPDATE_CREDENTIALS) {
     return Object.assign({}, state, {
+      // 'user' is used for displaying user data on header. 'username' is used for auth
+      user: action.username,
       username: action.username,
       password: action.password,
       display: "setPomo"
