@@ -104,8 +104,9 @@ router.get('/', authenticator, (req, res) => {
         .distinct(req.app.locals.knex.raw('ON (name) name'))
         .select('name', 'work_duration', 'break_duration')
         .from('sessions')
-        .where('user_id', 15)
-        .orderBy(['name', 'modified'], 'desc')
+        .where('user_id', req.user.id)
+        .andWhere(req.app.locals.knex.raw('(work_duration IS NOT null OR break_duration IS NOT null)'))
+        .orderBy(['name', 'modified'], 'desc');
     })
     .then(results => {
       sessionInfo = results;
@@ -123,6 +124,11 @@ router.get('/', authenticator, (req, res) => {
     })
     .catch(err => res.status(500).send(err));
 });
+
+// select distinct on (name) 
+// name, work_duration, break_duration
+// from sessions WHERE user_id=16 AND (work_duration IS NOT null OR break_duration IS NOT null)
+// ORDER BY name, modified desc;
 
 // Create a new session in DB 
 router.post('/', authenticator, (req, res) => {

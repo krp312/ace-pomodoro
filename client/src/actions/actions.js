@@ -100,7 +100,6 @@ export const updateCredentials = (username, password) => ({
 export const fetchSessions = (username, password) => dispatch => {
   const credentials = `${username}:${password}`;
   const encodedAuthHeader = btoa(credentials);
-  // 'Basic $encoded_auth_header';
   const authString = `Basic ${encodedAuthHeader}`;
 
   const opts = {
@@ -113,7 +112,7 @@ export const fetchSessions = (username, password) => dispatch => {
   };
 
   dispatch(getSessionsRequest());
-  fetch('/api/sessions/', opts)
+  return fetch('/api/sessions/', opts)
     .then(res => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
@@ -121,7 +120,7 @@ export const fetchSessions = (username, password) => dispatch => {
       return res.json();
     })
     .then(sessions => {
-      dispatch(getSessionsSuccess(sessions));
+      return dispatch(getSessionsSuccess(sessions));
     })
     .catch(err => {
       dispatch(getSessionsError(err));
@@ -168,12 +167,12 @@ export const sendSessionDuration = (sessionDuration, sessionName, breakDurationS
     // total_break_time: breakDuration,
     is_completed: true
   };
-  // The User barackobama is hardcoded in for demo purposes
+
   const opts = {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Basic bWFya3p1Y2s6ZmFjZWJvb2s='
+      Authorization: `Basic ${window.encodedAuthHeader}`
     },
     method: 'POST',
     body: JSON.stringify(formattedPostRequest)
@@ -199,12 +198,12 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
     name: sessionName,
     total_break_time: breakDuration,
   };
-  // The User barackobama is hardcoded in for demo purposes
+  console.log('Break duration: ' + formattedPostRequest.total_break_time);
   const opts = {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Basic bWFya3p1Y2s6ZmFjZWJvb2s='
+      Authorization: `Basic ${window.encodedAuthHeader}`
     },
     method: 'POST',
     body: JSON.stringify(formattedPostRequest)
