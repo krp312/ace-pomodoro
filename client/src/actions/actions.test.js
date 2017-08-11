@@ -4,6 +4,7 @@ import {
   LOGIN_USER_SUCCESS,
   loginUserSuccess,
   LOGIN_USER_ERROR,
+  loginUserError,
   CREATE_USER_REQUEST,
   SUBMIT_POMODORO,
   VIEW_USER_DATA,
@@ -32,11 +33,15 @@ describe('User Login', () => {
   it('Should return the action', () => {
     const action = loginUserRequest();
     expect(action.type).toEqual(LOGIN_USER_REQUEST);
-  })
+  });
   it('Should return the action', () => {
     const user = 'evan1234';
     const action = loginUserSuccess(user);
     expect(action.type).toEqual(LOGIN_USER_SUCCESS);
     expect(action.user).toEqual(user);
-  })
+  });
+  it('Should return the action', () => {
+    const action = loginUserError();
+    expect(action.type).toEqual(LOGIN_USER_ERROR);
+  });
 })
