@@ -9,7 +9,7 @@ import './styles/user-data.css';
 
 export class UserData extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchSessions());
+    this.props.dispatch(fetchSessions(this.props.username, this.props.password));
   }
 
   renderResults() {
@@ -73,8 +73,9 @@ export class UserData extends React.Component {
 const mapStateToProps = state => ({
   sessions: state.sessions,
   loading: state.loading,
-  error: state.error
-  
+  error: state.error,
+  username: state.username,
+  password: state.password
 });
 
 export default connect(mapStateToProps)(UserData);
