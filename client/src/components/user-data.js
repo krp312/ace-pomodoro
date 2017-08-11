@@ -13,6 +13,11 @@ export class UserData extends React.Component {
   }
 
   renderResults() {
+    console.log(this.props.sessions.sessionInfo)
+    console.log(typeof this.props.sessions.sessionInfo)
+    // console.log(this.props.sessions.sessionInfo.map((item, index) => {
+    //   item.name = 'bob'
+    // }));
     if (this.props.loading) {
       // return <Spinner spinnerName="circle" noFadeIn />;
       return <div>loading sessions...</div>;
@@ -24,68 +29,40 @@ export class UserData extends React.Component {
         </strong>
       );
     }
-    const sessions = this.props.sessions.map((sessionItem, index) =>
+    if (this.props.sessions.sessionInfo) {
+    const sessionData = this.props.sessions.sessionInfo.map((item, index) =>
       <table className="session-result" key={index}>
-        <tr>
+         <tr>
           <th>session</th>
-          <th>total work time</th>
-          <th>total break time</th>
+          <th>set work time</th>
+          <th>set break time</th>
           <th>total completed sessions</th>
         </tr>
         <tr>
           <th>
             <Link to="/set-pomo">
-              {sessionItem.name}
+              {item.name}
             </Link>
           </th>
           <th>
-            {sessionItem.work_duration.minutes} minutes
+            {item.work_duration.minutes} minutes, {item.work_duration.seconds} seconds
           </th>
           <th>
-            {sessionItem.break_duration.minutes} minutes
+            {item.break_duration.minutes} minutes, {item.break_duration.seconds} seconds
           </th>
           <th>do later</th>
-        </tr>
+        </tr> 
       </table>
-    );
+    )
     return (
       <div className="single-session-container">
-        {sessions}
+        {console.log(this.props.sessions)}
+        {console.log(this.props.sessions.sessionInfo)}
+                {sessionData}        
       </div>
     );
   }
-    
-  //   const sessions = this.props.sessions.map((sessionItem, index) =>
-  //     <table className="session-result" key={index}>
-  //       <tr>
-  //         <th>session</th>
-  //         <th>total work time</th>
-  //         <th>total break time</th>
-  //         <th>total completed sessions</th>
-  //       </tr>
-  //       <tr>
-  //         <th>
-  //           <Link to="/set-pomo">
-  //             {sessionItem.name}
-  //           </Link>
-  //         </th>
-  //         <th>
-  //           {sessionItem.work_duration.minutes} minutes
-  //         </th>
-  //         <th>
-  //           {sessionItem.break_duration.minutes} minutes
-  //         </th>
-  //         <th>do later</th>
-  //       </tr>
-  //     </table>
-  //   );
-  //   return (
-  //     <div className="single-session-container">
-  //       {sessions}
-  //     </div>
-  //   );
-  // }
-
+  }//closing if bracket
   render() {
     return (
       <div className="user-data">

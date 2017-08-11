@@ -87,8 +87,17 @@ export const getSessionsError = error => ({
 
 export const fetchSessions = () => dispatch => {
   console.log("fetch session action started");
+  const opts = {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Basic bWFya3p1Y2s6ZmFjZWJvb2s="
+    },
+    method: "GET",
+    // body: JSON.stringify(formattedPostRequest)
+  };
   dispatch(getSessionsRequest());
-  fetch("/api/sessions/")
+  fetch("/api/sessions/", opts)
     .then(res => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
@@ -96,6 +105,7 @@ export const fetchSessions = () => dispatch => {
       return res.json();
     })
     .then(sessions => {
+      console.log('successful session get')
       dispatch(getSessionsSuccess(sessions));
     })
     .catch(err => {
