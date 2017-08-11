@@ -214,3 +214,15 @@ export const bindSessionLength = (minutes, seconds) => ({
   minutes,
   seconds
 })
+
+export const BIND_BREAK_LENGTH = "BIND_BREAK_LENGTH";
+export const bindBreakLength = (minutes, seconds) => ({
+  type: BIND_BREAK_LENGTH,
+  minutes,
+  seconds
+})
+
+export const RESTARTED_SESSION = "RESTARTED_SESSION";
+export const restartedSession = () => ({
+  type: RESTARTED_SESSION
+})

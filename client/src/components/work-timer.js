@@ -6,7 +6,8 @@ import {
   postBreakDuration,
   pauseTimer,
   sendBreakDuration,
-  stopBreakTimer
+  stopBreakTimer,
+  bindBreakLength
 } from "../actions/actions";
 import moment from "moment";
 
@@ -34,6 +35,15 @@ export class WorkTimer extends React.Component {
         Math.abs(duration.seconds())
       )
     );
+
+    // Bind original durations for timer restart
+    this.props.dispatch(
+      bindBreakLength(
+        Math.abs(duration.minutes()),
+        Math.abs(duration.seconds())
+      )
+    );
+
     let setIntervalProps = this.props;
     const breakIntervalId = setInterval(
       function() {

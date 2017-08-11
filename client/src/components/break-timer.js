@@ -9,8 +9,14 @@ restartSession(e) {
   //  let {breakDuration, workDuration} = this.props;
   //  this.props.dispatch(resetState());
   //  console.log('the two numbers we want to send to work timer: ' + this.props.workDuration + ' ' + this.props.breakDuration)
-   this.props.history.push(`/work-timer`);
+   this.props.history.push(`/set-pomo`);
   this.props.dispatch(restartWorkTimer());
+}
+
+newPomo(e) {
+     clearInterval(this.props.intervalId);
+     this.props.dispatch(resetState());
+     this.props.history.push(`/set-pomo`);
 }
   render() {
     let { secondsRemaining, minutesRemaining } = this.props;
@@ -25,10 +31,12 @@ restartSession(e) {
             {secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining}
           </span>
         </div>
-        <button onClick={e => this.restartSession(e)} className="restart-sesison-button" type="button">
+        <button onClick={e => this.restartSession(e)} className="restart-session-button" type="button">
           Restart Pomodoro Session
         </button>
-
+        <button onClick={e => this.newPomo(e)} className="new-pomo-button" type="button">
+          Create New Pomodoro Session
+        </button>
       </div>
     );
   }

@@ -21,7 +21,9 @@ import {
   RESET_STATE,
   STOP_BREAK_TIMER,
   RESTART_WORK_TIMER,
-  BIND_SESSION_LENGTH
+  BIND_SESSION_LENGTH,
+  BIND_BREAK_LENGTH,
+  RESTARTED_SESSION
 } from "../actions/actions";
 
 const initialState = {
@@ -36,12 +38,15 @@ const initialState = {
   breakSecondsRemaining: 0,
   initialMinutes: null,
   initialSeconds: null,
-  currentSessionName: "",
+  initialBreakMinutes: null,
+  initialBreakSeconds: null,
+  currentSessionName: null,
   breakDuration: null,
   workDuration: null,
   intervalId: null,
   breakId: null,
-  paused: false
+  paused: false,
+  restartedSession: false
 };
 //d
 export default (state, action) => {
@@ -167,20 +172,25 @@ export default (state, action) => {
       sessionSecondsRemaining: 0,
       breakMinutesRemaining: 0,
       breakSecondsRemaining: 0,
-      currentSessionName: "",
+      initialMinutes: null,
+      initialSeconds: null,
+      initialBreakMinutes: null,
+      initialBreakSeconds: null,
+      currentSessionName: null,
       breakDuration: null,
       workDuration: null,
       intervalId: null,
-      paused: false
+      breakId: null,
+      paused: false,
+      restartedSession: false
     };
   } else if (action.type === RESTART_WORK_TIMER) {
     return {
       ...state,
       sessionMinutesRemaining: state.initialMinutes,
       sessionSecondsRemaining: state.initialSeconds,
-      breakMinutesRemaining: 0,
-      breakSecondsRemaining: 0,
-      currentSessionName: "",
+      breakMinutesRemaining: state.initialBreakMinutes,
+      breakSecondsRemaining: state.initialBreakSeconds,
       intervalId: null,
       paused: false
     };
@@ -190,6 +200,17 @@ export default (state, action) => {
       initialMinutes: action.minutes,
       initialSeconds: action.seconds
     };
+  } else if (action.type ===  BIND_BREAK_LENGTH) {
+    return {
+      ...state, 
+      initialBreakMinutes: action.minutes,
+      initialBreakSeconds: action.seconds
+    }
+  } else if (action.type === RESTARTED_SESSION) {
+    return {
+      ...state,
+    restartedSession: true
+    }
   }
   return state;
 };
