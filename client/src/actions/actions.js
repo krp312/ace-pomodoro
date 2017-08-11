@@ -14,6 +14,11 @@ export const loginUserError = message => ({
   type: LOGIN_USER_ERROR
 });
 
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const logoutUser = message => ({
+  type: LOGOUT_USER
+});
+
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const createUserRequest = () => ({
   type: CREATE_USER_REQUEST
@@ -183,13 +188,17 @@ export const sendSessionDuration = (sessionDuration, sessionName, breakDurationS
   };
 };
 
+export const RESET_STATE = 'RESET_STATE';
+export const resetState = () => ({
+  type: RESET_STATE
+});
+
 export const sendBreakDuration = (breakDuration, sessionName) => {
   let formattedPostRequest = {
     name: sessionName,
     total_break_time: breakDuration,
   };
   console.log('Break duration: ' + formattedPostRequest.total_break_time);
-
   const opts = {
     headers: {
       Accept: 'application/json',
@@ -211,10 +220,7 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
   };
 };
 
-export const RESET_STATE = 'RESET_STATE';
-export const resetState = () => ({
-  type: RESET_STATE
-});
+
 
 export const STOP_BREAK_TIMER = 'STOP_BREAK_TIMER';
 export const stopBreakTimer = (pomoIntervalId) => ({
@@ -239,9 +245,4 @@ export const bindBreakLength = (minutes, seconds) => ({
   type: BIND_BREAK_LENGTH,
   minutes,
   seconds
-});
-
-export const RESTARTED_SESSION = 'RESTARTED_SESSION';
-export const restartedSession = () => ({
-  type: RESTARTED_SESSION
 });

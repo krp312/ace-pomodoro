@@ -26,28 +26,32 @@ export class UserData extends React.Component {
     if (this.props.sessions.sessionInfo) {
       const sessionData = this.props.sessions.sessionInfo.map((item, index) =>
         <table className="session-result" key={index}>
-          <tr>
-            <th>session</th>
-            <th>set work time</th>
-            <th>set break time</th>
-            <th>total completed sessions</th>
-          </tr>
-          <tr>
-            <th>
-              <Link to={`/set-pomo/${item.name}`}>
-                 {item.name} 
-              </Link>
-            </th>
-            <th>
-              {item.work_duration.minutes} minutes, {item.work_duration.seconds}{' '}
-              seconds
-            </th>
-            <th>
-              {item.break_duration.minutes} minutes,{' '}
-              {item.break_duration.seconds} seconds
-            </th>
-            <th>do later</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>session</th>
+              <th>set work time</th>
+              <th>set break time</th>
+              <th>total completed sessions</th>
+            </tr>
+          </thead>
+          <tbody>  
+            <tr>
+              <th>
+                <Link to={`/set-pomo/${item.name}`}>
+                  {item.name} 
+                </Link>
+              </th>
+              <th>
+                {item.work_duration.minutes} minutes, {item.work_duration.seconds}{' '}
+                seconds
+              </th>
+              <th>
+                {item.break_duration.minutes} minutes,{' '}
+                {item.break_duration.seconds} seconds
+              </th>
+              <th>do later</th>
+            </tr>
+          </tbody>
         </table>
       );
       return (

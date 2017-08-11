@@ -30,7 +30,7 @@ export class LogIn extends React.Component {
     return (
       <div className="login">
         <h2>Login</h2>
-        <form onSubmit={e => this.loginSubmit(e)}>
+        <form className="login-form" onSubmit={e => this.loginSubmit(e)}>
           <input
             aria-label="username"
             id="username"
@@ -48,7 +48,7 @@ export class LogIn extends React.Component {
           <button type="submit">login</button>
         </form>
         <span className="create-account-span">
-          <Link to="/create-user">create user</Link>
+          <Link to="/create-user" className="create-account-link">create user</Link>
         </span>
       </div>
     );

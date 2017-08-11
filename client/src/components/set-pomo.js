@@ -4,14 +4,12 @@ import './styles/set-pomo.css';
 import {
   submitPomodoro,
   postSessionDuration,
-  showBreakTimer,
   postSessionName,
   sendSessionDuration,
   stopPomoTimer,
   postBreakSetting,
   postWorkSetting,
-  bindSessionLength,
-  restartedSession
+  bindSessionLength
 } from '../actions/actions';
 import moment from 'moment';
 
@@ -21,8 +19,8 @@ export class SetPomo extends React.Component {
     event.preventDefault();
     this.props.history.push('/work-timer');
     if (this.props.activeSession){
-      const workDuration = parseInt(this.props.initialMinutes);
-      const breakDuration = parseInt(this.props.initialSeconds);
+      const workDuration = parseInt(this.props.initialMinutes, 10);
+      const breakDuration = parseInt(this.props.initialSeconds, 10);
       const currentTime = new Date().getTime();
       const eventTime = new Date(
       currentTime - workDuration * 60000
@@ -33,11 +31,12 @@ export class SetPomo extends React.Component {
       .format('HH:mm:ss');
 
       const formattedWorkDuration = moment
-      .utc(userDurationInput * 60000)
+      .utc(workDuration * 60000)
       .format('HH:mm:ss');
     
       let diffTime = eventTime - currentTime;
       let duration = moment.duration(diffTime, 'milliseconds');
+      let sessionName = this.props.activeSession;
     // Display starting time
       let setIntervalProps = this.props;
       const interval = 1000;
@@ -85,13 +84,13 @@ export class SetPomo extends React.Component {
     this.props.dispatch(submitPomodoro());
     this.props.dispatch(postSessionName(sessionName));
 
-    const breakDuration = parseInt(this.breakDuration.value);
+    const breakDuration = parseInt(this.breakDuration.value, 10);
     this.props.dispatch(postBreakSetting(breakDuration));
     const formattedBreakDuration = moment
       .utc(breakDuration * 60000)
       .format('HH:mm:ss');
 
-    const userDurationInput = parseInt(this.durationInput.value);
+    const userDurationInput = parseInt(this.durationInput.value, 10);
     this.props.dispatch(postWorkSetting(userDurationInput));
     const formattedWorkDuration = moment
       .utc(userDurationInput * 60000)
@@ -157,8 +156,6 @@ export class SetPomo extends React.Component {
   }
 
   handleTimerStart(e){
-    this.props.dispatch(restartedSession()); 
-    // console.log('My log: ' + this.props.restartedSession); 
     this.submitPomoForm(e);
   }
 
@@ -224,7 +221,6 @@ const mapStateToProps = (state, ownProps) => {
   if (!state.sessions.sessionInfo) {
     return {
       activeSession: state.currentSessionName,
-      restartedSession: state.restartedSession,
       initialMinutes: state.initialMinutes,
       initialSeconds: state.initialSeconds
       // username: state.username,
@@ -238,7 +234,6 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     activeSession: state.currentSessionName,
-    restartedSession: state.restartedSession,
     initialMinutes: state.initialMinutes,
     initialSeconds: state.initialSeconds,
     workTime: sessionObject.length !== 0 ? sessionObject[0].work_duration.minutes : state.initialMinutes,
