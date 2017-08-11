@@ -14,6 +14,11 @@ export const loginUserError = message => ({
   type: LOGIN_USER_ERROR
 });
 
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const logoutUser = message => ({
+  type: LOGOUT_USER
+});
+
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const createUserRequest = () => ({
   type: CREATE_USER_REQUEST

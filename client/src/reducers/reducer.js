@@ -2,6 +2,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  LOGOUT_USER,
   CREATE_USER_REQUEST,
   SUBMIT_POMODORO,
   VIEW_USER_DATA,
@@ -28,9 +29,10 @@ import {
 } from "../actions/actions";
 
 const initialState = {
-  user: "pomodoro_enthusiast",
+  username: "",
   // user: '',
-  loggedIn: true,
+  // loggedIn: true,
+  loggedIn: false,
   sessions: [],
   display: "login",
   sessionMinutesRemaining: 0,
@@ -71,11 +73,17 @@ export default (state, action) => {
       loading: false,
       error: action.message
     } 
+  } else if (action.type === LOGOUT_USER) {
+    return {
+      username: '',
+      loggedIn: false
+    }
   } else if (action.type === UPDATE_CREDENTIALS) {
     return Object.assign({}, state, {
       username: action.username,
       password: action.password,
-      display: "setPomo"
+      display: "setPomo",
+      loggedIn: true
     })
   } else if (action.type === CREATE_USER_REQUEST) {
     console.log("create user request");
