@@ -10,8 +10,11 @@ import {
   VIEW_USER_DATA,
   viewUserData,
   SUBMIT_POMODORO,
+  submitPomodoro,
   SHOW_POMO_INFO,
+  showPomoInfo,
   POST_SESSION_DURATION,
+  postSessionDuration,
   SHOW_BREAK_TIMER,
   POST_BREAK_DURATION,
   POST_SESSION_NAME,
@@ -31,6 +34,38 @@ import {
   UPDATE_CREDENTIALS,
   updateCredentials
 } from "./actions";
+
+// describe('', () => {
+//   it('Should return the action', () => {
+//     const action =
+//     expect(action.type).toEqual()
+//   })
+// })
+
+describe('Post session data', () => {
+  it('Should return the action', () => {
+    const minutesRemaining = 1;
+    const secondsRemaining = 0;
+    const action = postSessionDuration(minutesRemaining, secondsRemaining);
+    expect(action.type).toEqual(POST_SESSION_DURATION)
+    expect(action.minutesRemaining).toEqual(minutesRemaining)
+    expect(action.secondsRemaining).toEqual(secondsRemaining)
+  })
+})
+
+describe('Pomodoro Submission', () => {
+  it("Should return the action", () => {
+    const action = submitPomodoro();
+    expect(action.type).toEqual(SUBMIT_POMODORO);
+  })
+})
+
+describe('Display Pomodoro Info', () => {
+  it('Should return the action', () => {
+    const action = showPomoInfo();
+    expect(action.type).toEqual(SHOW_POMO_INFO);
+  })
+})
 
 describe("User Login", () => {
   it("Should return the action", () => {
