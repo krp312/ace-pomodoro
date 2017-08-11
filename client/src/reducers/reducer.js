@@ -23,7 +23,8 @@ import {
   RESTART_WORK_TIMER,
   BIND_SESSION_LENGTH,
   BIND_BREAK_LENGTH,
-  RESTARTED_SESSION
+  RESTARTED_SESSION,
+  UPDATE_CREDENTIALS
 } from "../actions/actions";
 
 const initialState = {
@@ -51,11 +52,9 @@ const initialState = {
 //d
 export default (state, action) => {
   state = state || initialState;
-  console.log("What type of action is being submitted: " + action.type);
 
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
-    console.log("login request");
     return {
       ...state,
       display: "setPomo"
@@ -71,7 +70,13 @@ export default (state, action) => {
     return {
       loading: false,
       error: action.message
-    };
+    } 
+  } else if (action.type === UPDATE_CREDENTIALS) {
+    return Object.assign({}, state, {
+      username: action.username,
+      password: action.password,
+      display: "setPomo"
+    })
   } else if (action.type === CREATE_USER_REQUEST) {
     console.log("create user request");
     return {
@@ -129,7 +134,6 @@ export default (state, action) => {
       currentSessionName: action.sessionName
     };
   } else if (action.type === GET_SESSIONS_REQUEST) {
-    console.log("session request");
     return Object.assign({}, state, {
       loading: true,
       error: null

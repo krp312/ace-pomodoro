@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/create-user.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { createUserRequest } from "../actions/actions";
 

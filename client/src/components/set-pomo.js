@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./styles/set-pomo.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import './styles/set-pomo.css';
 import {
   submitPomodoro,
   postSessionDuration,
@@ -12,42 +12,42 @@ import {
   postWorkSetting,
   bindSessionLength,
   restartedSession
-} from "../actions/actions";
-import moment from "moment";
+} from '../actions/actions';
+import moment from 'moment';
 
 // DRY this code up after getting initial restart pomo functionality setup
 export class SetPomo extends React.Component {
   submitPomoForm(event) {
     event.preventDefault();
-    this.props.history.push(`/work-timer`);
+    this.props.history.push('/work-timer');
     if (this.props.activeSession){
-    const workDuration = parseInt(this.props.initialMinutes);
-    const breakDuration = parseInt(this.props.initialSeconds);
-    const currentTime = new Date().getTime();
-    const eventTime = new Date(
+      const workDuration = parseInt(this.props.initialMinutes);
+      const breakDuration = parseInt(this.props.initialSeconds);
+      const currentTime = new Date().getTime();
+      const eventTime = new Date(
       currentTime - workDuration * 60000
     ).getTime();
 
-    const formattedBreakDuration = moment
+      const formattedBreakDuration = moment
       .utc(breakDuration * 60000)
-      .format("HH:mm:ss");
+      .format('HH:mm:ss');
 
-    const formattedWorkDuration = moment
+      const formattedWorkDuration = moment
       .utc(userDurationInput * 60000)
-      .format("HH:mm:ss");
+      .format('HH:mm:ss');
     
-    let diffTime = eventTime - currentTime;
-    let duration = moment.duration(diffTime, "milliseconds");
+      let diffTime = eventTime - currentTime;
+      let duration = moment.duration(diffTime, 'milliseconds');
     // Display starting time
-    let setIntervalProps = this.props;
-    const interval = 1000;
-    const pomoIntervalId = setInterval(
+      let setIntervalProps = this.props;
+      const interval = 1000;
+      const pomoIntervalId = setInterval(
       function() {
         // For live version: we want the condition set to 0
         if (Math.abs(duration) === 57000) {
           let elapsedTime = moment
             .utc(Math.abs(diffTime) - Math.abs(duration))
-            .format("HH:mm:ss");
+            .format('HH:mm:ss');
           setIntervalProps.dispatch(
             sendSessionDuration(
               elapsedTime,
@@ -59,7 +59,7 @@ export class SetPomo extends React.Component {
           clearInterval(pomoIntervalId);
           return null;
         }
-        duration = moment.duration(duration + interval, "milliseconds");
+        duration = moment.duration(duration + interval, 'milliseconds');
         setIntervalProps.dispatch(
           postSessionDuration(
             Math.abs(duration.minutes()),
@@ -70,8 +70,8 @@ export class SetPomo extends React.Component {
       interval,
       setIntervalProps
     );
-    this.props.dispatch(stopPomoTimer(pomoIntervalId))
-    return null;
+      this.props.dispatch(stopPomoTimer(pomoIntervalId));
+      return null;
     }
 
     // When a prior session is not active this block executes:
@@ -83,20 +83,20 @@ export class SetPomo extends React.Component {
     this.props.dispatch(postBreakSetting(breakDuration));
     const formattedBreakDuration = moment
       .utc(breakDuration * 60000)
-      .format("HH:mm:ss");
+      .format('HH:mm:ss');
 
     const userDurationInput = parseInt(this.durationInput.value);
     this.props.dispatch(postWorkSetting(userDurationInput));
     const formattedWorkDuration = moment
       .utc(userDurationInput * 60000)
-      .format("HH:mm:ss");
+      .format('HH:mm:ss');
 
     const currentTime = new Date().getTime();
     const eventTime = new Date(
       currentTime - userDurationInput * 60000
     ).getTime();
     let diffTime = eventTime - currentTime;
-    let duration = moment.duration(diffTime, "milliseconds");
+    let duration = moment.duration(diffTime, 'milliseconds');
 
     // Displays starting time difference to DOM
     this.props.dispatch(
@@ -122,7 +122,7 @@ export class SetPomo extends React.Component {
         if (Math.abs(duration) === 57000) {
           let elapsedTime = moment
             .utc(Math.abs(diffTime) - Math.abs(duration))
-            .format("HH:mm:ss");
+            .format('HH:mm:ss');
           setIntervalProps.dispatch(
             sendSessionDuration(
               elapsedTime,
@@ -134,7 +134,7 @@ export class SetPomo extends React.Component {
           clearInterval(pomoIntervalId);
           return null;
         }
-        duration = moment.duration(duration + interval, "milliseconds");
+        duration = moment.duration(duration + interval, 'milliseconds');
         setIntervalProps.dispatch(
           postSessionDuration(
             Math.abs(duration.minutes()),
@@ -180,6 +180,7 @@ export class SetPomo extends React.Component {
                   required
                   id="sessionDuration"
                   ref={input => (this.durationInput = input)}
+                  defaultValue={this.props.workTime}
                 />
                 <label htmlFor="breakDuration"> Break duration: </label>
                 <input
@@ -189,6 +190,7 @@ export class SetPomo extends React.Component {
                   required
                   id="breakDuration"
                   ref={input => (this.breakDuration = input)}
+                  defaultValue={this.props.breakTime}
                 />
                 <label htmlFor="sessionName">Session Name: </label>
                 <input
@@ -198,6 +200,7 @@ export class SetPomo extends React.Component {
                   id="sessionName"
                   required
                   ref={input => (this.sessionName = input)}
+                  defaultValue={this.props.match.params.sessionId}
                 />
                 <button type="submit">Start Pomodoro</button>
               </form>
@@ -209,10 +212,29 @@ export class SetPomo extends React.Component {
 
 // When trying to access the state on this component make sure to check that reducer state
 // key(s) matches
-const mapStateToProps = state => ({
-  activeSession: state.currentSessionName,
-  restartedSession: state.restartedSession,
-  initialMinutes: state.initialMinutes,
-  initialSeconds: state.initialSeconds
-});
+const mapStateToProps = (state, ownProps) => {
+  console.log('asdf')
+  if (!state.sessions.sessionInfo) {
+    return {
+      activeSession: state.currentSessionName,
+      restartedSession: state.restartedSession,
+      initialMinutes: state.initialMinutes,
+      initialSeconds: state.initialSeconds
+    };
+  }
+
+  const sessionObject = state.sessions.sessionInfo.filter(object => {
+    return object.name === ownProps.match.params.sessionId;
+  });
+
+  return {
+    activeSession: state.currentSessionName,
+    restartedSession: state.restartedSession,
+    initialMinutes: state.initialMinutes,
+    initialSeconds: state.initialSeconds,
+    workTime: sessionObject.length !== 0 ? sessionObject[0].work_duration.minutes : state.initialMinutes,
+    breakTime: sessionObject.length !== 0 ? sessionObject[0].break_duration.minutes : state.initialMinutes
+  };
+};
+
 export default connect(mapStateToProps)(SetPomo);
