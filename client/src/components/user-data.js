@@ -8,7 +8,9 @@ import './styles/user-data.css';
 
 export class UserData extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchSessions(this.props.username, this.props.password));
+    this.props.dispatch(
+      fetchSessions(this.props.username, this.props.password)
+    );
   }
 
   renderResults() {
@@ -16,6 +18,7 @@ export class UserData extends React.Component {
       // return <Spinner spinnerName="circle" noFadeIn />;
       return <div>loading sessions...</div>;
     }
+
     if (this.props.error) {
       return (
         <strong>
@@ -23,44 +26,46 @@ export class UserData extends React.Component {
         </strong>
       );
     }
+
     if (this.props.sessions.sessionInfo) {
       const sessionData = this.props.sessions.sessionInfo.map((item, index) =>
-        <table className="session-result" key={index}>
-          <thead>
-            <tr>
-              <th>session</th>
-              <th>set work time</th>
-              <th>set break time</th>
-              <th>total completed sessions</th>
-            </tr>
-          </thead>
-          <tbody>  
-            <tr>
-              <th>
-                <Link to={`/set-pomo/${item.name}`}>
-                  {item.name} 
-                </Link>
-              </th>
-              <th>
-                {item.work_duration.minutes} minutes, {item.work_duration.seconds}{' '}
-                seconds
-              </th>
-              <th>
-                {item.break_duration.minutes} minutes,{' '}
-                {item.break_duration.seconds} seconds
-              </th>
-              <th>do later</th>
-            </tr>
-          </tbody>
-        </table>
+        <tr>
+          <th>
+            <Link to={`/set-pomo/${item.name}`}>
+              {item.name}
+            </Link>
+          </th>
+          <th>
+            {item.work_duration.minutes} minutes, {item.work_duration.seconds}{' '}
+            seconds
+          </th>
+          <th>
+            {item.break_duration.minutes} minutes, {item.break_duration.seconds}{' '}
+            seconds
+          </th>
+        </tr>
       );
+
       return (
-        <div className="single-session-container">
-          {sessionData}
+        <div>
+          <div className="single-session-container">
+            <table className="session-result">
+              <thead>
+                <tr>
+                  <th>saved sessions</th>
+                  <th>set work time</th>
+                  <th>set break time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sessionData}
+              </tbody>
+            </table>
+          </div>
         </div>
       );
     }
-  } //closing if bracket
+  }
 
   render() {
     return (
