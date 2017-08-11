@@ -1,13 +1,32 @@
-# Thinkful Full Stack Template
+# Ace Pomodoro
 
-A template for developing and deploying full stack JavaScript apps.
+Ace Pomodoro combines customizable Pomodoro sessions with continuous data aggregation for users to track their progress towards their goals. You can see the total amount of time spent working towards a goal by  labeling Pomodoro sessions, and view graphic visuals of session data on your profile page.
 
-## Getting started
+### Features
+* Login with username and password
+* Modify Pomodoro work session and break session durations
+* Profile page with all of the data from a user's sessions
+
+### Future Features
+* Alternative ways to visualize session data
+* More streamlined session labeling
+
+## Tech Stack
+* Postgres
+* Express
+* React
+* Node
+* Knex
+* Redux
+* Chai
+* Mocha
+* Enzyme
+* Moment
 
 ### Setting up a project
 
 * Move into your projects directory: `cd ~/YOUR_PROJECTS_DIRECTORY`
-* Clone this repository: `git clone https://github.com/Thinkful-Ed/full-stack-template YOUR_PROJECT_NAME`
+* Clone this repository: `git clone https://github.com/krp312/ace-pomodoro YOUR_PROJECT_NAME`
 * Move into the project directory: `cd YOUR_PROJECT_NAME`
 * Install the dependencies: `npm install`
 * Create a new repo on GitHub: https://github.com/new
@@ -23,7 +42,7 @@ A template for developing and deploying full stack JavaScript apps.
 
 ## Proxying
 
-In development, the full stack template works by proxying requests from port 8080 to the server or the client.  Any requests to routes which start with `/api/`, (for example, `/api/foo`, or `/api/foo/bar`) will be sent to the server.  All other requests, will serve the client.
+In development, Ace Pomodoro works by proxying requests from port 8080 to the server or the client.  Any requests to routes which start with `/api/`, (for example, `/api/foo`, or `/api/foo/bar`) will be sent to the server.  All other requests, will serve the client.
 
 *tl;dr* Make sure your API endpoints start with `/api`.
 
