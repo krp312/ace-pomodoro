@@ -32,10 +32,10 @@ newPomo(e) {
           </span>
         </div>
         <button onClick={e => this.restartSession(e)} className="restart-session-button" type="button">
-          Restart Pomodoro Session
+          Restart Pomo
         </button>
         <button onClick={e => this.newPomo(e)} className="new-pomo-button" type="button">
-          Create New Pomodoro Session
+          New Pomo
         </button>
       </div>
     );

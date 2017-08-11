@@ -13,7 +13,7 @@ export class PomoInfo extends React.Component {
         <p>Francesco Cirillo developed the Pomodoro technique to track his work while in university, 
           and its name, Pomodoro, comes from a simple tomato shaped kitchen timer Cirillo used to track his time.</p>
         <p><em>A Pomodoro session consists of:</em></p>
-          <ol> 
+          <ol class="pomo-ol"> 
             <li>Choosing a task to work on</li>
             <li>Set the Pomodoro timer for 25 minutes or a different interval of your choosing</li>
             <li>Focus on your chosen task until the timer goes off - avoiding distractions if possible</li>

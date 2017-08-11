@@ -105,14 +105,14 @@ export class WorkTimer extends React.Component {
           className="pause-timer-button"
           type="butotn"
         >
-          Stop Timer
+          Stop
         </button>
         <button
           onClick={e => this.submitPomoForm(e)}
           className="break-timer-button"
           type="submit"
         >
-          Start Break Timer
+          Start Break
         </button>
       </div>
     );

@@ -1,0 +1,17 @@
+.break-timer {
+  background-color: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  width: 30%;
+  margin: 0px auto;
+  padding: 20px;
+}
+
+.new-pomo-button, .restart-session-button {
+  background-color: #7D2C34;
+  border: 1px solid;
+  border-radius: 5px;
+  color: white;
+  margin: 50px 5px 0px 5px;
+  padding: 5px 20px;
+}
