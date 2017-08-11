@@ -6,7 +6,7 @@ import './styles/header.css';
 
 export class Header extends React.Component {
   renderUser() {
-    if (this.props.username !== '') {
+    if (this.props.loggedIn === true) {
       return (
         <span>
           {this.props.username}
@@ -16,7 +16,16 @@ export class Header extends React.Component {
       return <span>Not logged in</span>;
     }
   }
-  
+  // if user is logged in, clicking Ace Pomodoro doesnt direct to login page
+  conditionalMainPage() {
+    if (this.props.loggedIn === false) {
+      return <Link to="/">Ace Pomodoro</Link>
+    } else {
+      return <Link to="/set-pomo">Ace Pomodoro</Link>
+    }
+  }
+
+
   render() {
     return (
       <div className="header">
@@ -26,7 +35,7 @@ export class Header extends React.Component {
           </Link>
         </span>
         <h1>
-          <Link to="/">Ace Pomodoro</Link>
+          {this.conditionalMainPage()}
         </h1>
         <span className="nav-span">
           <Link to="/pomo-info">Pomo?</Link>
@@ -37,7 +46,8 @@ export class Header extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  username: state.username
+  username: state.username,
+  loggedIn: state.loggedIn
 });
 
 export default connect(mapStateToProps)(Header);
