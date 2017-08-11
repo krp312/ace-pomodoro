@@ -151,3 +151,14 @@ if (require.main === module) {
 //   .orderBy(['name', 'modified'], 'desc')
 //   .then(result => {
 //   });
+
+// knex
+//   .distinct(knex.raw('ON (name) name'))
+//   .select('work_duration', 'break_duration')
+//   .from('sessions')
+//   .where('user_id', 15)
+//   .andWhere(knex.raw('(work_duration IS NOT null OR break_duration IS NOT null)'))
+//   .orderBy(['name', 'modified'], 'desc')
+//   .then(results => {
+//     console.log(JSON.stringify(results, null, 2));
+//   });

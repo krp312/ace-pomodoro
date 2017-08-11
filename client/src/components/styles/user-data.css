@@ -17,7 +17,11 @@ td, th {
     width: 20%;
 }
 
-tr:nth-child(odd) {
+thead {
+    background-color: #E5E4E2;
+}
+
+tbody:nth-child(odd) {
     background-color: #dddddd;
 }
 

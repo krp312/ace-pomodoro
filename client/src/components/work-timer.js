@@ -128,6 +128,8 @@ const mapStateToProps = state => ({
   paused: state.paused,
   breakDuration: state.breakDuration,
   sessionName: state.currentSessionName
+  // username: state.username,
+  // password: state.password
 });
 
 export default connect(mapStateToProps)(WorkTimer);

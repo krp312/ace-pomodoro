@@ -14,6 +14,11 @@ export const loginUserError = message => ({
   type: LOGIN_USER_ERROR
 });
 
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const logoutUser = message => ({
+  type: LOGOUT_USER
+});
+
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const createUserRequest = () => ({
   type: CREATE_USER_REQUEST
@@ -95,7 +100,6 @@ export const updateCredentials = (username, password) => ({
 export const fetchSessions = (username, password) => dispatch => {
   const credentials = `${username}:${password}`;
   const encodedAuthHeader = btoa(credentials);
-  // 'Basic $encoded_auth_header';
   const authString = `Basic ${encodedAuthHeader}`;
 
   const opts = {
@@ -108,7 +112,7 @@ export const fetchSessions = (username, password) => dispatch => {
   };
 
   dispatch(getSessionsRequest());
-  fetch('/api/sessions/', opts)
+  return fetch('/api/sessions/', opts)
     .then(res => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
@@ -116,7 +120,7 @@ export const fetchSessions = (username, password) => dispatch => {
       return res.json();
     })
     .then(sessions => {
-      dispatch(getSessionsSuccess(sessions));
+      return dispatch(getSessionsSuccess(sessions));
     })
     .catch(err => {
       dispatch(getSessionsError(err));
@@ -163,12 +167,12 @@ export const sendSessionDuration = (sessionDuration, sessionName, breakDurationS
     // total_break_time: breakDuration,
     is_completed: true
   };
-  // The User barackobama is hardcoded in for demo purposes
+
   const opts = {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Basic bWFya3p1Y2s6ZmFjZWJvb2s='
+      Authorization: `Basic ${window.encodedAuthHeader}`
     },
     method: 'POST',
     body: JSON.stringify(formattedPostRequest)
@@ -184,18 +188,22 @@ export const sendSessionDuration = (sessionDuration, sessionName, breakDurationS
   };
 };
 
+export const RESET_STATE = 'RESET_STATE';
+export const resetState = () => ({
+  type: RESET_STATE
+});
+
 export const sendBreakDuration = (breakDuration, sessionName) => {
   let formattedPostRequest = {
     name: sessionName,
     total_break_time: breakDuration,
   };
   console.log('Break duration: ' + formattedPostRequest.total_break_time);
-  // The User barackobama is hardcoded in for demo purposes
   const opts = {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Basic bWFya3p1Y2s6ZmFjZWJvb2s='
+      Authorization: `Basic ${window.encodedAuthHeader}`
     },
     method: 'POST',
     body: JSON.stringify(formattedPostRequest)
@@ -212,10 +220,7 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
   };
 };
 
-export const RESET_STATE = 'RESET_STATE';
-export const resetState = () => ({
-  type: RESET_STATE
-});
+
 
 export const STOP_BREAK_TIMER = 'STOP_BREAK_TIMER';
 export const stopBreakTimer = (pomoIntervalId) => ({
@@ -240,9 +245,4 @@ export const bindBreakLength = (minutes, seconds) => ({
   type: BIND_BREAK_LENGTH,
   minutes,
   seconds
-});
-
-export const RESTARTED_SESSION = 'RESTARTED_SESSION';
-export const restartedSession = () => ({
-  type: RESTARTED_SESSION
 });
