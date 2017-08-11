@@ -9,7 +9,8 @@ export class Header extends React.Component {
   logoutUser(e) {
     e.preventDefault();
     console.log('you logged out')
-    location.reload();
+    // location.reload('/');
+    window.location.replace("/");
     this.props.dispatch(logoutUser());
   }
   
