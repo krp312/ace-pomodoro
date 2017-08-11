@@ -23,7 +23,6 @@ import {
   RESTART_WORK_TIMER,
   BIND_SESSION_LENGTH,
   BIND_BREAK_LENGTH,
-  RESTARTED_SESSION,
   UPDATE_CREDENTIALS
 } from "../actions/actions";
 
@@ -46,8 +45,7 @@ const initialState = {
   workDuration: null,
   intervalId: null,
   breakId: null,
-  paused: false,
-  restartedSession: false
+  paused: false
 };
 //d
 export default (state, action) => {
@@ -185,8 +183,7 @@ export default (state, action) => {
       workDuration: null,
       intervalId: null,
       breakId: null,
-      paused: false,
-      restartedSession: false
+      paused: false
     };
   } else if (action.type === RESTART_WORK_TIMER) {
     return {
@@ -209,11 +206,6 @@ export default (state, action) => {
       ...state, 
       initialBreakMinutes: action.minutes,
       initialBreakSeconds: action.seconds
-    }
-  } else if (action.type === RESTARTED_SESSION) {
-    return {
-      ...state,
-    restartedSession: true
     }
   }
   return state;
