@@ -25,8 +25,8 @@ export class LogIn extends React.Component {
       <div className="login">
         <h2>Login</h2>
         <form onSubmit={e => this.loginSubmit(e)}>
-          <input type="text" placeholder="username" />
-          <input type="password" placeholder="password" />
+          <input aria-label="username" id="username" type="text" placeholder="username" />
+          <input aria-label="password" id="password"type="password" placeholder="password" />
           <button type="submit">Login</button>
         </form>
         <span className="create-account-span">
