@@ -40,6 +40,7 @@ import {
   STOP_BREAK_TIMER,
   stopBreakTimer,
   RESTART_WORK_TIMER,
+  restartWorkTimer,
   BIND_SESSION_LENGTH,
   bindSessionLength,
   BIND_BREAK_LENGTH,
@@ -54,6 +55,13 @@ import {
 //   expect(action.type).toEqual()
 //   })
 // })
+describe("Restart timer", () => {
+  it('Should return the action', () => {
+  const action = restartWorkTimer();
+  expect(action.type).toEqual(RESTART_WORK_TIMER)
+  })
+})
+
 describe("Timer duration binding requests", () => {
   it("Should return the action", () => {
     const minutes = 5;
