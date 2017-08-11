@@ -214,6 +214,15 @@ export class SetPomo extends React.Component {
 // key(s) matches
 
 const mapStateToProps = (state, ownProps) => {
+  if (!state.sessions.sessionInfo) {
+    return {
+      activeSession: state.currentSessionName,
+      restartedSession: state.restartedSession,
+      initialMinutes: state.initialMinutes,
+      initialSeconds: state.initialSeconds
+    };
+  }
+
   const sessionObject = state.sessions.sessionInfo.filter(object => {
     return object.name === ownProps.match.params.sessionId;
   });

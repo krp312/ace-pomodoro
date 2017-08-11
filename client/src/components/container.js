@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import LogIn from './login';
 import CreateUser from './create-user';
@@ -12,15 +12,15 @@ import PomoInfo from './pomo-info';
 import Header from './header';
 // import EnsureLoggedInContainer from './ensure-logged-in-container';
 
-import "./styles/container.css";
+import './styles/container.css';
 
 export function App(props) {
-    return (
+  return (
         <Router>
             <div className="app">
                 <Header/>
                 <main>
-                    <Route exact path="/" component={LogIn} />
+                     <Route exact path="/" component={LogIn} /> 
                     <Route exact path="/create-user" component={CreateUser} />
                     <Route exact path="/pomo-info" component={PomoInfo} />
 
@@ -33,7 +33,7 @@ export function App(props) {
                 </main>
             </div>
         </Router>
-    )
-  }
+    );
+}
 
 export default connect()(App);

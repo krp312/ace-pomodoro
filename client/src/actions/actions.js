@@ -85,12 +85,25 @@ export const getSessionsError = error => ({
   error
 });
 
+export const UPDATE_CREDENTIALS = 'UPDATE_CREDENTIALS';
+export const updateCredentials = (username, password) => ({
+  type: UPDATE_CREDENTIALS,
+  username,
+  password
+});
+
 export const fetchSessions = () => dispatch => {
+
+  // test = "username:password"
+  // encoded_auth_header = atob(test)
+  // "Basic $encoded_auth_header"
+
+
   const opts = {
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: "Basic bWFya3p1Y2s6ZmFjZWJvb2s="
+      "Content-Type": "application/json"
+      // Authorization: "Basic bWFya3p1Y2s6ZmFjZWJvb2s="
     },
     method: "GET"
   };
