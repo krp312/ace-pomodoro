@@ -16,6 +16,7 @@ Ace Pomodoro combines customizable Pomodoro sessions with continuous data aggreg
 * Express
 * React
 * Node
+* Passport
 * Knex
 * Redux
 * Chai
