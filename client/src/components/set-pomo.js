@@ -180,7 +180,7 @@ export class SetPomo extends React.Component {
                   required
                   id="sessionDuration"
                   ref={input => (this.durationInput = input)}
-                  value={this.props.workTime}
+                  defaultValue={this.props.workTime}
                 />
                 <label htmlFor="breakDuration"> Break duration: </label>
                 <input
@@ -190,7 +190,7 @@ export class SetPomo extends React.Component {
                   required
                   id="breakDuration"
                   ref={input => (this.breakDuration = input)}
-                  value={this.props.breakTime}
+                  defaultValue={this.props.breakTime}
                 />
                 <label htmlFor="sessionName">Session Name: </label>
                 <input
@@ -200,7 +200,7 @@ export class SetPomo extends React.Component {
                   id="sessionName"
                   required
                   ref={input => (this.sessionName = input)}
-                  value={this.props.match.params.sessionId}
+                  defaultValue={this.props.match.params.sessionId}
                 />
                 <button type="submit">Start Pomodoro</button>
               </form>
@@ -213,6 +213,7 @@ export class SetPomo extends React.Component {
 // When trying to access the state on this component make sure to check that reducer state
 // key(s) matches
 const mapStateToProps = (state, ownProps) => {
+  console.log('asdf')
   if (!state.sessions.sessionInfo) {
     return {
       activeSession: state.currentSessionName,
@@ -231,8 +232,8 @@ const mapStateToProps = (state, ownProps) => {
     restartedSession: state.restartedSession,
     initialMinutes: state.initialMinutes,
     initialSeconds: state.initialSeconds,
-    workTime: sessionObject[0].work_duration.minutes,
-    breakTime: sessionObject[0].break_duration.minutes
+    workTime: sessionObject.length !== 0 ? sessionObject[0].work_duration.minutes : state.initialMinutes,
+    breakTime: sessionObject.length !== 0 ? sessionObject[0].break_duration.minutes : state.initialMinutes
   };
 };
 
