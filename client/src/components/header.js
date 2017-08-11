@@ -6,17 +6,17 @@ import './styles/header.css';
 
 export class Header extends React.Component {
   renderUser() {
-    if (this.props.user !== '') {
+    if (this.props.username !== '') {
       return (
         <span>
-          {this.props.user}
+          {this.props.username}
         </span>
       );
     } else {
       return <span>Not logged in</span>;
     }
   }
-
+  
   render() {
     return (
       <div className="header">
@@ -37,7 +37,7 @@ export class Header extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  username: state.username
 });
 
 export default connect(mapStateToProps)(Header);

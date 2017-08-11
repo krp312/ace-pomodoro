@@ -28,7 +28,7 @@ import {
 } from "../actions/actions";
 
 const initialState = {
-  user: "",
+  username: "",
   // user: '',
   // loggedIn: true,
   loggedIn: false,
@@ -74,11 +74,10 @@ export default (state, action) => {
     } 
   } else if (action.type === UPDATE_CREDENTIALS) {
     return Object.assign({}, state, {
-      // 'user' is used for displaying user data on header. 'username' is used for auth
-      user: action.username,
       username: action.username,
       password: action.password,
-      display: "setPomo"
+      display: "setPomo",
+      loggedIn: true
     })
   } else if (action.type === CREATE_USER_REQUEST) {
     console.log("create user request");
