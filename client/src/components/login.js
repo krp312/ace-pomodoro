@@ -36,6 +36,8 @@ export class LogIn extends React.Component {
             id="username"
             type="text"
             placeholder="username"
+            className="input-login"
+            required
             ref={input => (this.username = input)}
           />
           <input
@@ -43,9 +45,11 @@ export class LogIn extends React.Component {
             id="password"
             type="password"
             placeholder="password"
+            className="input-login"
+            required
             ref={input => (this.password = input)}
           />
-          <button type="submit">login</button>
+          <button type="submit" className="login-button">login</button>
         </form>
         <span className="create-account-span">
           <Link to="/create-user" className="create-account-link">create user</Link>

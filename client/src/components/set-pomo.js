@@ -176,7 +176,7 @@ export class SetPomo extends React.Component {
                   your goals over time.
                 </em>
               </p>
-              <form onSubmit={e => this.submitPomoForm(e)}>
+              <form className="submit-pomo-form" onSubmit={e => this.submitPomoForm(e)}>
                 <label htmlFor="sessionDuration"> Work duration: </label>
                 <input
                   aria-label="Pomodoro duration"
@@ -207,7 +207,7 @@ export class SetPomo extends React.Component {
                   ref={input => (this.sessionName = input)}
                   defaultValue={this.props.match.params.sessionId}
                 />
-                <button type="submit">Start Pomodoro</button>
+                <button type="submit" className="start-pomo-button">Start Pomo</button>
               </form>
             </div>}
       </div>

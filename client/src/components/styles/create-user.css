@@ -1,0 +1,14 @@
+
+.create-user-button {
+    background-color: green;
+    border: 1px solid;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 30px;
+}
+
+#createUsername, #createPassword {
+  padding: 10px;
+  margin: 10px;
+  margin-left: -1rem;
+}

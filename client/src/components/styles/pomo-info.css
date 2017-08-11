@@ -1,0 +1,12 @@
+.pomo-info {
+  background-color: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  width: 60%;
+  margin: 0px auto;
+  padding: 20px;
+}
+
+.pomo-info > h2, em {
+  color: #4D693F;
+}

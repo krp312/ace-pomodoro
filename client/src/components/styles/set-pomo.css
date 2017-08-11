@@ -1,8 +1,28 @@
 .set-pomo {
   border: 1px solid black;
+  background-color: white;
+  box-sizing: border-box;
+  width: 60%;
+  margin: 0px auto;
+  padding: 20px;
 }
 
-input[type=text] {
+.submit-pomo-form > input[type=text] {
   display: block;
   margin: 0px auto;
+}
+
+.start-pomo-button {
+    background-color: green;
+    border: 1px solid;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 30px;
+}
+
+#sessionDuration, #breakDuration, #sessionName {
+  padding: 5px;
+  margin: 10px;
+  margin-left: -1rem;
+  text-align: center;
 }
