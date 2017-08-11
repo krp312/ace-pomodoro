@@ -28,6 +28,7 @@ import {
   GET_SESSIONS_ERROR,
   getSessionsError,
   STOP_POMO_TIMER,
+  stopPomoTimer,
   POST_SESSIONS_ERROR,
   postSessionsError,
   PAUSE_TIMER,
@@ -37,6 +38,7 @@ import {
   postWorkSetting,
   RESET_STATE,
   STOP_BREAK_TIMER,
+  stopBreakTimer,
   RESTART_WORK_TIMER,
   BIND_SESSION_LENGTH,
   BIND_BREAK_LENGTH,
@@ -50,6 +52,20 @@ import {
 //   expect(action.type).toEqual()
 //   })
 // })
+describe('Timer stop requests', () => {
+it('Should return the action', () => {
+  const pomoIntervalId = 50;
+  const action =stopPomoTimer(pomoIntervalId);
+  expect(action.pomoIntervalId).toEqual(pomoIntervalId);
+  expect(action.type).toEqual(STOP_POMO_TIMER)
+  })
+it('Should return the action', () => {
+  const pomoIntervalId = 51;
+  const action =  stopBreakTimer(pomoIntervalId);
+  expect(action.pomoIntervalId).toEqual(pomoIntervalId);
+  expect(action.type).toEqual(STOP_BREAK_TIMER)
+  })
+})
 describe("Get session request", () => {
   it("Should return the action", () => {
     const action = getSessionsRequest();
