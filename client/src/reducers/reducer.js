@@ -17,12 +17,17 @@ import {
   POST_SESSIONS_ERROR,
   PAUSE_TIMER,
   POST_BREAK_SETTING,
-  POST_WORK_SETTING
+  POST_WORK_SETTING,
+  RESET_STATE,
+  STOP_BREAK_TIMER,
+  RESTART_WORK_TIMER,
+  BIND_SESSION_LENGTH,
+  BIND_BREAK_LENGTH,
+  RESTARTED_SESSION
 } from "../actions/actions";
 
-
 const initialState = {
-  user: 'pomodoro_enthusiast',
+  user: "pomodoro_enthusiast",
   // user: '',
   loggedIn: true,
   sessions: [],
@@ -31,16 +36,22 @@ const initialState = {
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
-  currentSessionName: '',
+  initialMinutes: null,
+  initialSeconds: null,
+  initialBreakMinutes: null,
+  initialBreakSeconds: null,
+  currentSessionName: null,
   breakDuration: null,
   workDuration: null,
   intervalId: null,
-  paused: false
+  breakId: null,
+  paused: false,
+  restartedSession: false
 };
 //d
 export default (state, action) => {
   state = state || initialState;
-  // console.log('What type of action is being submitted: ' + action.type)
+  console.log("What type of action is being submitted: " + action.type);
 
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
@@ -60,13 +71,12 @@ export default (state, action) => {
     return {
       loading: false,
       error: action.message
-    }
-  }
-  else if (action.type === CREATE_USER_REQUEST) {
-    console.log('create user request')
-    return ({
+    };
+  } else if (action.type === CREATE_USER_REQUEST) {
+    console.log("create user request");
+    return {
       ...state
-    })
+    };
   } else if (action.type === VIEW_USER_DATA) {
     console.log("checking user data");
     return {
@@ -91,13 +101,13 @@ export default (state, action) => {
       ...state,
       display: "pomoInfo"
     };
-  } else if ((action.type === SHOW_BREAK_TIMER)) {
+  } else if (action.type === SHOW_BREAK_TIMER) {
     console.log("break timer clicked");
     return {
       ...state,
       display: "breakTimer"
     };
-  } else if ((action.type === POST_BREAK_DURATION)) {
+  } else if (action.type === POST_BREAK_DURATION) {
     return {
       ...state,
       breakMinutesRemaining: action.minutesRemaining,
@@ -107,50 +117,100 @@ export default (state, action) => {
     return {
       ...state,
       breakDuration: action.breakDuration
-    }
+    };
   } else if (action.type === POST_WORK_SETTING) {
     return {
       ...state,
       workDuration: action.workDuration
-    }
-  }
-  else if ((action.type === POST_SESSION_NAME)) {
+    };
+  } else if (action.type === POST_SESSION_NAME) {
     return {
       ...state,
       currentSessionName: action.sessionName
-    }
-  } else if ((action.type === GET_SESSIONS_REQUEST)) {
-    console.log('session request');
+    };
+  } else if (action.type === GET_SESSIONS_REQUEST) {
+    console.log("session request");
     return Object.assign({}, state, {
-            loading: true,
-            error: null
-        });
+      loading: true,
+      error: null
+    });
   } else if (action.type === GET_SESSIONS_SUCCESS) {
-        return Object.assign({}, state, {
-            sessions: action.sessions,
-            loading: false,
-            error: null
-        });
-    } else if (action.type === GET_SESSIONS_ERROR) {
-        return Object.assign({}, state, {
-            error: action.error,
-            loading: false
-        });
-    } else if (action.type === STOP_POMO_TIMER) {
-      return {
-        ...state, 
-        intervalId: action.pomoIntervalId
-      }
-    } else if (action.type === POST_SESSIONS_ERROR) {
-      return {
-        ...state,
-        error: action.error
-      }
-    } else if (action.type === PAUSE_TIMER) {
-      return {
-        ...state,
-        paused: !state.paused
-      }
+    return Object.assign({}, state, {
+      sessions: action.sessions,
+      loading: false,
+      error: null
+    });
+  } else if (action.type === GET_SESSIONS_ERROR) {
+    return Object.assign({}, state, {
+      error: action.error,
+      loading: false
+    });
+  } else if (action.type === STOP_POMO_TIMER) {
+    return {
+      ...state,
+      intervalId: action.pomoIntervalId
+    };
+  } else if (action.type === STOP_BREAK_TIMER) {
+    return {
+      ...state,
+      breakId: action.pomoIntervalId
+    };
+  } else if (action.type === POST_SESSIONS_ERROR) {
+    return {
+      ...state,
+      error: action.error
+    };
+  } else if (action.type === PAUSE_TIMER) {
+    return {
+      ...state,
+      paused: !state.paused
+    };
+  } else if (action.type === RESET_STATE) {
+    return {
+      ...state,
+      sessionMinutesRemaining: 0,
+      sessionSecondsRemaining: 0,
+      breakMinutesRemaining: 0,
+      breakSecondsRemaining: 0,
+      initialMinutes: null,
+      initialSeconds: null,
+      initialBreakMinutes: null,
+      initialBreakSeconds: null,
+      currentSessionName: null,
+      breakDuration: null,
+      workDuration: null,
+      intervalId: null,
+      breakId: null,
+      paused: false,
+      restartedSession: false
+    };
+  } else if (action.type === RESTART_WORK_TIMER) {
+    return {
+      ...state,
+      sessionMinutesRemaining: state.initialMinutes,
+      sessionSecondsRemaining: state.initialSeconds,
+      breakMinutesRemaining: state.initialBreakMinutes,
+      breakSecondsRemaining: state.initialBreakSeconds,
+      intervalId: null,
+      paused: false
+    };
+  } else if (action.type === BIND_SESSION_LENGTH) {
+    return {
+      ...state,
+      initialMinutes: action.minutes,
+      initialSeconds: action.seconds
+    };
+  } else if (action.type ===  BIND_BREAK_LENGTH) {
+    return {
+      ...state, 
+      initialBreakMinutes: action.minutes,
+      initialBreakSeconds: action.seconds
     }
-      return state;
+  } else if (action.type === RESTARTED_SESSION) {
+    return {
+      ...state,
+    restartedSession: true
+    }
+  }
+  return state;
 };

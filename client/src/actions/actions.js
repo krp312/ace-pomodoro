@@ -185,9 +185,44 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
       .then(function(res) {
         return res;
       })
+      .then(() => dispatch(resetState()))
     .catch(err => {
       return err;
     });
   };
 };
 
+export const RESET_STATE = "RESET_STATE";
+export const resetState = () => ({
+  type: RESET_STATE
+});
+
+export const STOP_BREAK_TIMER = "STOP_BREAK_TIMER";
+export const stopBreakTimer = (pomoIntervalId) => ({
+  type: STOP_BREAK_TIMER,
+  pomoIntervalId
+})
+
+export const RESTART_WORK_TIMER = "RESTART_WORK_TIMER";
+export const restartWorkTimer = () => ({
+  type: RESTART_WORK_TIMER
+})
+
+export const BIND_SESSION_LENGTH = "BIND_SESSION_LENGTH";
+export const bindSessionLength = (minutes, seconds) => ({
+  type: BIND_SESSION_LENGTH,
+  minutes,
+  seconds
+})
+
+export const BIND_BREAK_LENGTH = "BIND_BREAK_LENGTH";
+export const bindBreakLength = (minutes, seconds) => ({
+  type: BIND_BREAK_LENGTH,
+  minutes,
+  seconds
+})
+
+export const RESTARTED_SESSION = "RESTARTED_SESSION";
+export const restartedSession = () => ({
+  type: RESTARTED_SESSION
+})

@@ -24,8 +24,8 @@ export class CreateUser extends React.Component {
       <div className="login">
         <h2>create user</h2>
         <form onSubmit={e => this.createUserForm(e)}>
-          <input type="text" placeholder="username" />
-          <input type="password" placeholder="password" />
+          <input aria-label="create username" id="createUsername" type="text" placeholder="username" />
+          <input aria-label="create passwrod" id="createPassword" type="password" placeholder="password" />
           <button type="submit">create</button>
         </form>
       </div>

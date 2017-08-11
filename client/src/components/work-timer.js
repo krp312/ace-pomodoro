@@ -5,7 +5,9 @@ import {
   showBreakTimer,
   postBreakDuration,
   pauseTimer,
-  sendBreakDuration
+  sendBreakDuration,
+  stopBreakTimer,
+  bindBreakLength
 } from "../actions/actions";
 import moment from "moment";
 
@@ -15,7 +17,6 @@ export class WorkTimer extends React.Component {
       "Break duration to be passed as user input: " +
         typeof this.props.breakDuration
     );
-    event.preventDefault();
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
 
@@ -34,6 +35,15 @@ export class WorkTimer extends React.Component {
         Math.abs(duration.seconds())
       )
     );
+
+    // Bind original durations for timer restart
+    this.props.dispatch(
+      bindBreakLength(
+        Math.abs(duration.minutes()),
+        Math.abs(duration.seconds())
+      )
+    );
+
     let setIntervalProps = this.props;
     const breakIntervalId = setInterval(
       function() {
@@ -60,6 +70,7 @@ export class WorkTimer extends React.Component {
       interval,
       setIntervalProps
     );
+    this.props.dispatch(stopBreakTimer(breakIntervalId));
   }
 
   toggleTimer(e) {
