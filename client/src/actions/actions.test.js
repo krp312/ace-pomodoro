@@ -22,8 +22,11 @@ import {
   POST_SESSION_NAME,
   postSessionName,
   GET_SESSIONS_REQUEST,
+  getSessionsRequest,
   GET_SESSIONS_SUCCESS,
+  getSessionsSuccess,
   GET_SESSIONS_ERROR,
+  getSessionsError,
   STOP_POMO_TIMER,
   POST_SESSIONS_ERROR,
   postSessionsError,
@@ -47,18 +50,37 @@ import {
 //   expect(action.type).toEqual()
 //   })
 // })
-describe("Show break timer", () => {
-  it('Should return the action', () => {
-  const action = showBreakTimer();
-  expect(action.type).toEqual(SHOW_BREAK_TIMER);
+describe("Get session request", () => {
+  it("Should return the action", () => {
+    const action = getSessionsRequest();
+    expect(action.type).toEqual(GET_SESSIONS_REQUEST);
+  });
+it('Should return the action', () => {
+  const sessions = [1,2,3]
+  const action = getSessionsSuccess(sessions)
+  expect(action.sessions).toEqual(sessions)
+  expect(action.type).toEqual(GET_SESSIONS_SUCCESS)
   })
-})
+it('Should return the action', () => {
+  const error = 'Bad error'
+  const action = getSessionsError(error);
+  expect(action.type).toEqual(GET_SESSIONS_ERROR)
+  expect(action.error).toEqual(error)
+
+  })
+});
+describe("Show break timer", () => {
+  it("Should return the action", () => {
+    const action = showBreakTimer();
+    expect(action.type).toEqual(SHOW_BREAK_TIMER);
+  });
+});
 
 describe("Post session data", () => {
   it("Should return the action", () => {
     const workDuration = 25;
-    const action = postWorkSetting(workDuration)
-    expect(action.workDuration).toEqual(workDuration)
+    const action = postWorkSetting(workDuration);
+    expect(action.workDuration).toEqual(workDuration);
     expect(action.type).toEqual(POST_WORK_SETTING);
   });
   it("Should return the action", () => {
