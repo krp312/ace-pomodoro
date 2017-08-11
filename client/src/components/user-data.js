@@ -24,7 +24,6 @@ export class UserData extends React.Component {
       );
     }
     if (this.props.sessions.sessionInfo) {
-      // console.log(this.props.sessions.sessionInfo[0].name)
       const sessionData = this.props.sessions.sessionInfo.map((item, index) =>
         <table className="session-result" key={index}>
           <tr>
@@ -58,6 +57,7 @@ export class UserData extends React.Component {
       );
     }
   } //closing if bracket
+
   render() {
     return (
       <div className="user-data">

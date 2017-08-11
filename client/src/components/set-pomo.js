@@ -54,6 +54,8 @@ export class SetPomo extends React.Component {
               sessionName,
               formattedBreakDuration,
               formattedWorkDuration
+              // this.props.username,
+              // this.props.password
             )
           );
           clearInterval(pomoIntervalId);
@@ -76,6 +78,10 @@ export class SetPomo extends React.Component {
 
     // When a prior session is not active this block executes:
     let sessionName = this.sessionName.value;
+
+    // this.closure_username = this.props.username;
+    // this.closure_password = this.props.password;
+
     this.props.dispatch(submitPomodoro());
     this.props.dispatch(postSessionName(sessionName));
 
@@ -129,6 +135,8 @@ export class SetPomo extends React.Component {
               sessionName,
               formattedBreakDuration,
               formattedWorkDuration
+              // this.props.username,
+              // this.props.password
             )
           );
           clearInterval(pomoIntervalId);
@@ -213,13 +221,14 @@ export class SetPomo extends React.Component {
 // When trying to access the state on this component make sure to check that reducer state
 // key(s) matches
 const mapStateToProps = (state, ownProps) => {
-  console.log('asdf')
   if (!state.sessions.sessionInfo) {
     return {
       activeSession: state.currentSessionName,
       restartedSession: state.restartedSession,
       initialMinutes: state.initialMinutes,
       initialSeconds: state.initialSeconds
+      // username: state.username,
+      // password: state.password
     };
   }
 
@@ -233,7 +242,9 @@ const mapStateToProps = (state, ownProps) => {
     initialMinutes: state.initialMinutes,
     initialSeconds: state.initialSeconds,
     workTime: sessionObject.length !== 0 ? sessionObject[0].work_duration.minutes : state.initialMinutes,
-    breakTime: sessionObject.length !== 0 ? sessionObject[0].break_duration.minutes : state.initialMinutes
+    breakTime: sessionObject.length !== 0 ? sessionObject[0].break_duration.minutes : state.initialMinutes,
+    username: state.username,
+    password: state.password
   };
 };
 

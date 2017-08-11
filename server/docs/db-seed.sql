@@ -136,12 +136,8 @@ name, work_duration, break_duration
 from sessions WHERE user_id=15
 ORDER BY name, modified desc;
 
+-- general, but bypasses nulls in the db
 select distinct on (name) 
-row_number() OVER() AS row_number, name, work_duration, break_duration
-from sessions WHERE user_id=15
-ORDER BY name, modified desc;
-
-select distinct on (name) 
-row_number() OVER() AS row_number, name, work_duration, break_duration
-from sessions WHERE user_id=15
+name, work_duration, break_duration
+from sessions WHERE user_id=16 AND (work_duration IS NOT null OR break_duration IS NOT null)
 ORDER BY name, modified desc;

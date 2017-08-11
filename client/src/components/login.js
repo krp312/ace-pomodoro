@@ -17,6 +17,11 @@ export class LogIn extends React.Component {
     
     const username = this.username.value;
     const password = this.password.value;
+
+    const credentials = `${username}:${password}`;
+    const encodedAuthHeader = btoa(credentials);
+    window.encodedAuthHeader = encodedAuthHeader;
+
     this.props.dispatch(updateCredentials(username, password));
     this.props.dispatch(loginUserRequest());
   }
