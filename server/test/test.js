@@ -8,6 +8,7 @@ const { app, runServer, closeServer } = require('../index');
 chai.use(chaiHttp);
 
 describe('Ace Pomodoro', function() {
+  console.log('before is here'),
   before(function() {
     runServer();
   });
@@ -27,15 +28,21 @@ describe('Ace Pomodoro', function() {
   });
 
   describe('sessions endpoints', function() {
-    // it('/api/sessions/ should get all sessions', function() {
-    //   return chai.request(app)
-    //     .get('/api/sessions')
-    //     .then(result => {
-    //       console.log(result.body);
-    //     });
-    // });
+    it.only('should not access sessions without auth', function() {
+      return chai.request(app)
+        .get('/api/sessions')
+        .then(function(res) {
+          res.should.have.status(401);
+        });
+    // it.only('/api/sessions/ should get all sessions', function() {
+    // return chai.request(app)
+    //   .get('/api/sessions')
+    //   .then(result => {
+    //     console.log(result.body);
+    //   });
+    });
   });
-});
+
 
 // 'use strict';
 
@@ -71,10 +78,26 @@ describe('Ace Pomodoro', function() {
 //   });
 // });
 
-// describe('Users API resource', function() {
-//   it('should pass', function() {
-//     true.should.equal(true);
-//   });
+describe('Users API resource', function() {
+  const newUser = {
+    username: 'testuser',
+    password: 'testpassword'
+  };
 
-  
-// });
+  const expectedKeys = ['username', 'password'];
+
+  it.only('should add a new user on POST', function() {
+    return chai.request(app)
+      .post('/api/users/')
+      .send(newUser)
+      .then(function(res) {
+        res.should.have.status(201);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.all.keys(expectedKeys);
+        res.body.username.should.equal(newUser.username);
+        res.body.password.should.not.equal(newUser.password);
+      });
+
+  });
+});
