@@ -51,7 +51,6 @@ const initialState = {
 //d
 export default (state, action) => {
   state = state || initialState;
-  console.log("What type of action is being submitted: " + action.type);
 
   // LOGINS
   if (action.type === LOGIN_USER_REQUEST) {
@@ -129,7 +128,6 @@ export default (state, action) => {
       currentSessionName: action.sessionName
     };
   } else if (action.type === GET_SESSIONS_REQUEST) {
-    console.log("session request");
     return Object.assign({}, state, {
       loading: true,
       error: null

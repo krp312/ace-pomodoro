@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './styles/header.css';
@@ -7,7 +7,6 @@ import './styles/header.css';
 
 export class Header extends React.Component {
   renderUser() {
-    console.log(this.props.user)
     if (this.props.user !== '') {
             return <span>{this.props.user}</span>
         } else {
