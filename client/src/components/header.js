@@ -1,16 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logoutUser } from "../actions/actions";
 
 import './styles/header.css';
 
 export class Header extends React.Component {
+  logoutUser(e) {
+    e.preventDefault();
+    console.log('you logged out')
+    location.reload();
+    this.props.dispatch(logoutUser());
+  }
+  
   renderUser() {
     if (this.props.loggedIn === true) {
       return (
-        <span>
+        <div>
+          <span>
           {this.props.username}
-        </span>
+          </span>
+          <button className="logout-button" onClick={e => this.logoutUser(e)}>Logout</button>
+        </div>
       );
     } else {
       return <span>Not logged in</span>;
@@ -24,7 +35,6 @@ export class Header extends React.Component {
       return <Link to="/set-pomo">Ace Pomodoro</Link>
     }
   }
-
 
   render() {
     return (

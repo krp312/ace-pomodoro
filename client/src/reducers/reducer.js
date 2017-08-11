@@ -2,6 +2,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  LOGOUT_USER,
   CREATE_USER_REQUEST,
   SUBMIT_POMODORO,
   VIEW_USER_DATA,
@@ -72,6 +73,11 @@ export default (state, action) => {
       loading: false,
       error: action.message
     } 
+  } else if (action.type === LOGOUT_USER) {
+    return {
+      username: '',
+      loggedIn: false
+    }
   } else if (action.type === UPDATE_CREDENTIALS) {
     return Object.assign({}, state, {
       username: action.username,
