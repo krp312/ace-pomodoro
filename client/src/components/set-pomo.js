@@ -4,7 +4,7 @@ import './styles/set-pomo.css';
 import {
   submitPomodoro,
   postSessionDuration,
-  // showBreakTimer,
+  showBreakTimer,
   postSessionName,
   sendSessionDuration,
   stopPomoTimer,
@@ -21,8 +21,8 @@ export class SetPomo extends React.Component {
     event.preventDefault();
     this.props.history.push('/work-timer');
     if (this.props.activeSession){
-      const workDuration = parseInt(this.props.initialMinutes, 10); //
-      const breakDuration = parseInt(this.props.initialSeconds, 10); //
+      const workDuration = parseInt(this.props.initialMinutes);
+      const breakDuration = parseInt(this.props.initialSeconds);
       const currentTime = new Date().getTime();
       const eventTime = new Date(
       currentTime - workDuration * 60000
@@ -79,13 +79,13 @@ export class SetPomo extends React.Component {
     this.props.dispatch(submitPomodoro());
     this.props.dispatch(postSessionName(sessionName));
 
-    const breakDuration = parseInt(this.breakDuration.value, 10); //
+    const breakDuration = parseInt(this.breakDuration.value);
     this.props.dispatch(postBreakSetting(breakDuration));
     const formattedBreakDuration = moment
       .utc(breakDuration * 60000)
       .format('HH:mm:ss');
 
-    const userDurationInput = parseInt(this.durationInput.value, 10); //
+    const userDurationInput = parseInt(this.durationInput.value);
     this.props.dispatch(postWorkSetting(userDurationInput));
     const formattedWorkDuration = moment
       .utc(userDurationInput * 60000)
@@ -212,7 +212,6 @@ export class SetPomo extends React.Component {
 
 // When trying to access the state on this component make sure to check that reducer state
 // key(s) matches
-
 const mapStateToProps = (state, ownProps) => {
   if (!state.sessions.sessionInfo) {
     return {
