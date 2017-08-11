@@ -16,6 +16,7 @@ import {
   POST_SESSION_DURATION,
   postSessionDuration,
   SHOW_BREAK_TIMER,
+  showBreakTimer,
   POST_BREAK_DURATION,
   postBreakDuration,
   POST_SESSION_NAME,
@@ -41,9 +42,15 @@ import {
 } from "./actions";
 
 // describe('', () => {
-it('Should return the action', () => {
-  const action =
-  expect(action.type).toEqual()
+// it('Should return the action', () => {
+//   const action =
+//   expect(action.type).toEqual()
+//   })
+// })
+describe("Show break timer", () => {
+  it('Should return the action', () => {
+  const action = showBreakTimer();
+  expect(action.type).toEqual(SHOW_BREAK_TIMER);
   })
 })
 
