@@ -20,3 +20,7 @@ td, th {
 tr:nth-child(odd) {
     background-color: #dddddd;
 }
+
+.session-result a {
+    color: blue;
+}

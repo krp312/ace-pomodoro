@@ -1,22 +1,23 @@
-import React from "react";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { loginUserRequest } from "../actions/actions";
+import { loginUserRequest, updateCredentials } from '../actions/actions';
 
-import "./styles/login.css";
+import './styles/login.css';
 
 export class LogIn extends React.Component {
   loginSubmit(event) {
     event.preventDefault();
-    if (
-      (this.props.seconds !== 0 && this.props.minutes !== 0) ||
-      this.props.seconds !== 0
-    ) {
-      this.props.history.push(`/work-timer`);
+    if ((this.props.seconds !== 0 && this.props.minutes !== 0) || this.props.seconds !== 0) {
+      this.props.history.push('/work-timer');
     } else if (this.props.seconds === 0 && this.props.minutes === 0) {
-      this.props.history.push(`/set-pomo`);
+      this.props.history.push('/set-pomo');
     }
+    
+    const username = this.username.value;
+    const password = this.password.value;
+    this.props.dispatch(updateCredentials(username, password));
     this.props.dispatch(loginUserRequest());
   }
 
@@ -25,9 +26,21 @@ export class LogIn extends React.Component {
       <div className="login">
         <h2>Login</h2>
         <form onSubmit={e => this.loginSubmit(e)}>
-          <input aria-label="username" id="username" type="text" placeholder="username" />
-          <input aria-label="password" id="password"type="password" placeholder="password" />
-          <button type="submit">Login</button>
+          <input
+            aria-label="username"
+            id="username"
+            type="text"
+            placeholder="username"
+            ref={input => (this.username = input)}
+          />
+          <input
+            aria-label="password"
+            id="password"
+            type="password"
+            placeholder="password"
+            ref={input => (this.password = input)}
+          />
+          <button type="submit">login</button>
         </form>
         <span className="create-account-span">
           <Link to="/create-user">create user</Link>
