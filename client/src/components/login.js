@@ -43,7 +43,7 @@ export class LogIn extends React.Component {
           <button type="submit">login</button>
         </form>
         <span className="create-account-span">
-          <Link to="/create-user">create user</Link>
+          <Link to="/create-user" className="create-account-link">create user</Link>
         </span>
       </div>
     );
