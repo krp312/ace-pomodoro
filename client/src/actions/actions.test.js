@@ -41,7 +41,9 @@ import {
   stopBreakTimer,
   RESTART_WORK_TIMER,
   BIND_SESSION_LENGTH,
+  bindSessionLength,
   BIND_BREAK_LENGTH,
+  bindBreakLength,
   UPDATE_CREDENTIALS,
   updateCredentials
 } from "./actions";
@@ -52,39 +54,59 @@ import {
 //   expect(action.type).toEqual()
 //   })
 // })
-describe('Timer stop requests', () => {
-it('Should return the action', () => {
-  const pomoIntervalId = 50;
-  const action =stopPomoTimer(pomoIntervalId);
-  expect(action.pomoIntervalId).toEqual(pomoIntervalId);
-  expect(action.type).toEqual(STOP_POMO_TIMER)
-  })
-it('Should return the action', () => {
-  const pomoIntervalId = 51;
-  const action =  stopBreakTimer(pomoIntervalId);
-  expect(action.pomoIntervalId).toEqual(pomoIntervalId);
-  expect(action.type).toEqual(STOP_BREAK_TIMER)
-  })
-})
+describe("Timer duration binding requests", () => {
+  it("Should return the action", () => {
+    const minutes = 5;
+    const seconds = 0;
+    const action = bindSessionLength(minutes, seconds);
+    expect(action.minutes).toEqual(minutes);
+    expect(action.seconds).toEqual(seconds);
+    expect(action.type).toEqual(BIND_SESSION_LENGTH);
+  });
+  it("Should return the action", () => {
+    const minutes = 5;
+    const seconds = 0;
+    const action = bindBreakLength(minutes, seconds);
+    expect(action.minutes).toEqual(minutes);
+    expect(action.seconds).toEqual(seconds);
+    expect(action.type).toEqual(BIND_BREAK_LENGTH);
+  });
+});
+
+describe("Timer stop requests", () => {
+  it("Should return the action", () => {
+    const pomoIntervalId = 50;
+    const action = stopPomoTimer(pomoIntervalId);
+    expect(action.pomoIntervalId).toEqual(pomoIntervalId);
+    expect(action.type).toEqual(STOP_POMO_TIMER);
+  });
+  it("Should return the action", () => {
+    const pomoIntervalId = 51;
+    const action = stopBreakTimer(pomoIntervalId);
+    expect(action.pomoIntervalId).toEqual(pomoIntervalId);
+    expect(action.type).toEqual(STOP_BREAK_TIMER);
+  });
+});
+
 describe("Get session request", () => {
   it("Should return the action", () => {
     const action = getSessionsRequest();
     expect(action.type).toEqual(GET_SESSIONS_REQUEST);
   });
-it('Should return the action', () => {
-  const sessions = [1,2,3]
-  const action = getSessionsSuccess(sessions)
-  expect(action.sessions).toEqual(sessions)
-  expect(action.type).toEqual(GET_SESSIONS_SUCCESS)
-  })
-it('Should return the action', () => {
-  const error = 'Bad error'
-  const action = getSessionsError(error);
-  expect(action.type).toEqual(GET_SESSIONS_ERROR)
-  expect(action.error).toEqual(error)
-
-  })
+  it("Should return the action", () => {
+    const sessions = [1, 2, 3];
+    const action = getSessionsSuccess(sessions);
+    expect(action.sessions).toEqual(sessions);
+    expect(action.type).toEqual(GET_SESSIONS_SUCCESS);
+  });
+  it("Should return the action", () => {
+    const error = "Bad error";
+    const action = getSessionsError(error);
+    expect(action.type).toEqual(GET_SESSIONS_ERROR);
+    expect(action.error).toEqual(error);
+  });
 });
+
 describe("Show break timer", () => {
   it("Should return the action", () => {
     const action = showBreakTimer();
