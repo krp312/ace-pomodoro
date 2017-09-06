@@ -141,6 +141,3 @@ select distinct on (name)
 name, work_duration, break_duration
 from sessions WHERE user_id=16 AND (work_duration IS NOT null OR break_duration IS NOT null)
 ORDER BY name, modified desc;
-
-15 | 2017-08-09 14:28:53.167353 | evan         | $2a$10$dLvbawcu1PHGk4RZbQ358uc1EtcL26yqboeLboBu.LSPb0gW/3dlC |            |           | 
- 16 | 2017-08-10 03:33:18.299051 | david        | $2a$10$z5MF8izNXcr8PvSZyeoPkeGi7vjF7/FQFqC66DVcPmrJdCdH2nGQa |            |           | 
