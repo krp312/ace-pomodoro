@@ -141,3 +141,5 @@ select distinct on (name)
 name, work_duration, break_duration
 from sessions WHERE user_id=16 AND (work_duration IS NOT null OR break_duration IS NOT null)
 ORDER BY name, modified desc;
+
+-- a change
