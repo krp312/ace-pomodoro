@@ -1,5 +1,3 @@
-'use strict';
-
 require('dotenv').config();
 
 const morgan = require('morgan');
