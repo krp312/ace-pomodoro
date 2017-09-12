@@ -143,9 +143,3 @@ from sessions WHERE user_id=16 AND (work_duration IS NOT null OR break_duration 
 ORDER BY name, modified desc;
 
 -- a change
-
-DATABASE_URL
-postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm
-
-HEROKU_POSTGRESQL_SILVER_URL
-postgres://bpqhehipykyvrw:ddf861edd4eb0ab83f6c29b88bb235b8f6578ef0582532552af6adab4ad52519@ec2-54-235-81-176.compute-1.amazonaws.com:5432/d9eiltuik95j3j
