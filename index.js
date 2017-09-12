@@ -3,7 +3,7 @@ const proxy = require('http-proxy-middleware');
 
 const app = express();
 
-const { DATABASE, PORT } = require('./config');
+const { DATABASE, PORT } = require('./server/config');
 
 if (process.env.NODE_ENV === 'production') {
     // Change the cwd to server to mimic running directly
