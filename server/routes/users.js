@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const { authenticator } = require('../auth');
-
+const passport = require('passport');
+const basicAuth = passport.authenticate('basic', {session: false});
 router.use(bodyParser.json());
 
-// Create a new user
+// Create new user
 router.post('/', (req, res) => {
   let { username, password } = req.body;
   let hashedPassword;
@@ -43,7 +43,8 @@ router.post('/', (req, res) => {
     });
 });
 
-router.post('/login', authenticator, (req, res) => {
+router.post('/login', basicAuth, (req, res) => {
+  console.log('LOGIN ENDPOINT')
   return res.status(200).json({ message: 'login successful' });
 });
 

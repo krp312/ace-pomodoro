@@ -1,9 +1,6 @@
 const express = require('express');
 const proxy = require('http-proxy-middleware');
-
 const app = express();
-
-// const { DATABASE, PORT } = require('./server/config');
 
 if (process.env.NODE_ENV === 'production') {
     // Change the cwd to server to mimic running directly
@@ -11,10 +8,8 @@ if (process.env.NODE_ENV === 'production') {
     // Only require inside the if block so we don't run the server code twice
     // in development
     const runServer = require('./server').runServer;
-    // Just run the server
     runServer();
 } else {
-    const app = express();
     // Proxy everything through to Create React App
     app.use(
         proxy('http://localhost:3000/', {

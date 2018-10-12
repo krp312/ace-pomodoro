@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const { authenticator } = require('../auth');
 
 router.use(bodyParser.json());
 
-router.get('/', authenticator, (req, res) => {
+router.get('/', (req, res) => {
   let sessionInfo;
   let allTimeTotals;
   let totalsPerUserPerPomo;
@@ -125,21 +124,8 @@ router.get('/', authenticator, (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-// select distinct on (name) 
-// name, work_duration, break_duration
-// from sessions WHERE user_id=16 AND (work_duration IS NOT null OR break_duration IS NOT null)
-// ORDER BY name, modified desc;
-
 // Create a new session in DB 
-router.post('/', authenticator, (req, res) => {
-  // const requiredFields = ['name', 'work_duration', 'break_duration', 'is_completed'];
-  // const missingIndex = requiredFields.findIndex(field => !req.body[field]);
-  // if (missingIndex !== -1) {
-  //   return res.status(400).json({
-  //     message: `Missing field: ${requiredFields[missingIndex]}`
-  //   });
-  // }
-
+router.post('/', (req, res) => {
   let { 
     name, 
     work_duration, 

@@ -1,34 +1,20 @@
 require('dotenv').config();
-
-const morgan = require('morgan');
-
-const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const app = express();
 global.app = app;
-app.use(bodyParser.json());
-
+const morgan = require('morgan');
+const path = require('path');
+const bodyParser = require('body-parser');
 const sessionRouter = require('./routes/sessions');
 const userRouter = require('./routes/users');
-
 const { DATABASE, PORT } = require('./config');
-
-const { passportMiddleware } = require('./auth');
-
-app.use(passportMiddleware);
-
+const passport = require('passport');
+const { basicStrategy } = require('./auth');
+app.use(bodyParser.json());
 app.use(morgan(':method :url :res[location] :status'));
-
-// Set routers
 app.use('/api/sessions', sessionRouter);
 app.use('/api/users', userRouter);
-
-// Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-// Allows CORS
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -37,6 +23,7 @@ app.use(function(req, res, next) {
     );
     next();
 });
+passport.use(basicStrategy);
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function

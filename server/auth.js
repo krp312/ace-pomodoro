@@ -1,8 +1,8 @@
-const passport = require('passport');
 const { BasicStrategy } = require('passport-http');
 const bcrypt = require('bcryptjs');
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
+  console.log('##################')
   let rows;
 
   global.app.locals.knex
@@ -29,8 +29,4 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
     .catch(error => callback(error));
 });
 
-passport.use(basicStrategy);
-const passportMiddleware = passport.initialize();
-const authenticator = passport.authenticate('basic', { session: false });
-
-module.exports = { authenticator, passportMiddleware };
+module.exports = { basicStrategy };
