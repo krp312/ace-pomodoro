@@ -119,8 +119,6 @@ export class WorkTimer extends React.Component {
   }
 }
 
-// When trying to access the state on this component make sure to check that reducer state
-// key(s) matches.
 const mapStateToProps = state => ({
   minutesRemaining: state.sessionMinutesRemaining,
   secondsRemaining: state.sessionSecondsRemaining,
@@ -128,8 +126,6 @@ const mapStateToProps = state => ({
   paused: state.paused,
   breakDuration: state.breakDuration,
   sessionName: state.currentSessionName
-  // username: state.username,
-  // password: state.password
 });
 
 export default connect(mapStateToProps)(WorkTimer);

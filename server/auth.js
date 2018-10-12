@@ -3,7 +3,6 @@ const { BasicStrategy } = require('passport-http');
 const bcrypt = require('bcryptjs');
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
-  // rows is the row(s) selection from the db, which should just be one row
   let rows;
 
   global.app.locals.knex
@@ -32,6 +31,6 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
 
 passport.use(basicStrategy);
 const passportMiddleware = passport.initialize();
-let authenticator = passport.authenticate('basic', { session: false });
+const authenticator = passport.authenticate('basic', { session: false });
 
 module.exports = { authenticator, passportMiddleware };
