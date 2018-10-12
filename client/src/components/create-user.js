@@ -7,6 +7,7 @@ export class CreateUser extends React.Component {
   createUserForm(event) {
     event.preventDefault();
     this.props.dispatch(createUser(this.props.loginUsername, this.props.loginPassword));
+    this.props.history.push('/');
   }
 
   updateUsername(name) {
