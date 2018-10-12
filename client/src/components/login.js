@@ -1,29 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import { loginUserRequest, updateCredentials } from '../actions/actions';
-
 import './styles/login.css';
 
 export class LogIn extends React.Component {
   loginSubmit(event) {
-    event.preventDefault();
-    if ((this.props.seconds !== 0 && this.props.minutes !== 0) || this.props.seconds !== 0) {
-      this.props.history.push('/work-timer');
-    } else if (this.props.seconds === 0 && this.props.minutes === 0) {
-      this.props.history.push('/set-pomo');
-    }
-    
+    event.preventDefault();   
     const username = this.username.value;
     const password = this.password.value;
-
     const credentials = `${username}:${password}`;
     const encodedAuthHeader = btoa(credentials);
     window.encodedAuthHeader = encodedAuthHeader;
 
     this.props.dispatch(updateCredentials(username, password));
-    this.props.dispatch(loginUserRequest());
+    this.props.dispatch(loginUserRequest(username, password));
   }
 
   render() {

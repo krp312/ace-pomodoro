@@ -3,7 +3,6 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   LOGOUT_USER,
-  CREATE_USER_REQUEST,
   SUBMIT_POMODORO,
   VIEW_USER_DATA,
   SHOW_POMO_INFO,
@@ -24,13 +23,14 @@ import {
   RESTART_WORK_TIMER,
   BIND_SESSION_LENGTH,
   BIND_BREAK_LENGTH,
-  UPDATE_CREDENTIALS
+  UPDATE_CREDENTIALS,
+  UPDATE_USERNAME,
+  UPDATE_PASSWORD
 } from "../actions/actions";
 
 const initialState = {
   username: "",
-  // user: '',
-  // loggedIn: true,
+  password: "",
   loggedIn: false,
   sessions: [],
   display: "login",
@@ -47,7 +47,8 @@ const initialState = {
   workDuration: null,
   intervalId: null,
   breakId: null,
-  paused: false
+  paused: false,
+  loginUsername: ""
 };
 //d
 export default (state, action) => {
@@ -59,6 +60,14 @@ export default (state, action) => {
       ...state,
       display: "setPomo"
     };
+  } else if (action.type === UPDATE_USERNAME) {
+    return Object.assign({}, state, {
+      loginUsername: action.name
+    })
+  } else if (action.type === UPDATE_PASSWORD) {
+    return Object.assign({}, state, {
+      loginPassword: action.password
+    })
   } else if (action.type === LOGIN_USER_SUCCESS) {
     return {
       users: [...state.users, action.users],
@@ -83,11 +92,6 @@ export default (state, action) => {
       display: "setPomo",
       loggedIn: true
     })
-  } else if (action.type === CREATE_USER_REQUEST) {
-    console.log("create user request");
-    return {
-      ...state
-    };
   } else if (action.type === VIEW_USER_DATA) {
     console.log("checking user data");
     return {

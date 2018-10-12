@@ -20,7 +20,7 @@ export function App(props) {
             <div className="app">
                 <Header/>
                 <main>
-                     <Route exact path="/" component={LogIn} /> 
+                    <Route exact path="/" component={LogIn} /> 
                     <Route exact path="/create-user" component={CreateUser} />
                     <Route exact path="/pomo-info" component={PomoInfo} />
 

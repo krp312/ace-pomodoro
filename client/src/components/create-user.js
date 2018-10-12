@@ -1,22 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/create-user.css";
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-import { createUserRequest } from "../actions/actions";
+import { createUser, updateUsername, updatePassword } from "../actions/actions";
 
 export class CreateUser extends React.Component {
   createUserForm(event) {
     event.preventDefault();
-    if (
-      (this.props.seconds !== 0 && this.props.minutes !== 0) ||
-      this.props.seconds !== 0
-    ) {
-      this.props.history.push(`/work-timer`);
-    } else if (this.props.seconds === 0 && this.props.minutes === 0) {
-      this.props.history.push(`/set-pomo`);
-    }
-    this.props.dispatch(createUserRequest());
+    this.props.dispatch(createUser(this.props.loginUsername, this.props.loginPassword));
+  }
+
+  updateUsername(name) {
+    this.props.dispatch(updateUsername(name));
+  }
+
+  updatePassword(password) {
+    this.props.dispatch(updatePassword(password));
   }
 
   render() {
@@ -24,8 +22,8 @@ export class CreateUser extends React.Component {
       <div className="login">
         <h2>create user</h2>
         <form onSubmit={e => this.createUserForm(e)}>
-          <input aria-label="create username" id="createUsername" type="text" placeholder="username" />
-          <input aria-label="create passwrod" id="createPassword" type="password" placeholder="password" />
+          <input aria-label="create username" id="createUsername" type="text" placeholder="username" onChange={e => this.updateUsername(e.target.value)} value={this.props.loginUsername} />
+          <input aria-label="create password" id="createPassword" type="password" placeholder="password" onChange={e => this.updatePassword(e.target.value)} value={this.props.loginPassword} />
           <button type="submit" className="create-user-button">create</button>
         </form>
       </div>
@@ -35,6 +33,9 @@ export class CreateUser extends React.Component {
 
 const mapStateToProps = state => ({
   minutes: state.sessionMinutesRemaining,
-  seconds: state.sessionSecondsRemaining
+  seconds: state.sessionSecondsRemaining,
+  loginUsername: state.loginUsername,
+  loginPassword: state.loginPassword
 });
+
 export default connect(mapStateToProps)(CreateUser);

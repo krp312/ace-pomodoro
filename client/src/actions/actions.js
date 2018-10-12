@@ -19,11 +19,6 @@ export const logoutUser = message => ({
   type: LOGOUT_USER
 });
 
-export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
-export const createUserRequest = () => ({
-  type: CREATE_USER_REQUEST
-});
-
 export const VIEW_USER_DATA = 'VIEW_USER_DATA';
 export const viewUserData = () => ({
   type: VIEW_USER_DATA
@@ -72,7 +67,6 @@ export const stopPomoTimer = pomoIntervalId => ({
   pomoIntervalId
 });
 
-//              SESSIONS
 export const GET_SESSIONS_REQUEST = 'GET_SESSIONS_REQUEST';
 export const getSessionsRequest = () => ({
   type: GET_SESSIONS_REQUEST
@@ -97,43 +91,6 @@ export const updateCredentials = (username, password) => ({
   password
 });
 
-export const fetchSessions = (username, password) => dispatch => {
-  const credentials = `${username}:${password}`;
-  const encodedAuthHeader = btoa(credentials);
-  const authString = `Basic ${encodedAuthHeader}`;
-
-  const opts = {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: authString
-    },
-    method: 'GET'
-  };
-
-  dispatch(getSessionsRequest());
-  return fetch('/api/sessions/', opts)
-    .then(res => {
-      if (!res.ok) {
-        return Promise.reject(res.statusText);
-      }
-      return res.json();
-    })
-    .then(sessions => {
-      return dispatch(getSessionsSuccess(sessions));
-    })
-    .catch(err => {
-      dispatch(getSessionsError(err));
-    });
-};
-
-// export const searchCharacters = name => dispatch => {
-//     dispatch(searchCharactersRequest());
-//     search(name)
-//         .then(characters => dispatch(searchCharactersSuccess(characters)))
-//         .catch(error => dispatch(searchCharactersError(error)));
-// };
-
 export const PAUSE_TIMER = 'PAUSE_TIMER';
 export const pauseTimer = () => ({
   type: PAUSE_TIMER,
@@ -155,6 +112,48 @@ export const POST_SESSIONS_ERROR = 'POST_SESSIONS_ERROR';
 export const postSessionsError = error => ({
   type: POST_SESSIONS_ERROR,
   error
+});
+
+export const STOP_BREAK_TIMER = 'STOP_BREAK_TIMER';
+export const stopBreakTimer = (pomoIntervalId) => ({
+  type: STOP_BREAK_TIMER,
+  pomoIntervalId
+});
+
+export const RESTART_WORK_TIMER = 'RESTART_WORK_TIMER';
+export const restartWorkTimer = () => ({
+  type: RESTART_WORK_TIMER
+});
+
+export const BIND_SESSION_LENGTH = 'BIND_SESSION_LENGTH';
+export const bindSessionLength = (minutes, seconds) => ({
+  type: BIND_SESSION_LENGTH,
+  minutes,
+  seconds
+});
+
+export const BIND_BREAK_LENGTH = 'BIND_BREAK_LENGTH';
+export const bindBreakLength = (minutes, seconds) => ({
+  type: BIND_BREAK_LENGTH,
+  minutes,
+  seconds
+});
+
+export const RESET_STATE = 'RESET_STATE';
+export const resetState = () => ({
+  type: RESET_STATE
+});
+
+export const UPDATE_USERNAME = 'UPDATE_USERNAME';
+export const updateUsername = (name) => ({
+  type: UPDATE_USERNAME,
+  name
+});
+
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+export const updatePassword = (password) => ({
+  type: UPDATE_PASSWORD,
+  password
 });
 
 // send over total work time and total break time
@@ -188,11 +187,6 @@ export const sendSessionDuration = (sessionDuration, sessionName, breakDurationS
   };
 };
 
-export const RESET_STATE = 'RESET_STATE';
-export const resetState = () => ({
-  type: RESET_STATE
-});
-
 export const sendBreakDuration = (breakDuration, sessionName) => {
   let formattedPostRequest = {
     name: sessionName,
@@ -220,29 +214,53 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
   };
 };
 
+export const fetchSessions = (username, password) => dispatch => {
+  const credentials = `${username}:${password}`;
+  const encodedAuthHeader = btoa(credentials);
+  const authString = `Basic ${encodedAuthHeader}`;
 
+  const opts = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: authString
+    },
+    method: 'GET'
+  };
 
-export const STOP_BREAK_TIMER = 'STOP_BREAK_TIMER';
-export const stopBreakTimer = (pomoIntervalId) => ({
-  type: STOP_BREAK_TIMER,
-  pomoIntervalId
-});
+  dispatch(getSessionsRequest());
+  return fetch('/api/sessions/', opts)
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(sessions => {
+      return dispatch(getSessionsSuccess(sessions));
+    })
+    .catch(err => {
+      dispatch(getSessionsError(err));
+    });
+};
 
-export const RESTART_WORK_TIMER = 'RESTART_WORK_TIMER';
-export const restartWorkTimer = () => ({
-  type: RESTART_WORK_TIMER
-});
+export const createUser = (username, password) => dispatch => {
+  const credentials = {
+    username,
+    password
+  }
 
-export const BIND_SESSION_LENGTH = 'BIND_SESSION_LENGTH';
-export const bindSessionLength = (minutes, seconds) => ({
-  type: BIND_SESSION_LENGTH,
-  minutes,
-  seconds
-});
+  const opts = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(credentials)
+  };
 
-export const BIND_BREAK_LENGTH = 'BIND_BREAK_LENGTH';
-export const bindBreakLength = (minutes, seconds) => ({
-  type: BIND_BREAK_LENGTH,
-  minutes,
-  seconds
-});
+  return fetch('/api/users/', opts)
+    .then(sessions => {
+      return dispatch(getSessionsSuccess(sessions));
+    })
+};

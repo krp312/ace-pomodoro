@@ -21,6 +21,7 @@ router.use(bodyParser.json());
 //   // What occurs in here depends on postgres data structure
 //   return res.status(200).json({ name: 'bobby' });
 // });
+
 // Create a new user in DB
 router.post('/', (req, res) => {
   const requiredFields = ['username', 'password'];
