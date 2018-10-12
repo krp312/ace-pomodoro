@@ -192,7 +192,6 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
     name: sessionName,
     total_break_time: breakDuration,
   };
-  console.log('Break duration: ' + formattedPostRequest.total_break_time);
   const opts = {
     headers: {
       Accept: 'application/json',

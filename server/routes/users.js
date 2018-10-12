@@ -44,8 +44,7 @@ router.post('/', (req, res) => {
 });
 
 router.post('/login', basicAuth, (req, res) => {
-  console.log('LOGIN ENDPOINT')
-  return res.status(200).json({ message: 'login successful' });
+  return res.json({ message: 'login successful' });
 });
 
 module.exports = router;

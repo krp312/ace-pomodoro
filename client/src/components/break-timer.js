@@ -5,11 +5,8 @@ import {resetState, restartWorkTimer} from "../actions/actions";
 
 export class BreakTimer extends React.Component {
 restartSession(e) {
-   clearInterval(this.props.intervalId);
-  //  let {breakDuration, workDuration} = this.props;
-  //  this.props.dispatch(resetState());
-  //  console.log('the two numbers we want to send to work timer: ' + this.props.workDuration + ' ' + this.props.breakDuration)
-   this.props.history.push(`/set-pomo`);
+  clearInterval(this.props.intervalId);
+  this.props.history.push(`/set-pomo`);
   this.props.dispatch(restartWorkTimer());
 }
 

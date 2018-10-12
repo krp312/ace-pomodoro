@@ -13,10 +13,6 @@ import moment from "moment";
 
 export class WorkTimer extends React.Component {
   submitPomoForm(event) {
-    console.log(
-      "Break duration to be passed as user input: " +
-        typeof this.props.breakDuration
-    );
     this.props.history.push(`/break-timer`);
     this.props.dispatch(showBreakTimer());
 
@@ -79,10 +75,8 @@ export class WorkTimer extends React.Component {
     // Will face another problem if attempting to setup pause for break timer
     this.props.dispatch(pauseTimer());
     if (this.props.paused) {
-      console.log("clicked pause button");
       clearInterval(this.props.intervalId);
     } else if (!this.props.paused) {
-      console.log("unclear interval here");
       clearInterval(this.props.intervalId);
     }
   }

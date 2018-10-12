@@ -2,7 +2,6 @@ const { BasicStrategy } = require('passport-http');
 const bcrypt = require('bcryptjs');
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
-  console.log('##################')
   let rows;
 
   global.app.locals.knex
