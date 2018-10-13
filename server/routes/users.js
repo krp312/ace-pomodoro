@@ -3,7 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const basicAuth = passport.authenticate('basic', {session: false});
+const localAuth = passport.authenticate('local', {session: false});
 router.use(bodyParser.json());
 
 // Create new user
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.post('/login', basicAuth, (req, res) => {
+router.post('/login', localAuth, (req, res) => {
   return res.json({ message: 'login successful' });
 });
 

@@ -1,9 +1,9 @@
-const { BasicStrategy } = require('passport-http');
 const bcrypt = require('bcryptjs');
+const { Strategy: LocalStrategy } = require('passport-local');
 
-const basicStrategy = new BasicStrategy((username, password, callback) => {
+const localStrategy = new LocalStrategy((username, password, callback) => {
   let rows;
-
+  
   global.app.locals.knex
     .select()
     .from('users')
@@ -28,4 +28,4 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
     .catch(error => callback(error));
 });
 
-module.exports = { basicStrategy };
+module.exports = { localStrategy };
