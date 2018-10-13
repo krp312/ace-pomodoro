@@ -9,7 +9,7 @@ const sessionRouter = require('./routes/sessions');
 const userRouter = require('./routes/users');
 const { DATABASE, PORT } = require('./config');
 const passport = require('passport');
-const { localStrategy } = require('./auth');
+const { localStrategy, jwtStrategy } = require('./auth');
 app.use(bodyParser.json());
 app.use(morgan(':method :url :res[location] :status'));
 app.use('/api/sessions', sessionRouter);
@@ -24,6 +24,7 @@ app.use(function(req, res, next) {
     next();
 });
 passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function

@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { Strategy: LocalStrategy } = require('passport-local');
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+const { JWT_SECRET } = require('./config');
 
 const localStrategy = new LocalStrategy((username, password, callback) => {
   let rows;
@@ -28,4 +30,15 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
     .catch(error => callback(error));
 });
 
-module.exports = { localStrategy };
+const jwtStrategy = new JwtStrategy(
+  {
+    secretOrKey: JWT_SECRET,
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+    algorithms: ['HS256']
+  },
+  (payload, done) => {
+    done(null, payload.user);
+  }
+);
+
+module.exports = { localStrategy, jwtStrategy };

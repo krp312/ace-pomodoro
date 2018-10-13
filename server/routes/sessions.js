@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 router.use(bodyParser.json());
 
@@ -124,9 +125,11 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-// Create a new session in DB 
-router.post('/', (req, res) => {
-  let { 
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+// Create a new pomodoro session in DB 
+router.post('/', jwtAuth, (req, res) => {
+  let {
     name, 
     work_duration, 
     break_duration, 

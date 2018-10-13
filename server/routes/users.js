@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const localAuth = passport.authenticate('local', {session: false});
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 router.use(bodyParser.json());
 
 // Create new user
@@ -43,8 +45,17 @@ router.post('/', (req, res) => {
     });
 });
 
+const createAuthToken = function(user) {
+  return jwt.sign({user}, config.JWT_SECRET, {
+    subject: user.username,
+    expiresIn: config.JWT_EXPIRY,
+    algorithm: 'HS256'
+  });
+};
+
 router.post('/login', localAuth, (req, res) => {
-  return res.json({ message: 'login successful' });
+  const authToken = createAuthToken(req.user);
+  res.json({authToken});
 });
 
 module.exports = router;
