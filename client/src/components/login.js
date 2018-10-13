@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginUserRequest, updateCredentials } from '../actions/actions';
+import { loginUser, updateCredentials } from '../actions/actions';
 import './styles/login.css';
 
 export class LogIn extends React.Component {
@@ -9,15 +9,15 @@ export class LogIn extends React.Component {
     event.preventDefault();   
     const username = this.username.value;
     const password = this.password.value;
-    const credentials = `${username}:${password}`;
-    const encodedAuthHeader = btoa(credentials);
-    window.encodedAuthHeader = encodedAuthHeader;
-
     this.props.dispatch(updateCredentials(username, password));
-    this.props.dispatch(loginUserRequest(username, password));
+    this.props.dispatch(loginUser(username, password));
   }
 
   render() {
+    if (this.props.jwt !== "") {
+      this.props.history.push('/set-pomo');
+    }
+
     return (
       <div className="login">
         <h2>Login</h2>
@@ -52,6 +52,7 @@ export class LogIn extends React.Component {
 
 const mapStateToProps = state => ({
   minutes: state.sessionMinutesRemaining,
-  seconds: state.sessionSecondsRemaining
+  seconds: state.sessionSecondsRemaining,
+  jwt: state.jwt
 });
 export default connect(mapStateToProps)(LogIn);

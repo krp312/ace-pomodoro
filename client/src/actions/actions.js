@@ -1,8 +1,3 @@
-export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
-export const loginUserRequest = () => ({
-  type: LOGIN_USER_REQUEST
-});
-
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const loginUserSuccess = user => ({
   type: LOGIN_USER_SUCCESS,
@@ -156,6 +151,12 @@ export const updatePassword = (password) => ({
   password
 });
 
+export const GET_JWT = 'GET_JWT';
+export const getJwt = token => ({
+  type: GET_JWT,
+  token
+});
+
 // send over total work time and total break time
 export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {
   let formattedPostRequest = {
@@ -261,5 +262,27 @@ export const createUser = (username, password) => dispatch => {
   return fetch('/api/users/', opts)
     .then(sessions => {
       return dispatch(getSessionsSuccess(sessions));
+    })
+};
+
+export const loginUser = (username, password) => dispatch => {
+  const credentials = {
+    username,
+    password
+  }
+
+  const opts = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(credentials)
+  };
+
+  return fetch('/api/users/login', opts)
+    .then(res => res.json())
+    .then(({authToken}) => {
+      return dispatch(getJwt(authToken));
     })
 };

@@ -1,5 +1,4 @@
 import {
-  LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   LOGOUT_USER,
@@ -25,7 +24,8 @@ import {
   BIND_BREAK_LENGTH,
   UPDATE_CREDENTIALS,
   UPDATE_USERNAME,
-  UPDATE_PASSWORD
+  UPDATE_PASSWORD,
+  GET_JWT
 } from "../actions/actions";
 
 const initialState = {
@@ -48,19 +48,15 @@ const initialState = {
   intervalId: null,
   breakId: null,
   paused: false,
-  loginUsername: ""
+  loginUsername: "",
+  jwt: ""
 };
-//d
+
 export default (state, action) => {
   state = state || initialState;
 
   // LOGINS
-  if (action.type === LOGIN_USER_REQUEST) {
-    return {
-      ...state,
-      display: "setPomo"
-    };
-  } else if (action.type === UPDATE_USERNAME) {
+  if (action.type === UPDATE_USERNAME) {
     return Object.assign({}, state, {
       loginUsername: action.name
     })
@@ -215,6 +211,10 @@ export default (state, action) => {
       initialBreakMinutes: action.minutes,
       initialBreakSeconds: action.seconds
     }
+  } else if (action.type ===  GET_JWT) {
+    return Object.assign({}, state, {
+      jwt: action.token,
+    });
   }
   return state;
 };
