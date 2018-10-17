@@ -1,7 +1,7 @@
-10/17/2018: Currently trying to fix all that this (sadly) broken with this project. I mostly contributed on the backend, but it's the frontend that's causing issues.
+_10/17/2018: Currently trying to fix all that is (sadly) broken with this project. I mostly contributed on the backend, but it's the frontend that's causing issues.
 
 Best,
-Kris
+Kris_
 
 # Ace Pomodoro
 
