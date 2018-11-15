@@ -33,36 +33,18 @@ CREATE TABLE sessions(
 );
 
 INSERT INTO 
-  users (username, password, first_name, last_name, email) 
+  users (id, username, password, first_name, last_name, email) 
 VALUES
-  ('liz123', 'nbc', 'Liz', 'Lemon', 'liz@nbc.com'),
-  ('thePrez', '123', 'Donald', 'Trump', 'thedonaldfd@whitehouse.gov')  
+  (15, 'kris', '1234', 'Kristoffer', 'Panahon', 'krp312@me.com')
 RETURNING 
-  id, modified, username, password, first_name, last_name, email;
+  id, modified, username, password, first_name, last_name, email);
 
 SELECT users.id as "user ID", users.username, users.first_name, users.last_name, sessions.name as "session name", sessions.work_duration, sessions.user_id as "session ID"
   FROM users
   INNER JOIN sessions
   ON users.id = sessions.user_id;
 
-{ 
-  "name": "tabata", 
-  "work_duration": "0 43:43:44", 
-  "break_duration": "0 43:43:44", 
-  "user_id": 2
-}
-
 postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm
-
-user_id 16
-username = david
-password = dboy
-$2a$10$z5MF8izNXcr8PvSZyeoPkeGi7vjF7/FQFqC66DVcPmrJdCdH2nGQa
-
-user_id 15
-username = evan
-password = headphones
-$2a$10$dLvbawcu1PHGk4RZbQ358uc1EtcL26yqboeLboBu.LSPb0gW/3dlC
 
 -- per user, totals
 SELECT
