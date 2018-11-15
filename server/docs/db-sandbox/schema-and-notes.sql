@@ -33,12 +33,11 @@ CREATE TABLE sessions(
 );
 
 INSERT INTO 
-  users (username, password, first_name, last_name, email) 
+  users (id, username, password, first_name, last_name, email) 
 VALUES
-  ('liz123', 'nbc', 'Liz', 'Lemon', 'liz@nbc.com'),
-  ('thePrez', '123', 'Donald', 'Trump', 'thedonaldfd@whitehouse.gov')  
+  (15, 'kris', '1234', 'Kristoffer', 'Panahon', 'krp312@me.com')
 RETURNING 
-  id, modified, username, password, first_name, last_name, email;
+  id, modified, username, password, first_name, last_name, email);
 
 SELECT users.id as "user ID", users.username, users.first_name, users.last_name, sessions.name as "session name", sessions.work_duration, sessions.user_id as "session ID"
   FROM users
