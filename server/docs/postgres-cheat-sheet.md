@@ -45,9 +45,12 @@ or
 \d tableName
 
 ### creating records
-INSERT INTO restaurants (name, borough, cuisine, address_building_number, address_street, address_zipcode) 
-  VALUES ('Prince Taco', 'Queens', 'Mexican', '620', 'Astoria Boulevard', '11372') 
-  RETURNING id, name; // which is optional
+INSERT INTO 
+  restaurants (name, borough, cuisine, address_building_number, address_street, address_zipcode) 
+VALUES 
+  ('Prince Taco', 'Queens', 'Mexican', '620', 'Astoria Boulevard', '11372') 
+RETURNING 
+  id, name; // which is optional
 
 ### escape singles quotes like this: 'Rebecca''s'
 
