@@ -3,8 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-// const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL || 'postgresql://localhost/dev-restaurants-app';
-const DATABASE_URL = 'postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm';
+const DATABASE_URL = 'postgresql://localhost/ace-pomodoro';
+// const DATABASE_URL = 'postgres://vatabenm:AuwiKjXtUyHbyaHLWpR0GWVPCFmLWQp1@stampy.db.elephantsql.com:5432/vatabenm';
 
 const DATABASE = {
   client: 'pg',
