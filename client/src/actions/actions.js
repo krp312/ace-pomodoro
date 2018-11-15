@@ -205,11 +205,11 @@ export const sendBreakDuration = (breakDuration, sessionName) => {
   return dispatch => {
     fetch('/api/sessions', opts)
       .then(function(res) {
-        return res;
+        return res
       })
       .then(() => dispatch(resetState()))
     .catch(err => {
-      return err;
+      return err
     });
   };
 };
@@ -283,6 +283,9 @@ export const loginUser = (username, password) => dispatch => {
   return fetch('/api/users/login', opts)
     .then(res => res.json())
     .then(({authToken}) => {
-      return dispatch(getJwt(authToken));
+      return dispatch(getJwt(authToken))
+    })
+    .catch(err => {
+      return err
     })
 };
