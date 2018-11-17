@@ -1,31 +1,65 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/work-timer.css";
-import countdownTimer from '../timer';
+import { updateSessionTimeRemaining } from '../actions/index';
 
 export class WorkTimer extends React.Component {
-  submitPomoForm(event) {
-    this.props.history.push(`/break-timer`);
+  componentDidMount() {
+    const HMStoMilliseconds = (hours, minutes, seconds) => {
+      const hoursToMinutes    = hours * 60;
+      const minutesToSeconds  = (hoursToMinutes + minutes) * 60;
+      const milliseconds      = (minutesToSeconds + seconds) * 1000;
+      
+      return milliseconds;
+    };
+      
+    const millisecondsToHMS = milliseconds => {
+      // to round the ms value, otherwise when a h, m, or s hits, zero, timer behaves weirdly
+      const normalizedSeconds = Math.ceil(milliseconds / 1000);
+    
+      let hours   = parseInt(normalizedSeconds / 60 / 60, 10);
+      let minutes = parseInt((normalizedSeconds / 60) % 60, 10);
+      let seconds = Math.floor((normalizedSeconds) % 60);
+    
+      hours   = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+    
+      return (`${hours}:${minutes}:${seconds}`);
+    };
+      
+    const countdownTimer = (hours, minutes, seconds) => {
+      let clock;
+      const userInput = HMStoMilliseconds(hours, minutes, seconds);
+      const startTime = new Date().getTime();
+      const ticker = () => {
+        const currentTime = new Date().getTime();
+        if (currentTime - startTime >= userInput) {
+          clearInterval(clock);
+        }
+        const milliseconds = startTime + userInput - currentTime;
+        this.props.dispatch(updateSessionTimeRemaining(millisecondsToHMS(milliseconds)))
+      };
+      ticker();
+      clock = setInterval(ticker, 1000);
+    };
+
+    countdownTimer(0, this.props.workTime, 0);
   }
 
   render() {
     return (
       <div className="work-timer">
-        {countdownTimer(0, 5, 0)}
+        {this.props.sessionTimeRemaining}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  minutesRemaining: state.sessionMinutesRemaining,
-  secondsRemaining: state.sessionSecondsRemaining,
-  intervalId: state.intervalId,
-  paused: state.paused,
-  breakDuration: state.breakDuration,
-  sessionName: state.currentSessionName,
+  sessionName: state.sessionName,
   workTime: state.initialWorkMinutes,
-  breakTime: state.initialBreakMinutes
+  sessionTimeRemaining: state.sessionTimeRemaining
 });
 
 export default connect(mapStateToProps)(WorkTimer);

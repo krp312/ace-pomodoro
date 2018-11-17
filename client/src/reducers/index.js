@@ -24,7 +24,8 @@ import {
   UPDATE_USERNAME,
   UPDATE_PASSWORD,
   GET_JWT,
-  SET_SESSION_TIMES
+  SET_SESSION_TIMES,
+  UPDATE_SESSION_TIME_REMAINING
 } from "../actions/index";
 
 const initialState = {
@@ -46,7 +47,8 @@ const initialState = {
   breakId: null,
   paused: false,
   loginUsername: "",
-  jwt: ""
+  jwt: "",
+  sessionTimeRemaining: 0
 };
 
 export default (state=initialState, action) => {
@@ -202,6 +204,10 @@ export default (state=initialState, action) => {
       initialWorkMinutes: action.initialWorkMinutes,
       initialBreakMinutes: action.initialBreakMinutes,
       sessionName: action.sessionName
+    })
+  } else if (action.type ===  UPDATE_SESSION_TIME_REMAINING) {
+    return Object.assign({}, state, {
+      sessionTimeRemaining: action.sessionTimeRemaining
     })
   }
   return state;

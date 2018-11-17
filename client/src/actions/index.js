@@ -149,6 +149,12 @@ export const setSessionTimes = (initialWorkMinutes, initialBreakMinutes, session
   sessionName
 });
 
+export const UPDATE_SESSION_TIME_REMAINING = 'UPDATE_SESSION_TIME_REMAINING';
+export const updateSessionTimeRemaining = sessionTimeRemaining => ({
+  type: UPDATE_SESSION_TIME_REMAINING,
+  sessionTimeRemaining
+});
+
 export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {
   let formattedPostRequest = {
     name: sessionName,
