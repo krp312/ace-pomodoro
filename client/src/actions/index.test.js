@@ -2,7 +2,9 @@ import {
   SET_SESSION_TIMES, 
   setSessionTimes,
   GET_JWT,
-  getJwt
+  getJwt,
+  COUNT_DOWN_WORK_TIME,
+  countDownWorkTime
 } from "./index";
 
 describe('getJwt', () => {
@@ -24,5 +26,14 @@ describe('setSessionTimes', () => {
     expect(action.initialWorkMinutes).toEqual(25);
     expect(action.initialBreakMinutes).toEqual(5);
     expect(action.sessionName).toEqual('studying');
+  });
+});
+
+describe('countDownWorkTime', () => {
+  it('should return the action', () => {
+    const timeRemaining = '1:23';
+    const action = countDownWorkTime(timeRemaining);
+    expect(action.type).toEqual(COUNT_DOWN_WORK_TIME);
+    expect(action.workTimeRemaining).toEqual(timeRemaining);
   });
 });

@@ -1,5 +1,5 @@
 import acePomodoroReducer from './index';
-import { setSessionTimes, getJwt } from '../actions/index';
+import { setSessionTimes, getJwt, countDownWorkTime } from '../actions/index';
 
 describe('setSessionTimes', () => {
   it('should store JSON web token', () => {
@@ -29,6 +29,19 @@ describe('setSessionTimes', () => {
         initialWorkMinutes: '25',
         initialBreakMinutes: '5',
         sessionName: 'studying'
+      });
+  });
+});
+
+describe('countDownWorkTime', () => {
+  it('should set the current work time remaining', () => {
+      let state = {
+        workTimeRemaining: 0
+      };
+      const workTime = '1:23';
+      state = acePomodoroReducer(state, countDownWorkTime(workTime));
+      expect(state).toEqual({
+        workTimeRemaining: '1:23'
       });
   });
 });
