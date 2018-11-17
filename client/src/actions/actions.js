@@ -157,6 +157,14 @@ export const getJwt = token => ({
   token
 });
 
+export const SET_SESSION_TIMES = 'SET_SESSION_TIMES';
+export const setSessionTimes = (initialWorkMinutes, initialBreakMinutes, sessionName) => ({
+  type: SET_SESSION_TIMES,
+  initialWorkMinutes,
+  initialBreakMinutes,
+  sessionName
+});
+
 // send over total work time and total break time
 export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {
   let formattedPostRequest = {

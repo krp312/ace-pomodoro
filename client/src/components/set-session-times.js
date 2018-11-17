@@ -1,41 +1,50 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { setSessionTimes } from '../actions/actions';
 import './styles/set-session-times.css';
 
 export class SetSessionTimes extends React.Component {
   submitSessionTimes(event) {
     event.preventDefault();
+    this.props.dispatch(setSessionTimes(
+      this.initialWorkMinutes.value,
+      this.initialBreakMinutes.value,
+      this.sessionName.value
+    ));
     this.props.history.push('/work-timer');
   }
 
   render() {
     return (
-      <form className="submit-sessions-form" onSubmit={e => this.submitSessionTimes(e)}>
-        <label htmlFor="workDuration">Work (minutes)</label>
+      <form className="submit-sessions-form" onSubmit={event => this.submitSessionTimes(event)}>
+        <label htmlFor="initial-work-minutes">Work (minutes)</label>
         <input
-          aria-label="work duration"
+          aria-label="initial work minutes"
           type="text"
           placeholder="25"
+          id="initial-work-minutes"
+          ref={input => this.initialWorkMinutes = input}
           required
-          id="workDuration"
         />
-        <label htmlFor="breakDuration">Break (minutes)</label>
+        <label htmlFor="initial-break-minutes">Break (minutes)</label>
         <input
-          aria-label="break duration"
+          aria-label="initial break minutes"
           type="text"
           placeholder="5"
+          id="initial-break-minutes"
+          ref={input => this.initialBreakMinutes = input}
           required
-          id="breakDuration"
         />
-        <label htmlFor="sessionName">Session Name</label>
+        <label htmlFor="session-name">Session Name</label>
         <input
-          aria-label="pomodoro session name"
+          aria-label="session name"
           type="text"
           placeholder="Study React"
-          id="sessionName"
+          id="session-name"
+          ref={input => this.sessionName = input}
           required
         />
-        <button type="submit" className="start-pomo-button">Start</button>
+        <button type="submit" className="start-session-button">Start</button>
       </form>
     )
   }

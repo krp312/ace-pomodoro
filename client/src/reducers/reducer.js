@@ -25,7 +25,8 @@ import {
   UPDATE_CREDENTIALS,
   UPDATE_USERNAME,
   UPDATE_PASSWORD,
-  GET_JWT
+  GET_JWT,
+  SET_SESSION_TIMES
 } from "../actions/actions";
 
 const initialState = {
@@ -38,11 +39,9 @@ const initialState = {
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
-  initialMinutes: null,
-  initialSeconds: null,
+  initialWorkMinutes: null,
   initialBreakMinutes: null,
-  initialBreakSeconds: null,
-  currentSessionName: null,
+  sessionName: "",
   breakDuration: null,
   workDuration: null,
   intervalId: null,
@@ -178,7 +177,7 @@ export default (state, action) => {
       sessionSecondsRemaining: 0,
       breakMinutesRemaining: 0,
       breakSecondsRemaining: 0,
-      initialMinutes: null,
+      initialWorkMinutes: null,
       initialSeconds: null,
       initialBreakMinutes: null,
       initialBreakSeconds: null,
@@ -202,7 +201,7 @@ export default (state, action) => {
   } else if (action.type === BIND_SESSION_LENGTH) {
     return {
       ...state,
-      initialMinutes: action.minutes,
+      initialWorkMinutes: action.minutes,
       initialSeconds: action.seconds
     };
   } else if (action.type ===  BIND_BREAK_LENGTH) {
@@ -214,7 +213,13 @@ export default (state, action) => {
   } else if (action.type ===  GET_JWT) {
     return Object.assign({}, state, {
       jwt: action.token,
-    });
+    })
+  } else if (action.type ===  SET_SESSION_TIMES) {
+    return Object.assign({}, state, {
+      initialWorkMinutes: action.initialWorkMinutes,
+      initialBreakMinutes: action.initialBreakMinutes,
+      sessionName: action.sessionName
+    })
   }
   return state;
 };
