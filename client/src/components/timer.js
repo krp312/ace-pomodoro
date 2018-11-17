@@ -4,7 +4,7 @@ import "./styles/timer.css";
 import { countDownWorkTime } from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
 
-export class WorkTimer extends React.Component {
+export class Timer extends React.Component {
   componentDidMount() {
     this.countdownTimer(0, this.props.workTime, 0);
   }
@@ -40,4 +40,4 @@ const mapStateToProps = state => ({
   workTimeRemaining: state.workTimeRemaining
 });
 
-export default connect(mapStateToProps)(WorkTimer);
+export default connect(mapStateToProps)(Timer);
