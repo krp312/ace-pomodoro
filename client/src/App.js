@@ -4,8 +4,7 @@ import LogIn from './components/login';
 import CreateUser from './components/create-user';
 import UserData from './components/user-data';
 import SetSessionTimes from './components/set-session-times';
-import WorkTimer from './components/work-timer';
-import BreakTimer from './components/break-timer';
+import Timer from './components/timer';
 import PomoInfo from './components/pomo-info';
 import Header from './components/header';
 import './components/styles/container.css';
@@ -21,10 +20,8 @@ class App extends Component {
             <Route exact path="/create-user" component={CreateUser} />
             <Route exact path="/pomo-info" component={PomoInfo} />
             <Route exact path="/user-data" component={UserData} />
-            <Route exact path="/work-timer" component={WorkTimer}/>
-            <Route exact path="/break-timer" component={BreakTimer}/>
+            <Route exact path="/timer" component={Timer}/>
             <Route exact path="/set-session-times" component={SetSessionTimes}/>
-            <Route exact path="/set-session-times/:sessionId" component={SetSessionTimes}/>
           </main>
         </div>
       </Router>

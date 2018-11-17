@@ -10,7 +10,7 @@ export class SetSessionTimes extends React.Component {
       this.initialBreakMinutes.value,
       this.sessionName.value
     ));
-    this.props.history.push('/work-timer');
+    this.props.history.push('/timer');
   }
 
   render() {
