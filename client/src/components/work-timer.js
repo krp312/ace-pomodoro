@@ -1,113 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/work-timer.css";
-import {
-  showBreakTimer,
-  postBreakDuration,
-  pauseTimer,
-  sendBreakDuration,
-  stopBreakTimer,
-  bindBreakLength
-} from "../actions/index";
-import moment from "moment";
+import countdownTimer from '../timer';
 
 export class WorkTimer extends React.Component {
   submitPomoForm(event) {
     this.props.history.push(`/break-timer`);
-    this.props.dispatch(showBreakTimer());
-
-    clearInterval(this.props.intervalId);
-    const userInput = this.props.breakDuration;
-    const currentTime = new Date().getTime();
-    const eventTime = new Date(currentTime - userInput * 60000).getTime();
-    let diffTime = eventTime - currentTime;
-    let duration = moment.duration(diffTime, "milliseconds");
-    const interval = 1000;
-
-    // Displays starting time difference to DOM
-    this.props.dispatch(
-      postBreakDuration(
-        Math.abs(duration.minutes()),
-        Math.abs(duration.seconds())
-      )
-    );
-
-    // Bind original durations for timer restart
-    this.props.dispatch(
-      bindBreakLength(
-        Math.abs(duration.minutes()),
-        Math.abs(duration.seconds())
-      )
-    );
-
-    let setIntervalProps = this.props;
-    const breakIntervalId = setInterval(
-      function() {
-        // For live version: we want the condition set to 0
-        if (Math.abs(duration) === 55000) {
-          let elapsedTime = moment
-            .utc(Math.abs(diffTime) - Math.abs(duration))
-            .format("HH:mm:ss");
-          setIntervalProps.dispatch(
-            sendBreakDuration(elapsedTime, setIntervalProps.sessionName)
-          );
-          clearInterval(breakIntervalId);
-          return null;
-        }
-        duration = moment.duration(duration + interval, "milliseconds");
-
-        setIntervalProps.dispatch(
-          postBreakDuration(
-            Math.abs(duration.minutes()),
-            Math.abs(duration.seconds())
-          )
-        );
-      },
-      interval,
-      setIntervalProps
-    );
-    this.props.dispatch(stopBreakTimer(breakIntervalId));
-  }
-
-  toggleTimer(e) {
-    // Need to implement unclearing of the setInterval function in set-session-times.js
-    // Also likely issue of access the setInterval function from this page.
-    // Will face another problem if attempting to setup pause for break timer
-    this.props.dispatch(pauseTimer());
-    if (this.props.paused) {
-      clearInterval(this.props.intervalId);
-    } else if (!this.props.paused) {
-      clearInterval(this.props.intervalId);
-    }
   }
 
   render() {
-    let { secondsRemaining, minutesRemaining } = this.props;
     return (
       <div className="work-timer">
-        <div className="clock" role="timer">
-          <span className="minutes">
-            {minutesRemaining < 10 ? "0" + minutesRemaining : minutesRemaining}
-          </span>
-          <span className="colon">:</span>
-          <span className="seconds">
-            {secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining}
-          </span>
-        </div>
-        <button
-          onClick={e => this.toggleTimer(e)}
-          className="pause-timer-button"
-          type="butotn"
-        >
-          Stop
-        </button>
-        <button
-          onClick={e => this.submitPomoForm(e)}
-          className="break-timer-button"
-          type="submit"
-        >
-          Start Break
-        </button>
+        {countdownTimer(0, 5, 0)}
       </div>
     );
   }
@@ -119,7 +23,9 @@ const mapStateToProps = state => ({
   intervalId: state.intervalId,
   paused: state.paused,
   breakDuration: state.breakDuration,
-  sessionName: state.currentSessionName
+  sessionName: state.currentSessionName,
+  workTime: state.initialWorkMinutes,
+  breakTime: state.initialBreakMinutes
 });
 
 export default connect(mapStateToProps)(WorkTimer);

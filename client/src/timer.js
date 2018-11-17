@@ -29,25 +29,20 @@ const millisecondsToHMS = milliseconds => {
 // timer
 // -----
 
-export const countdownTimer = (hours, minutes, seconds) => {
+ const countdownTimer = (hours, minutes, seconds) => {
   let clock;
   const userInput = HMStoMilliseconds(hours, minutes, seconds);
   const startTime = new Date().getTime();
-  
-  // setInterval's callback function
   const ticker = () => {
     const currentTime = new Date().getTime();
-  
     if (currentTime - startTime >= userInput) {
-      console.log('timer done');
       clearInterval(clock);
     }
-  
     const milliseconds = startTime + userInput - currentTime;
-    
     console.log(millisecondsToHMS(milliseconds));
   };
-
   ticker();
   clock = setInterval(ticker, 1000);
 };
+
+export default countdownTimer;

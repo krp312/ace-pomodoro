@@ -41,13 +41,6 @@ export const showBreakTimer = () => ({
   type: SHOW_BREAK_TIMER
 });
 
-export const POST_BREAK_DURATION = 'POST_BREAK_DURATION';
-export const postBreakDuration = (minutesRemaining, secondsRemaining) => ({
-  type: POST_BREAK_DURATION,
-  minutesRemaining,
-  secondsRemaining
-});
-
 export const POST_SESSION_NAME = 'POST_SESSION_NAME';
 export const postSessionName = sessionName => ({
   type: POST_SESSION_NAME,
@@ -121,13 +114,6 @@ export const restartWorkTimer = () => ({
 export const BIND_SESSION_LENGTH = 'BIND_SESSION_LENGTH';
 export const bindSessionLength = (minutes, seconds) => ({
   type: BIND_SESSION_LENGTH,
-  minutes,
-  seconds
-});
-
-export const BIND_BREAK_LENGTH = 'BIND_BREAK_LENGTH';
-export const bindBreakLength = (minutes, seconds) => ({
-  type: BIND_BREAK_LENGTH,
   minutes,
   seconds
 });

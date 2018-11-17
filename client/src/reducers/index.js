@@ -7,7 +7,6 @@ import {
   SHOW_POMO_INFO,
   POST_SESSION_DURATION,
   SHOW_BREAK_TIMER,
-  POST_BREAK_DURATION,
   POST_SESSION_NAME,
   GET_SESSIONS_REQUEST,
   GET_SESSIONS_SUCCESS,
@@ -21,7 +20,6 @@ import {
   STOP_BREAK_TIMER,
   RESTART_WORK_TIMER,
   BIND_SESSION_LENGTH,
-  BIND_BREAK_LENGTH,
   UPDATE_CREDENTIALS,
   UPDATE_USERNAME,
   UPDATE_PASSWORD,
@@ -110,12 +108,6 @@ export default (state=initialState, action) => {
       ...state,
       display: "breakTimer"
     };
-  } else if (action.type === POST_BREAK_DURATION) {
-    return {
-      ...state,
-      breakMinutesRemaining: action.minutesRemaining,
-      breakSecondsRemaining: action.secondsRemaining
-    };
   } else if (action.type === POST_BREAK_SETTING) {
     return {
       ...state,
@@ -201,12 +193,6 @@ export default (state=initialState, action) => {
       initialWorkMinutes: action.minutes,
       initialSeconds: action.seconds
     };
-  } else if (action.type ===  BIND_BREAK_LENGTH) {
-    return {
-      ...state, 
-      initialBreakMinutes: action.minutes,
-      initialBreakSeconds: action.seconds
-    }
   } else if (action.type ===  GET_JWT) {
     return Object.assign({}, state, {
       jwt: action.token,
