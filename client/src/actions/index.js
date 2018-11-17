@@ -149,10 +149,10 @@ export const setSessionTimes = (initialWorkMinutes, initialBreakMinutes, session
   sessionName
 });
 
-export const UPDATE_SESSION_TIME_REMAINING = 'UPDATE_SESSION_TIME_REMAINING';
-export const updateSessionTimeRemaining = sessionTimeRemaining => ({
-  type: UPDATE_SESSION_TIME_REMAINING,
-  sessionTimeRemaining
+export const COUNT_DOWN_WORK_TIME = 'COUNT_DOWN_WORK_TIME';
+export const countDownWorkTime = workTimeRemaining => ({
+  type: COUNT_DOWN_WORK_TIME,
+  workTimeRemaining
 });
 
 export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/work-timer.css";
-import { updateSessionTimeRemaining } from '../actions/index';
+import { countDownWorkTime } from '../actions/index';
 
 export class WorkTimer extends React.Component {
   componentDidMount() {
@@ -38,7 +38,7 @@ export class WorkTimer extends React.Component {
           clearInterval(clock);
         }
         const milliseconds = startTime + userInput - currentTime;
-        this.props.dispatch(updateSessionTimeRemaining(millisecondsToHMS(milliseconds)))
+        this.props.dispatch(countDownWorkTime(millisecondsToHMS(milliseconds)))
       };
       ticker();
       clock = setInterval(ticker, 1000);
@@ -50,7 +50,7 @@ export class WorkTimer extends React.Component {
   render() {
     return (
       <div className="work-timer">
-        {this.props.sessionTimeRemaining}
+        {this.props.workTimeRemaining}
       </div>
     );
   }
@@ -59,7 +59,7 @@ export class WorkTimer extends React.Component {
 const mapStateToProps = state => ({
   sessionName: state.sessionName,
   workTime: state.initialWorkMinutes,
-  sessionTimeRemaining: state.sessionTimeRemaining
+  workTimeRemaining: state.workTimeRemaining
 });
 
 export default connect(mapStateToProps)(WorkTimer);
