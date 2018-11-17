@@ -2,7 +2,7 @@ import acePomodoroReducer from './index';
 import { setSessionTimes, getJwt } from '../actions/index';
 
 describe('setSessionTimes', () => {
-  it('should set the session times', () => {
+  it('should store JSON web token', () => {
       let state = {
         jwt: ''
       };

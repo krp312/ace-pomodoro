@@ -54,8 +54,6 @@ export const postSessionName = sessionName => ({
   sessionName
 });
 
-// Calling this action allows stopping upon either 0 or upon pause/stop once those features
-// Are implemented
 export const STOP_POMO_TIMER = 'STOP_POMO_TIMER';
 export const stopPomoTimer = pomoIntervalId => ({
   type: STOP_POMO_TIMER,
@@ -165,14 +163,12 @@ export const setSessionTimes = (initialWorkMinutes, initialBreakMinutes, session
   sessionName
 });
 
-// send over total work time and total break time
 export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {
   let formattedPostRequest = {
     name: sessionName,
     work_duration: workDurationSetting,
     break_duration: breakDurationSetting,
     total_work_time: sessionDuration,
-    // total_break_time: breakDuration,
     is_completed: true
   };
 

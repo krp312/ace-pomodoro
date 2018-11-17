@@ -51,10 +51,7 @@ const initialState = {
   jwt: ""
 };
 
-export default (state, action) => {
-  state = state || initialState;
-
-  // LOGINS
+export default (state=initialState, action) => {
   if (action.type === UPDATE_USERNAME) {
     return Object.assign({}, state, {
       loginUsername: action.name
