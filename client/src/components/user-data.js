@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchSessions } from '../actions/actions';
+import { fetchSessions } from '../actions/index';
 // import Spinner from 'react-spinkit';
 
 import './styles/user-data.css';

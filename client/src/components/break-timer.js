@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/break-timer.css";
-import {resetState, restartWorkTimer} from "../actions/actions";
+import {resetState, restartWorkTimer} from "../actions/index";
 
 export class BreakTimer extends React.Component {
 restartSession(e) {

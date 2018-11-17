@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logoutUser } from "../actions/actions";
+import { logoutUser } from "../actions/index";
 
 import './styles/header.css';
 

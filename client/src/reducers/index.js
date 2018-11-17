@@ -27,7 +27,7 @@ import {
   UPDATE_PASSWORD,
   GET_JWT,
   SET_SESSION_TIMES
-} from "../actions/actions";
+} from "../actions/index";
 
 const initialState = {
   username: "",

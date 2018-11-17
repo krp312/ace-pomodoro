@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/create-user.css";
-import { createUser, updateUsername, updatePassword } from "../actions/actions";
+import { createUser, updateUsername, updatePassword } from "../actions/index";
 
 export class CreateUser extends React.Component {
   createUserForm(event) {

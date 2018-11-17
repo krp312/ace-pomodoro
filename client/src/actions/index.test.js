@@ -3,7 +3,7 @@ import {
   setSessionTimes,
   GET_JWT,
   getJwt
-} from "./actions";
+} from "./index";
 
 describe('getJwt', () => {
   it('should return the action', () => {

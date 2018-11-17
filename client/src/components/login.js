@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginUser, updateCredentials } from '../actions/actions';
+import { loginUser, updateCredentials } from '../actions/index';
 import './styles/login.css';
 
 export class LogIn extends React.Component {

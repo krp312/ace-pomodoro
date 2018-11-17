@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { setSessionTimes } from '../actions/actions';
+import { setSessionTimes } from '../actions/index';
 import './styles/set-session-times.css';
-import { Link } from 'react-router-dom';
 
 export class SetSessionTimes extends React.Component {
   submitSessionTimes() {

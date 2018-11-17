@@ -8,7 +8,7 @@ import {
   sendBreakDuration,
   stopBreakTimer,
   bindBreakLength
-} from "../actions/actions";
+} from "../actions/index";
 import moment from "moment";
 
 export class WorkTimer extends React.Component {

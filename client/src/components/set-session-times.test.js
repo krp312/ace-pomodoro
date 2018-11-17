@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { SetSessionTimes } from './set-session-times';
-import { setSessionTimes } from '../actions/actions';
+import { setSessionTimes } from '../actions/index';
 
 describe('<SetSessionTimes />', () => {
   it('renders without crashing', () => {

@@ -1,5 +1,5 @@
-import acePomodoroReducer from './reducer';
-import { setSessionTimes, getJwt } from '../actions/actions';
+import acePomodoroReducer from './index';
+import { setSessionTimes, getJwt } from '../actions/index';
 
 describe('setSessionTimes', () => {
   it('should set the session times', () => {
