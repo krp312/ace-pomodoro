@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/krp312/ace-pomodoro.svg?branch=master)](https://travis-ci.org/krp312/ace-pomodoro)
+
 # Ace Pomodoro
 
 Ace Pomodoro combines customizable pomodoro sessions with continuous data aggregation for users to track their progress towards their goals. You can see the total amount of time spent working towards a goal by labeling pomodoro sessions, and view graphic visuals of session data on your profile page.
