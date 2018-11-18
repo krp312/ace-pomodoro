@@ -2,6 +2,13 @@ language: node_js
 node_js: node
 cache:
   directories:
-    - node_modules
+  - node_modules
 env:
-  - CI=true
+- CI=true
+deploy:
+  provider: heroku
+  api_key:
+    secure: Hmfhw0y1fwUy+ZhNIgcxqn7s1k6sSdaBD7OkIcj+BIZrb+3avWvmxadl4Qbt4pkRj1GiSNArXPvqG7mkFMW6jO1F92PmqXBWKFZpnbsfBNFna59BbYmHPhrXC4X+th1OFanmmdlpGa0LOUplaAcZPFNH6arUf2XFGCguJlrKO1fM4e06EHljeF0kMOUS/xgIg7eLLkv2+kFQaBs7QH3RjsrXLRgHTscqwlMjm4hOLhrKl5gk28A1L4nJHViOANfLL1pMpFFIDJIFUqkok0fuYtMT73lyu8OFJBr+RrTbl7eWIL8Hahgnc7pK8sxslrR9WRcmEYHlrVwxRD4QUWSwxgjI4StF1cCE0FNq0JkrSCbLWfMU70Ow478aplQZsej4w7YUzhTAMTPIZ/WSIklMIPqq1rJuJeeXvHgPmfch0BN4bz8M0Z8mnfxifgXm6hxLeO1PmFvcjjmm9i7dKnshFXT/cqHjZqyq6cMXeZZhOQ8X+ftTV0X64KtCDP3yzF+jfyMByqF93ccBwHHeFSQRhxOWg02gVpJuSHlEmR5AJ/dqLu7UtPN3WL11UewbUF4H3ngy7ZOSt0dy7znOCBb51NO3yvzgiYW3HPwlSFpPvy2iirJUEOeGw7jantv8/Loi0GI7tjiXaypwA8kS0B+4stn/iIgEH3z5rtSIcArXCM4=
+  app: ace-pomodoro
+  on:
+    repo: krp312/ace-pomodoro
