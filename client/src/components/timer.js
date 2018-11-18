@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles/timer.css";
-import { countDownWorkTime, countDownBreakTime } from '../actions/index';
+import { countDownWorkTime, countDownBreakTime, setTimerType } from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
 
 export class Timer extends React.Component {
   componentDidMount() {
     if (this.props.timerType === 'work') {
-      this.countdownTimer(0, this.props.workTime, 0);
+      this.countdownTimer(0, 0, this.props.initialWorkMinutes);
     } else {
-      this.countdownTimer(0, this.props.breakTime, 0);
+      this.countdownTimer(0, 0, this.props.initialBreakMinutes);
     }
   }
       
@@ -28,6 +28,9 @@ export class Timer extends React.Component {
       } else {
         this.props.dispatch(countDownBreakTime(millisecondsToHMS(milliseconds)))
       }
+      if (this.props.workTimeRemaining == '00:00:00') {
+        this.props.dispatch(setTimerType('break'));
+      }
     };
     ticker();
     clock = setInterval(ticker, 1000);
@@ -44,6 +47,7 @@ export class Timer extends React.Component {
 
     return (
       <div>
+        {this.props.timerType}
         {displayTimerType}
       </div>
     )
@@ -52,9 +56,10 @@ export class Timer extends React.Component {
 
 const mapStateToProps = state => ({
   sessionName: state.sessionName,
-  workTime: state.initialWorkMinutes,
-  breakTime: state.initialBreakMinutes,
+  initialWorkMinutes: state.initialWorkMinutes,
+  initialBreakMinutes: state.initialBreakMinutes,
   workTimeRemaining: state.workTimeRemaining,
+  breakTimeRemaining: state.breakTimeRemaining,
   timerType: state.timerType
 });
 

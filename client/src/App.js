@@ -7,6 +7,7 @@ import SetSessionTimes from './components/set-session-times';
 import Timer from './components/timer';
 import PomoInfo from './components/pomo-info';
 import Header from './components/header';
+import TimerChooser from './components/timer-chooser';
 import './components/styles/container.css';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
             <Route exact path="/user-data" component={UserData} />
             <Route exact path="/timer" component={Timer}/>
             <Route exact path="/set-session-times" component={SetSessionTimes}/>
+            <Route exact path="/timer-chooser" component={TimerChooser}/>
           </main>
         </div>
       </Router>
