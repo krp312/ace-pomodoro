@@ -33,8 +33,8 @@ import {
 
 const initialState = {
   jwt: '',
-  workTimeRemaining: 0,
-  breakTimeRemaining: 0,
+  workTimeRemaining: null,
+  breakTimeRemaining: null,
   timerType: '',
   initialWorkMinutes: null,
   initialBreakMinutes: null,

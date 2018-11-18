@@ -1,14 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./styles/timer.css";
 import { countDownWorkTime, countDownBreakTime, setTimerType } from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
+import "./styles/timer.css";
 
 export class Timer extends React.Component {
   componentDidMount() {
+    // start the work timer
     if (this.props.timerType === 'work') {
       this.countdownTimer(0, 0, this.props.initialWorkMinutes);
-    } else {
+    }
+  }
+
+  componentDidUpdate() {
+    // after the work timer has completed, set the timerType to `break`
+    if (this.props.timerType === 'work' && this.props.workTimeRemaining === '00:00:00') {
+      this.props.dispatch(setTimerType('break'));
+    }
+    // start the break timer
+    if (this.props.timerType === 'break' && this.props.breakTimeRemaining === null) {
       this.countdownTimer(0, 0, this.props.initialBreakMinutes);
     }
   }
@@ -23,13 +33,11 @@ export class Timer extends React.Component {
         clearInterval(clock);
       }
       const milliseconds = startTime + userInput - currentTime;
+      // the following `if` block is what displays the countdown timer
       if (this.props.timerType === 'work') {
         this.props.dispatch(countDownWorkTime(millisecondsToHMS(milliseconds)))
       } else {
         this.props.dispatch(countDownBreakTime(millisecondsToHMS(milliseconds)))
-      }
-      if (this.props.workTimeRemaining == '00:00:00') {
-        this.props.dispatch(setTimerType('break'));
       }
     };
     ticker();
@@ -47,15 +55,14 @@ export class Timer extends React.Component {
 
     return (
       <div>
-        {this.props.timerType}
-        {displayTimerType}
+        <div>{this.props.timerType}</div>
+        <div>{displayTimerType}</div>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  sessionName: state.sessionName,
   initialWorkMinutes: state.initialWorkMinutes,
   initialBreakMinutes: state.initialBreakMinutes,
   workTimeRemaining: state.workTimeRemaining,

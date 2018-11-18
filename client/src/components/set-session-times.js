@@ -11,7 +11,7 @@ export class SetSessionTimes extends React.Component {
     ));
     this.props.dispatch(setSessionName(this.sessionName.value));
     this.props.dispatch(setTimerType('work'));
-    this.props.history.push('/timer-chooser');
+    this.props.history.push('/timer');
   }
 
   render() {
