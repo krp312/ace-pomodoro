@@ -19,16 +19,19 @@ describe('setSessionTimes', () => {
       let state = {
         initialWorkMinutes: '',
         initialBreakMinutes: '',
-        sessionName: ''
+        sessionName: '',
+        timerType: ''
       };
       const workTime = '25';
       const breakTime = '5';
       const sessionName = 'studying';
-      state = acePomodoroReducer(state, setSessionTimes(workTime, breakTime, sessionName));
+      const timerType = 'work';
+      state = acePomodoroReducer(state, setSessionTimes(workTime, breakTime, sessionName, timerType));
       expect(state).toEqual({
         initialWorkMinutes: '25',
         initialBreakMinutes: '5',
-        sessionName: 'studying'
+        sessionName: 'studying',
+        timerType: 'work'
       });
   });
 });

@@ -29,26 +29,27 @@ import {
 } from "../actions/index";
 
 const initialState = {
-  username: "",
-  password: "",
+  username: '',
+  password: '',
   loggedIn: false,
   sessions: [],
-  display: "login",
+  display: 'login',
   sessionMinutesRemaining: 0,
   sessionSecondsRemaining: 0,
   breakMinutesRemaining: 0,
   breakSecondsRemaining: 0,
   initialWorkMinutes: null,
   initialBreakMinutes: null,
-  sessionName: "",
+  sessionName: '',
   breakDuration: null,
   workDuration: null,
   intervalId: null,
   breakId: null,
   paused: false,
-  loginUsername: "",
-  jwt: "",
-  workTimeRemaining: 0
+  loginUsername: '',
+  jwt: '',
+  workTimeRemaining: 0,
+  timerType: ''
 };
 
 export default (state=initialState, action) => {
@@ -203,7 +204,8 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       initialWorkMinutes: action.initialWorkMinutes,
       initialBreakMinutes: action.initialBreakMinutes,
-      sessionName: action.sessionName
+      sessionName: action.sessionName,
+      timerType: action.timerType
     })
   } else if (action.type ===  COUNT_DOWN_WORK_TIME) {
     return Object.assign({}, state, {

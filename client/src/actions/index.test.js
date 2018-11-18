@@ -21,11 +21,13 @@ describe('setSessionTimes', () => {
     const workTime = 25;
     const breakTime = 5;
     const sessionName = 'studying';
-    const action = setSessionTimes(workTime, breakTime, sessionName);
+    const timerType = 'work';
+    const action = setSessionTimes(workTime, breakTime, sessionName, timerType);
     expect(action.type).toEqual(SET_SESSION_TIMES);
     expect(action.initialWorkMinutes).toEqual(25);
     expect(action.initialBreakMinutes).toEqual(5);
     expect(action.sessionName).toEqual('studying');
+    expect(action.timerType).toEqual('work');
   });
 });
 
