@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setSessionTimes, setTimerType, setSessionName } from '../actions/index';
-import './styles/set-session-times.css';
+import './styles/start-session.css';
 
-export class SetSessionTimes extends React.Component {
-  submitSessionTimes() {
+export class StartSession extends React.Component {
+  submitSession() {
     this.props.dispatch(setSessionTimes(
       this.initialWorkMinutes.value,
       this.initialBreakMinutes.value
@@ -16,7 +16,7 @@ export class SetSessionTimes extends React.Component {
 
   render() {
     return (
-      <form className="submit-sessions-form" onSubmit={() => this.submitSessionTimes()}>
+      <form className="submit-sessions-form" onSubmit={() => this.submitSession()}>
         <label htmlFor="initial-work-minutes">Work (minutes)</label>
         <input
           aria-label="initial work minutes"
@@ -50,4 +50,4 @@ export class SetSessionTimes extends React.Component {
   }
 }
 
-export default connect()(SetSessionTimes);
+export default connect()(StartSession);

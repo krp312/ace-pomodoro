@@ -31,7 +31,7 @@ export class UserData extends React.Component {
       const sessionData = this.props.sessions.sessionInfo.map((item, index) =>
         <tr>
           <th>
-            <Link to={`/set-session-times/${item.name}`}>
+            <Link to={`/start-session/${item.name}`}>
               {item.name}
             </Link>
           </th>

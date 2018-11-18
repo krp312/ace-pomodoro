@@ -16,7 +16,7 @@ export class Header extends React.Component {
     if (this.props.loggedIn === false) {
       return <Link to="/">Ace Pomodoro</Link>
     } else {
-      return <Link to="/set-session-times">Ace Pomodoro</Link>
+      return <Link to="/start-session">Ace Pomodoro</Link>
     }
   }
 

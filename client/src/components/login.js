@@ -15,7 +15,7 @@ export class LogIn extends React.Component {
 
   render() {
     if (this.props.jwt !== "") {
-      this.props.history.push('/set-session-times');
+      this.props.history.push('/start-session');
     }
 
     return (
