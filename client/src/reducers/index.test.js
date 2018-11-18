@@ -1,5 +1,10 @@
 import acePomodoroReducer from './index';
-import { setSessionTimes, getJwt, countDownWorkTime } from '../actions/index';
+import { 
+  setSessionTimes, 
+  getJwt, 
+  countDownWorkTime, 
+  countDownBreakTime 
+} from '../actions/index';
 
 describe('setSessionTimes', () => {
   it('should store JSON web token', () => {
@@ -45,6 +50,19 @@ describe('countDownWorkTime', () => {
       state = acePomodoroReducer(state, countDownWorkTime(workTime));
       expect(state).toEqual({
         workTimeRemaining: '1:23'
+      });
+  });
+});
+
+describe('countDownBreakTime', () => {
+  it('should set the current break time remaining', () => {
+      let state = {
+        breakTimeRemaining: 0
+      };
+      const breakTime = '1:23';
+      state = acePomodoroReducer(state, countDownBreakTime(breakTime));
+      expect(state).toEqual({
+        breakTimeRemaining: '1:23'
       });
   });
 });

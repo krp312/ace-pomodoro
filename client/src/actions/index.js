@@ -156,6 +156,12 @@ export const countDownWorkTime = workTimeRemaining => ({
   workTimeRemaining
 });
 
+export const COUNT_DOWN_BREAK_TIME = 'COUNT_DOWN_BREAK_TIME';
+export const countDownBreakTime = breakTimeRemaining => ({
+  type: COUNT_DOWN_BREAK_TIME,
+  breakTimeRemaining
+});
+
 export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {
   let formattedPostRequest = {
     name: sessionName,

@@ -4,7 +4,9 @@ import {
   GET_JWT,
   getJwt,
   COUNT_DOWN_WORK_TIME,
-  countDownWorkTime
+  countDownWorkTime,
+  COUNT_DOWN_BREAK_TIME,
+  countDownBreakTime
 } from "./index";
 
 describe('getJwt', () => {
@@ -37,5 +39,14 @@ describe('countDownWorkTime', () => {
     const action = countDownWorkTime(timeRemaining);
     expect(action.type).toEqual(COUNT_DOWN_WORK_TIME);
     expect(action.workTimeRemaining).toEqual(timeRemaining);
+  });
+});
+
+describe('countDownBreakTime', () => {
+  it('should return the action', () => {
+    const timeRemaining = '1:23';
+    const action = countDownBreakTime(timeRemaining);
+    expect(action.type).toEqual(COUNT_DOWN_BREAK_TIME);
+    expect(action.breakTimeRemaining).toEqual(timeRemaining);
   });
 });

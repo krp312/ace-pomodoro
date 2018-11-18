@@ -25,31 +25,29 @@ import {
   UPDATE_PASSWORD,
   GET_JWT,
   SET_SESSION_TIMES,
-  COUNT_DOWN_WORK_TIME
+  COUNT_DOWN_WORK_TIME,
+  COUNT_DOWN_BREAK_TIME
 } from "../actions/index";
 
 const initialState = {
+  jwt: '',
+  workTimeRemaining: 0,
+  breakTimeRemaining: 0,
+  timerType: '',
+  initialWorkMinutes: null,
+  initialBreakMinutes: null,
   username: '',
   password: '',
   loggedIn: false,
   sessions: [],
   display: 'login',
-  sessionMinutesRemaining: 0,
-  sessionSecondsRemaining: 0,
-  breakMinutesRemaining: 0,
-  breakSecondsRemaining: 0,
-  initialWorkMinutes: null,
-  initialBreakMinutes: null,
   sessionName: '',
   breakDuration: null,
   workDuration: null,
   intervalId: null,
   breakId: null,
   paused: false,
-  loginUsername: '',
-  jwt: '',
-  workTimeRemaining: 0,
-  timerType: ''
+  loginUsername: ''
 };
 
 export default (state=initialState, action) => {
@@ -210,6 +208,10 @@ export default (state=initialState, action) => {
   } else if (action.type ===  COUNT_DOWN_WORK_TIME) {
     return Object.assign({}, state, {
       workTimeRemaining: action.workTimeRemaining
+    })
+  } else if (action.type ===  COUNT_DOWN_BREAK_TIME) {
+    return Object.assign({}, state, {
+      breakTimeRemaining: action.breakTimeRemaining
     })
   }
   return state;
