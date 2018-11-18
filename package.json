@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "run-s test:server test:client",
-    "test:client": "cd client && npm test",
+    "test:client": "cd client && npm run test-ci",
     "test:server": "cd server && npm test",
     "heroku-postbuild": "cd client && npm install --only=dev && npm run build",
     "dev": "run-p dev:server dev:client start",
