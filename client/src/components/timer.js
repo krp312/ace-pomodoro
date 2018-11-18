@@ -34,19 +34,19 @@ export class Timer extends React.Component {
   }
 
   render() {
-    let timerTypeDisplay;
+    let displayTimerType;
 
     if (this.props.timerType === 'work') {
-      timerTypeDisplay = this.props.workTimeRemaining
+      displayTimerType = this.props.workTimeRemaining
     } else {
-      timerTypeDisplay = this.props.breakTimeRemaining
+      displayTimerType = this.props.breakTimeRemaining
     }
 
     return (
       <div>
-        {timerTypeDisplay}
+        {displayTimerType}
       </div>
-    );
+    )
   }
 }
 

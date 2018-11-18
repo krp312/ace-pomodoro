@@ -20,4 +20,10 @@ describe('<SetSessionTimes />', () => {
     // wrapper.instance().submitSessionTimes();
     // expect(dispatch).toHaveBeenCalledWith(setSessionTimes(workTime, breakTime, sessionName));
   });
+
+  it('dispatches setTimerType from submitSessionTimes', () => {
+  });
+
+  it('dispatches setSessionName from submitSessionTimes', () => {
+  });
 });

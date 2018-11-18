@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setSessionTimes } from '../actions/index';
+import { setSessionTimes, setTimerType, setSessionName } from '../actions/index';
 import './styles/set-session-times.css';
 
 export class SetSessionTimes extends React.Component {
   submitSessionTimes() {
     this.props.dispatch(setSessionTimes(
       this.initialWorkMinutes.value,
-      this.initialBreakMinutes.value,
-      this.sessionName.value,
-      'work'
+      this.initialBreakMinutes.value
     ));
+    this.props.dispatch(setSessionName(this.sessionName.value));
+    this.props.dispatch(setTimerType('work'));
     this.props.history.push('/timer');
   }
 

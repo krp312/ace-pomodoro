@@ -6,7 +6,9 @@ import {
   COUNT_DOWN_WORK_TIME,
   countDownWorkTime,
   COUNT_DOWN_BREAK_TIME,
-  countDownBreakTime
+  countDownBreakTime,
+  SET_SESSION_NAME,
+  setSessionName
 } from "./index";
 
 describe('getJwt', () => {
@@ -22,14 +24,10 @@ describe('setSessionTimes', () => {
   it('should return the action', () => {
     const workTime = 25;
     const breakTime = 5;
-    const sessionName = 'studying';
-    const timerType = 'work';
-    const action = setSessionTimes(workTime, breakTime, sessionName, timerType);
+    const action = setSessionTimes(workTime, breakTime);
     expect(action.type).toEqual(SET_SESSION_TIMES);
     expect(action.initialWorkMinutes).toEqual(25);
     expect(action.initialBreakMinutes).toEqual(5);
-    expect(action.sessionName).toEqual('studying');
-    expect(action.timerType).toEqual('work');
   });
 });
 
@@ -48,5 +46,14 @@ describe('countDownBreakTime', () => {
     const action = countDownBreakTime(timeRemaining);
     expect(action.type).toEqual(COUNT_DOWN_BREAK_TIME);
     expect(action.breakTimeRemaining).toEqual(timeRemaining);
+  });
+});
+
+describe('setSessionName', () => {
+  it('should return the action', () => {
+    const sessionName = 'studying';
+    const action = setSessionName(sessionName);
+    expect(action.type).toEqual(SET_SESSION_NAME);
+    expect(action.sessionName).toEqual('studying');
   });
 });

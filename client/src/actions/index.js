@@ -142,12 +142,22 @@ export const getJwt = token => ({
 });
 
 export const SET_SESSION_TIMES = 'SET_SESSION_TIMES';
-export const setSessionTimes = (initialWorkMinutes, initialBreakMinutes, sessionName, timerType) => ({
+export const setSessionTimes = (initialWorkMinutes, initialBreakMinutes) => ({
   type: SET_SESSION_TIMES,
   initialWorkMinutes,
   initialBreakMinutes,
-  sessionName,
+});
+
+export const SET_TIMER_TYPE = 'SET_TIMER_TYPE';
+export const setTimerType = timerType => ({
+  type: SET_TIMER_TYPE,
   timerType
+});
+
+export const SET_SESSION_NAME = 'SET_SESSION_NAME';
+export const setSessionName = sessionName => ({
+  type: SET_SESSION_NAME,
+  sessionName
 });
 
 export const COUNT_DOWN_WORK_TIME = 'COUNT_DOWN_WORK_TIME';

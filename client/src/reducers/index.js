@@ -26,7 +26,9 @@ import {
   GET_JWT,
   SET_SESSION_TIMES,
   COUNT_DOWN_WORK_TIME,
-  COUNT_DOWN_BREAK_TIME
+  COUNT_DOWN_BREAK_TIME,
+  SET_TIMER_TYPE,
+  SET_SESSION_NAME
 } from "../actions/index";
 
 const initialState = {
@@ -36,12 +38,12 @@ const initialState = {
   timerType: '',
   initialWorkMinutes: null,
   initialBreakMinutes: null,
+  sessionName: '',
   username: '',
   password: '',
   loggedIn: false,
   sessions: [],
   display: 'login',
-  sessionName: '',
   breakDuration: null,
   workDuration: null,
   intervalId: null,
@@ -202,8 +204,7 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       initialWorkMinutes: action.initialWorkMinutes,
       initialBreakMinutes: action.initialBreakMinutes,
-      sessionName: action.sessionName,
-      timerType: action.timerType
+      sessionName: action.sessionName
     })
   } else if (action.type ===  COUNT_DOWN_WORK_TIME) {
     return Object.assign({}, state, {
@@ -212,6 +213,14 @@ export default (state=initialState, action) => {
   } else if (action.type ===  COUNT_DOWN_BREAK_TIME) {
     return Object.assign({}, state, {
       breakTimeRemaining: action.breakTimeRemaining
+    })
+  } else if (action.type ===  SET_TIMER_TYPE) {
+    return Object.assign({}, state, {
+      timerType: action.timerType
+    })
+  } else if (action.type ===  SET_SESSION_NAME) {
+    return Object.assign({}, state, {
+      sessionName: action.sessionName
     })
   }
   return state;

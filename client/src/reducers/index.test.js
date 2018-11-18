@@ -3,10 +3,11 @@ import {
   setSessionTimes, 
   getJwt, 
   countDownWorkTime, 
-  countDownBreakTime 
+  countDownBreakTime ,
+  setSessionName
 } from '../actions/index';
 
-describe('setSessionTimes', () => {
+describe('getJwt', () => {
   it('should store JSON web token', () => {
       let state = {
         jwt: ''
@@ -24,19 +25,13 @@ describe('setSessionTimes', () => {
       let state = {
         initialWorkMinutes: '',
         initialBreakMinutes: '',
-        sessionName: '',
-        timerType: ''
       };
       const workTime = '25';
       const breakTime = '5';
-      const sessionName = 'studying';
-      const timerType = 'work';
-      state = acePomodoroReducer(state, setSessionTimes(workTime, breakTime, sessionName, timerType));
+      state = acePomodoroReducer(state, setSessionTimes(workTime, breakTime));
       expect(state).toEqual({
         initialWorkMinutes: '25',
         initialBreakMinutes: '5',
-        sessionName: 'studying',
-        timerType: 'work'
       });
   });
 });
@@ -63,6 +58,19 @@ describe('countDownBreakTime', () => {
       state = acePomodoroReducer(state, countDownBreakTime(breakTime));
       expect(state).toEqual({
         breakTimeRemaining: '1:23'
+      });
+  });
+});
+
+describe('setSessionName', () => {
+  it('should set the session name', () => {
+      let state = {
+        sessionName: ''
+      };
+      const sessionName = 'studying';
+      state = acePomodoroReducer(state, setSessionName(sessionName));
+      expect(state).toEqual({
+        sessionName: 'studying'
       });
   });
 });
