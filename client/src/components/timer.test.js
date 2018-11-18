@@ -5,12 +5,12 @@ import { countDownWorkTime } from '../actions/index';
 
 describe('<Timer />', () => {
   it('renders without crashing', () => {
-    shallow(<Timer />);
+    shallow(<Timer dispatch={jest.fn()} />);
   });
 
-  // it('dispatches countDownWorkTime from countdownTimer', () => {
-    // const dispatch = jest.fn();
-    // const wrapper = mount(<Timer dispatch={dispatch} />);
-    // expect(dispatch).toHaveBeenCalledWith(countDownWorkTime(0, 1, 'yeah'));
-  // });
+  it('dispatches countDownWorkTime from countdownTimer', () => {
+    const dispatch = jest.fn();
+    mount(<Timer dispatch={dispatch} workTime={5} />);
+    expect(dispatch).toHaveBeenCalledWith({"type": "COUNT_DOWN_WORK_TIME", "workTimeRemaining": "00:05:00"});
+  });
 });

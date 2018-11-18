@@ -27,7 +27,7 @@ export class Timer extends React.Component {
 
   render() {
     return (
-      <div className="work-timer">
+      <div>
         {this.props.workTimeRemaining}
       </div>
     );
