@@ -8,14 +8,23 @@ describe('<Timer />', () => {
   });
 
   it('dispatches countDownWorkTime from countdownTimer', () => {
-    // const dispatch = jest.fn();
-    // shallow(<Timer dispatch={dispatch} workTime={5} timerType={'work'} />);
-    // expect(dispatch).toHaveBeenCalledWith({"type": "COUNT_DOWN_WORK_TIME", "workTimeRemaining": "00:05:00"});
+    const dispatch = jest.fn();
+    shallow(<Timer dispatch={dispatch} initialWorkMinutes={60} timerType={'work'} />);
+    expect(dispatch).toHaveBeenCalledWith({"type": "COUNT_DOWN_WORK_TIME", "workTimeRemaining": "00:01:00"});
   });
 
   it('dispatches countDownBreakTime from countdownTimer', () => {
     // const dispatch = jest.fn();
-    // shallow(<Timer dispatch={dispatch} breakTime={5} timerType={'break'} />);
-    // expect(dispatch).toHaveBeenCalledWith({"type": "COUNT_DOWN_BREAK_TIME", "breakTimeRemaining": "00:05:00"});
+    // shallow(<Timer 
+    //   dispatch={dispatch} 
+    //   initialWorkMinutes={1}
+    //   initialBreakMinutes={60} 
+    //   workTimeRemaining={'00:00:00'}
+    //   breakTimeRemaining={null} 
+    //   timerType={'break'} />);
+    // expect(dispatch).toHaveBeenCalledWith({"type": "COUNT_DOWN_BREAK_TIME", "breakTimeRemaining": "00:01:00"});
+  });
+
+  it('dispatches setTimerType from componentDidUpdate()', () => {
   });
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { SetSessionTimes } from './set-session-times';
 import { setSessionTimes } from '../actions/index';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('<SetSessionTimes />', () => {
   it('renders without crashing', () => {
@@ -12,13 +13,15 @@ describe('<SetSessionTimes />', () => {
     // const dispatch = jest.fn();
     // const workTime = '25';
     // const breakTime = '5';
-    // const sessionName = 'yes';
-    // const wrapper = mount(<SetSessionTimes dispatch={dispatch} />);
+    // const wrapper = mount(
+    //   <Router>
+    //     <SetSessionTimes />
+    //   </Router>
+    // );
     // wrapper.find('input#initial-work-minutes').instance().value = workTime;
     // wrapper.find('input#initial-break-minutes').instance().value = breakTime;
-    // wrapper.find('input#session-name').instance().value = sessionName;
     // wrapper.instance().submitSessionTimes();
-    // expect(dispatch).toHaveBeenCalledWith(setSessionTimes(workTime, breakTime, sessionName));
+    // expect(dispatch).toHaveBeenCalledWith(setSessionTimes(workTime, breakTime));
   });
 
   it('dispatches setTimerType from submitSessionTimes', () => {
