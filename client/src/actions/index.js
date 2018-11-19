@@ -1,56 +1,6 @@
-export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
-export const loginUserSuccess = user => ({
-  type: LOGIN_USER_SUCCESS,
-  user
-});
-
-export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
-export const loginUserError = () => ({
-  type: LOGIN_USER_ERROR
-});
-
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const logoutUser = () => ({
   type: LOGOUT_USER
-});
-
-export const VIEW_USER_DATA = 'VIEW_USER_DATA';
-export const viewUserData = () => ({
-  type: VIEW_USER_DATA
-});
-
-export const SUBMIT_POMODORO = 'SUBMIT_POMODORO';
-export const submitPomodoro = () => ({
-  type: SUBMIT_POMODORO
-});
-
-export const POST_SESSION_DURATION = 'POST_SESSION_DURATION';
-export const postSessionDuration = (minutesRemaining, secondsRemaining) => ({
-  type: POST_SESSION_DURATION,
-  minutesRemaining,
-  secondsRemaining
-});
-
-export const SHOW_POMO_INFO = 'SHOW_POMO_INFO';
-export const showPomoInfo = () => ({
-  type: SHOW_POMO_INFO
-});
-
-export const SHOW_BREAK_TIMER = 'SHOW_BREAK_TIMER';
-export const showBreakTimer = () => ({
-  type: SHOW_BREAK_TIMER
-});
-
-export const POST_SESSION_NAME = 'POST_SESSION_NAME';
-export const postSessionName = sessionName => ({
-  type: POST_SESSION_NAME,
-  sessionName
-});
-
-export const STOP_POMO_TIMER = 'STOP_POMO_TIMER';
-export const stopPomoTimer = pomoIntervalId => ({
-  type: STOP_POMO_TIMER,
-  pomoIntervalId
 });
 
 export const GET_SESSIONS_REQUEST = 'GET_SESSIONS_REQUEST';
@@ -77,50 +27,10 @@ export const updateCredentials = (username, password) => ({
   password
 });
 
-export const PAUSE_TIMER = 'PAUSE_TIMER';
-export const pauseTimer = () => ({
-  type: PAUSE_TIMER
-});
-
-export const POST_BREAK_SETTING = 'POST_BREAK_SETTING';
-export const postBreakSetting = breakDuration => ({
-  type: POST_BREAK_SETTING,
-  breakDuration
-});
-
-export const POST_WORK_SETTING = 'POST_WORK_SETTING';
-export const postWorkSetting = workDuration => ({
-  type: POST_WORK_SETTING,
-  workDuration
-});
-
 export const POST_SESSIONS_ERROR = 'POST_SESSIONS_ERROR';
 export const postSessionsError = error => ({
   type: POST_SESSIONS_ERROR,
   error
-});
-
-export const STOP_BREAK_TIMER = 'STOP_BREAK_TIMER';
-export const stopBreakTimer = pomoIntervalId => ({
-  type: STOP_BREAK_TIMER,
-  pomoIntervalId
-});
-
-export const RESTART_WORK_TIMER = 'RESTART_WORK_TIMER';
-export const restartWorkTimer = () => ({
-  type: RESTART_WORK_TIMER
-});
-
-export const BIND_SESSION_LENGTH = 'BIND_SESSION_LENGTH';
-export const bindSessionLength = (minutes, seconds) => ({
-  type: BIND_SESSION_LENGTH,
-  minutes,
-  seconds
-});
-
-export const RESET_STATE = 'RESET_STATE';
-export const resetState = () => ({
-  type: RESET_STATE
 });
 
 export const UPDATE_USERNAME = 'UPDATE_USERNAME';
@@ -172,8 +82,8 @@ export const countDownBreakTime = breakTimeRemaining => ({
   breakTimeRemaining
 });
 
-export const fetchBoard = () => (dispatch) => {
-  dispatch(fetchBoardRequest());
+export const saveSession = () => (dispatch) => {
+  dispatch(savePomoSessionRequest());
   fetch('/board')
     .then((res) => {
       if (!res.ok) {
@@ -182,10 +92,10 @@ export const fetchBoard = () => (dispatch) => {
       return res.json();
     })
     .then((board) => {
-      dispatch(fetchBoardSuccess(board));
+      dispatch(savePomoSessionSuccess(board));
     })
     .catch((err) => {
-      dispatch(fetchBoardError(err));
+      dispatch(savePomoSessionError(err));
     });
 };
 
