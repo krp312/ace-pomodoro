@@ -35,9 +35,7 @@ export class StartSession extends React.Component {
             type="text"
             placeholder="25"
             id="initial-work-minutes"
-            ref={(input) => {
-              this.initialWorkMinutes = input;
-            }}
+            ref={(input) => { this.initialWorkMinutes = input; }}
             required
           />
         </label>
@@ -48,9 +46,7 @@ export class StartSession extends React.Component {
             type="text"
             placeholder="5"
             id="initial-break-minutes"
-            ref={(input) => {
-              this.initialBreakMinutes = input;
-            }}
+            ref={(input) => { this.initialBreakMinutes = input; }}
             required
           />
         </label>
@@ -61,9 +57,7 @@ export class StartSession extends React.Component {
             type="text"
             placeholder="Study React"
             id="session-name"
-            ref={(input) => {
-              this.sessionName = input;
-            }}
+            ref={(input) => { this.sessionName = input; }}
             required
           />
         </label>
@@ -77,7 +71,7 @@ export class StartSession extends React.Component {
 
 StartSession.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired
+  history: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired
 };
 
 export default connect()(StartSession);
