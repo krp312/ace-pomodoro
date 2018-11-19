@@ -1,29 +1,42 @@
-import React from "react";
-import { connect } from "react-redux";
-import { countDownWorkTime, countDownBreakTime, setTimerType } from '../actions/index';
+import React from 'react';
+import { connect } from 'react-redux';
+import {
+  countDownWorkTime,
+  countDownBreakTime,
+  setTimerType
+} from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
-import "./styles/timer.css";
+import './styles/timer.css';
 
 export class Timer extends React.Component {
   componentDidMount() {
+    const { timerType, initialWorkMinutes } = this.props;
     // start the work timer
-    if (this.props.timerType === 'work') {
-      this.countdownTimer(0, 0, this.props.initialWorkMinutes);
+    if (timerType === 'work') {
+      this.countdownTimer(0, 0, initialWorkMinutes);
     }
   }
 
   componentDidUpdate() {
+    const {
+      timerType,
+      workTimeRemaining,
+      breakTimeRemaining,
+      initialBreakMinutes,
+      dispatch
+    } = this.props;
     // after the work timer has completed, set the timerType to `break`
-    if (this.props.timerType === 'work' && this.props.workTimeRemaining === '00:00:00') {
-      this.props.dispatch(setTimerType('break'));
+    if (timerType === 'work' && workTimeRemaining === '00:00:00') {
+      dispatch(setTimerType('break'));
     }
     // start the break timer
-    if (this.props.timerType === 'break' && this.props.breakTimeRemaining === null) {
-      this.countdownTimer(0, 0, this.props.initialBreakMinutes);
+    if (timerType === 'break' && breakTimeRemaining === null) {
+      this.countdownTimer(0, 0, initialBreakMinutes);
     }
   }
-      
+
   countdownTimer(hours, minutes, seconds) {
+    const { timerType, dispatch } = this.props;
     let clock;
     const userInput = HMStoMilliseconds(hours, minutes, seconds);
     const startTime = new Date().getTime();
@@ -34,10 +47,10 @@ export class Timer extends React.Component {
       }
       const milliseconds = startTime + userInput - currentTime;
       // the following `if` block is what displays the countdown timer
-      if (this.props.timerType === 'work') {
-        this.props.dispatch(countDownWorkTime(millisecondsToHMS(milliseconds)))
+      if (timerType === 'work') {
+        dispatch(countDownWorkTime(millisecondsToHMS(milliseconds)));
       } else {
-        this.props.dispatch(countDownBreakTime(millisecondsToHMS(milliseconds)))
+        dispatch(countDownBreakTime(millisecondsToHMS(milliseconds)));
       }
     };
     ticker();
@@ -45,20 +58,21 @@ export class Timer extends React.Component {
   }
 
   render() {
+    const { timerType, workTimeRemaining, breakTimeRemaining } = this.props;
     let displayTimerType;
 
-    if (this.props.timerType === 'work') {
-      displayTimerType = this.props.workTimeRemaining
+    if (timerType === 'work') {
+      displayTimerType = workTimeRemaining;
     } else {
-      displayTimerType = this.props.breakTimeRemaining
+      displayTimerType = breakTimeRemaining;
     }
 
     return (
       <div>
-        <div>{this.props.timerType}</div>
+        <div>{timerType}</div>
         <div>{displayTimerType}</div>
       </div>
-    )
+    );
   }
 }
 

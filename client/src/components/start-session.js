@@ -9,15 +9,16 @@ import './styles/start-session.css';
 
 export class StartSession extends React.Component {
   submitSession() {
-    this.props.dispatch(
+    const { dispatch, history } = this.props;
+    dispatch(
       setSessionTimes(
         this.initialWorkMinutes.value,
         this.initialBreakMinutes.value
       )
     );
-    this.props.dispatch(setSessionName(this.sessionName.value));
-    this.props.dispatch(setTimerType('work'));
-    this.props.history.push('/timer');
+    dispatch(setSessionName(this.sessionName.value));
+    dispatch(setTimerType('work'));
+    history.push('/timer');
   }
 
   render() {
