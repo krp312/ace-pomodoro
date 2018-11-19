@@ -5,12 +5,12 @@ export const loginUserSuccess = user => ({
 });
 
 export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
-export const loginUserError = message => ({
+export const loginUserError = () => ({
   type: LOGIN_USER_ERROR
 });
 
 export const LOGOUT_USER = 'LOGOUT_USER';
-export const logoutUser = message => ({
+export const logoutUser = () => ({
   type: LOGOUT_USER
 });
 
@@ -79,7 +79,7 @@ export const updateCredentials = (username, password) => ({
 
 export const PAUSE_TIMER = 'PAUSE_TIMER';
 export const pauseTimer = () => ({
-  type: PAUSE_TIMER,
+  type: PAUSE_TIMER
 });
 
 export const POST_BREAK_SETTING = 'POST_BREAK_SETTING';
@@ -101,7 +101,7 @@ export const postSessionsError = error => ({
 });
 
 export const STOP_BREAK_TIMER = 'STOP_BREAK_TIMER';
-export const stopBreakTimer = (pomoIntervalId) => ({
+export const stopBreakTimer = pomoIntervalId => ({
   type: STOP_BREAK_TIMER,
   pomoIntervalId
 });
@@ -124,13 +124,13 @@ export const resetState = () => ({
 });
 
 export const UPDATE_USERNAME = 'UPDATE_USERNAME';
-export const updateUsername = (name) => ({
+export const updateUsername = name => ({
   type: UPDATE_USERNAME,
   name
 });
 
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
-export const updatePassword = (password) => ({
+export const updatePassword = password => ({
   type: UPDATE_PASSWORD,
   password
 });
@@ -145,7 +145,7 @@ export const SET_SESSION_TIMES = 'SET_SESSION_TIMES';
 export const setSessionTimes = (initialWorkMinutes, initialBreakMinutes) => ({
   type: SET_SESSION_TIMES,
   initialWorkMinutes,
-  initialBreakMinutes,
+  initialBreakMinutes
 });
 
 export const SET_TIMER_TYPE = 'SET_TIMER_TYPE';
@@ -172,7 +172,29 @@ export const countDownBreakTime = breakTimeRemaining => ({
   breakTimeRemaining
 });
 
-export const sendSessionDuration = (sessionDuration, sessionName, breakDurationSetting, workDurationSetting) => {
+export const fetchBoard = () => (dispatch) => {
+  dispatch(fetchBoardRequest());
+  fetch('/board')
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then((board) => {
+      dispatch(fetchBoardSuccess(board));
+    })
+    .catch((err) => {
+      dispatch(fetchBoardError(err));
+    });
+};
+
+export const sendSessionDuration = (
+  sessionDuration,
+  sessionName,
+  breakDurationSetting,
+  workDurationSetting
+) => {
   let formattedPostRequest = {
     name: sessionName,
     work_duration: workDurationSetting,
@@ -190,44 +212,18 @@ export const sendSessionDuration = (sessionDuration, sessionName, breakDurationS
     method: 'POST',
     body: JSON.stringify(formattedPostRequest)
   };
-  return dispatch => {
+  return (dispatch) => {
     fetch('/api/sessions', opts)
       .then(function(res) {
         return res;
       })
-    .catch(err => {
-      dispatch(postSessionsError(err));
-    });
+      .catch((err) => {
+        dispatch(postSessionsError(err));
+      });
   };
 };
 
-export const sendBreakDuration = (breakDuration, sessionName) => {
-  let formattedPostRequest = {
-    name: sessionName,
-    total_break_time: breakDuration,
-  };
-  const opts = {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Basic ${window.encodedAuthHeader}`
-    },
-    method: 'POST',
-    body: JSON.stringify(formattedPostRequest)
-  };
-  return dispatch => {
-    fetch('/api/sessions', opts)
-      .then(function(res) {
-        return res
-      })
-      .then(() => dispatch(resetState()))
-    .catch(err => {
-      return err
-    });
-  };
-};
-
-export const fetchSessions = (username, password) => dispatch => {
+export const fetchSessions = (username, password) => (dispatch) => {
   const credentials = `${username}:${password}`;
   const encodedAuthHeader = btoa(credentials);
   const authString = `Basic ${encodedAuthHeader}`;
@@ -243,62 +239,61 @@ export const fetchSessions = (username, password) => dispatch => {
 
   dispatch(getSessionsRequest());
   return fetch('/api/sessions/', opts)
-    .then(res => {
+    .then((res) => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
       }
       return res.json();
     })
-    .then(sessions => {
+    .then((sessions) => {
       return dispatch(getSessionsSuccess(sessions));
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch(getSessionsError(err));
     });
 };
 
-export const createUser = (username, password) => dispatch => {
+export const createUser = (username, password) => (dispatch) => {
   const credentials = {
     username,
     password
-  }
+  };
 
   const opts = {
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     method: 'POST',
     body: JSON.stringify(credentials)
   };
 
-  return fetch('/api/users/', opts)
-    .then(sessions => {
-      return dispatch(getSessionsSuccess(sessions));
-    })
+  return fetch('/api/users/', opts).then((sessions) => {
+    return dispatch(getSessionsSuccess(sessions));
+  });
 };
 
-export const loginUser = (username, password) => dispatch => {
+export const loginUser = (username, password) => (dispatch) => {
   const credentials = {
     username,
     password
-  }
+  };
 
   const opts = {
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     method: 'POST',
     body: JSON.stringify(credentials)
   };
 
   return fetch('/api/users/login', opts)
-    .then(res => res.json())
-    .then(({authToken}) => {
-      return dispatch(getJwt(authToken))
+    .then((res) => res.json())
+    .then(({ authToken }) => {
+      return dispatch(getJwt(authToken));
     })
-    .catch(err => {
-      return err
-    })
+    .catch((err) => {
+      return err;
+    });
 };
