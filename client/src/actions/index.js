@@ -99,6 +99,11 @@ export const clearWorkTimeRemaining = () => ({
   type: CLEAR_WORK_TIME_REMAINING
 });
 
+export const CLEAR_BREAK_TIME_REMAINING = 'CLEAR_BREAK_TIME_REMAINING';
+export const clearBreakTimeRemaining = () => ({
+  type: CLEAR_BREAK_TIME_REMAINING
+});
+
 export const savePomoSession = (initialWorkMinutes, initialBreakMinutes, sessionName) => (dispatch, getState) => {
   const formattedPostRequest = {
     work_duration: initialWorkMinutes,

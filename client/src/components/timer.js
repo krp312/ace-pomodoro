@@ -5,7 +5,8 @@ import {
   countDownBreakTime,
   setTimerType,
   savePomoSession,
-  clearWorkTimeRemaining
+  clearWorkTimeRemaining,
+  clearBreakTimeRemaining
 } from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
 import './styles/timer.css';
@@ -44,6 +45,9 @@ export class Timer extends React.Component {
         savePomoSession(initialWorkMinutes, initialBreakMinutes, sessionName)
       );
     }
+    if (timerType === 'work' && workTimeRemaining === null) {
+      this.countdownTimer(0, 0, this.props.initialWorkMinutes);
+    }
   }
 
   countdownTimer(hours, minutes, seconds) {
@@ -70,9 +74,8 @@ export class Timer extends React.Component {
 
   restartTimer() {
     this.props.dispatch(clearWorkTimeRemaining());
+    this.props.dispatch(clearBreakTimeRemaining());
     this.props.dispatch(setTimerType('work'));
-    console.log(this.props.timerType);
-    this.countdownTimer(0, 0, this.props.initialWorkMinutes);
   }
 
   render() {
@@ -87,7 +90,7 @@ export class Timer extends React.Component {
 
     return (
       <div>
-        <div>{savedSession !== null ? <button onClick={(e) => this.restartTimer(e)}>Restart</button> : null}</div>
+        <div>{savedSession !== null ? <button onClick={this.restartTimer.bind(this)}>Restart</button> : null}</div>
         <div>{savedSession !== null ? <button>New</button> : null}</div>
         <div>{timerType}</div>
         <div>{displayTimerType}</div>

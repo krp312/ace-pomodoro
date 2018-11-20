@@ -15,7 +15,8 @@ import {
   SET_SESSION_NAME,
   SAVE_POMO_SESSION_SUCCESS,
   SAVE_POMO_SESSION_ERROR,
-  CLEAR_WORK_TIME_REMAINING
+  CLEAR_WORK_TIME_REMAINING,
+  CLEAR_BREAK_TIME_REMAINING
 } from '../actions/index';
 
 const initialState = {
@@ -113,6 +114,10 @@ export default (state = initialState, action) => {
   } if (action.type === CLEAR_WORK_TIME_REMAINING) {
     return Object.assign({}, state, {
       workTimeRemaining: null
+    });
+  } if (action.type === CLEAR_BREAK_TIME_REMAINING) {
+    return Object.assign({}, state, {
+      breakTimeRemaining: null
     });
   }
   return state;
