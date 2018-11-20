@@ -35,9 +35,10 @@ const millisecondsToHMS = milliseconds => {
   const startTime = new Date().getTime();
   const ticker = () => {
     const currentTime = new Date().getTime();
-    if (currentTime - startTime >= userInput) {
+    if (currentTime - startTime - 1000 >= userInput) {
       clearInterval(clock);
     }
+    console.log(currentTime - startTime)
     const milliseconds = startTime + userInput - currentTime;
     console.log(millisecondsToHMS(milliseconds));
   };
@@ -45,4 +46,4 @@ const millisecondsToHMS = milliseconds => {
   clock = setInterval(ticker, 1000);
 };
 
-export default countdownTimer;
+countdownTimer(0,0,5);

@@ -32,7 +32,7 @@ export class Timer extends React.Component {
       savedSession
     } = this.props;
     // after the work timer has completed, set the timerType to `break`
-    if (timerType === 'work' && workTimeRemaining === '00:00:00') {
+    if (timerType === 'work' && workTimeRemaining === '00:00:0-1') {
       dispatch(setTimerType('break'));
     }
     // start the break timer
@@ -40,7 +40,7 @@ export class Timer extends React.Component {
       this.countdownTimer(0, 0, initialBreakMinutes);
     }
     // when break timer ends, store session in database
-    if (breakTimeRemaining === '00:00:00' && savedSession === null) {
+    if (breakTimeRemaining === '00:00:0-1' && savedSession === null) {
       dispatch(
         savePomoSession(initialWorkMinutes, initialBreakMinutes, sessionName)
       );
@@ -57,7 +57,7 @@ export class Timer extends React.Component {
     const startTime = new Date().getTime();
     const ticker = () => {
       const currentTime = new Date().getTime();
-      if (currentTime - startTime >= userInput) {
+      if (currentTime - startTime - 1000 >= userInput) {
         clearInterval(clock);
       }
       const milliseconds = startTime + userInput - currentTime;
