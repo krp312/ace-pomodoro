@@ -8,13 +8,14 @@ import {
 } from '../actions/index';
 
 describe('<StartSession />', () => {
+  const dispatch = jest.fn();
+  const history = { push: jest.fn() };
+
   it('renders without crashing', () => {
-    shallow(<StartSession />);
+    shallow(<StartSession dispatch={dispatch} history={history} />);
   });
 
   it('dispatches setSessionTimes from submitSession', () => {
-    const dispatch = jest.fn();
-    const history = { push: jest.fn() };
     const workTime = '25';
     const breakTime = '5';
     const wrapper = mount(
@@ -27,8 +28,6 @@ describe('<StartSession />', () => {
   });
 
   it('dispatches setTimerType from submitSession', () => {
-    const dispatch = jest.fn();
-    const history = [];
     const timerType = 'work';
     const wrapper = mount(
       <StartSession dispatch={dispatch} history={history} />
@@ -38,8 +37,6 @@ describe('<StartSession />', () => {
   });
 
   it('dispatches setSessionName from submitSession', () => {
-    const dispatch = jest.fn();
-    const history = [];
     const workTime = 25;
     const breakTime = 5;
     const sessionName = 'play';
