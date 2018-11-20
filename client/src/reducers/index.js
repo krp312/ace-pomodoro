@@ -12,7 +12,9 @@ import {
   COUNT_DOWN_WORK_TIME,
   COUNT_DOWN_BREAK_TIME,
   SET_TIMER_TYPE,
-  SET_SESSION_NAME
+  SET_SESSION_NAME,
+  SAVE_POMO_SESSION_SUCCESS,
+  SAVE_POMO_SESSION_ERROR
 } from '../actions/index';
 
 const initialState = {
@@ -23,6 +25,8 @@ const initialState = {
   initialWorkMinutes: null,
   initialBreakMinutes: null,
   sessionName: null,
+  savedSession: null,
+  saveSessionError: null,
   username: null,
   password: null,
   loggedIn: false,
@@ -96,6 +100,14 @@ export default (state = initialState, action) => {
   } if (action.type === SET_SESSION_NAME) {
     return Object.assign({}, state, {
       sessionName: action.sessionName
+    });
+  } if (action.type === SAVE_POMO_SESSION_SUCCESS) {
+    return Object.assign({}, state, {
+      savedSession: action.savedSession
+    });
+  } if (action.type === SAVE_POMO_SESSION_ERROR) {
+    return Object.assign({}, state, {
+      saveSessionError: action.error
     });
   }
   return state;

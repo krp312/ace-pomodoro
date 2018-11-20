@@ -14,7 +14,7 @@ export class LogIn extends React.Component {
   }
 
   render() {
-    if (this.props.jwt !== "") {
+    if (this.props.jwt !== null) {
       this.props.history.push('/start-session');
     }
 
@@ -55,4 +55,5 @@ const mapStateToProps = state => ({
   seconds: state.sessionSecondsRemaining,
   jwt: state.jwt
 });
+
 export default connect(mapStateToProps)(LogIn);

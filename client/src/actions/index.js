@@ -82,55 +82,48 @@ export const countDownBreakTime = breakTimeRemaining => ({
   breakTimeRemaining
 });
 
-export const saveSession = () => (dispatch) => {
-  dispatch(savePomoSessionRequest());
-  fetch('/board')
+export const SAVE_POMO_SESSION_SUCCESS = 'SAVE_POMO_SESSION_SUCCESS';
+export const savePomoSessionSuccess = savedSession => ({
+  type: SAVE_POMO_SESSION_SUCCESS,
+  savedSession
+});
+
+export const SAVE_POMO_SESSION_ERROR = 'SAVE_POMO_SESSION_ERROR';
+export const savePomoSessionError = error => ({
+  type: SAVE_POMO_SESSION_ERROR,
+  error
+});
+
+
+export const savePomoSession = (initialWorkMinutes, initialBreakMinutes, sessionName) => (dispatch, getState) => {
+  const formattedPostRequest = {
+    work_duration: initialWorkMinutes,
+    break_duration: initialBreakMinutes,
+    name: sessionName
+  };
+  const opts = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getState().jwt}`
+    },
+    method: 'POST',
+    body: JSON.stringify(formattedPostRequest)
+  };
+
+  fetch('/api/sessions', opts)
     .then((res) => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
       }
       return res.json();
     })
-    .then((board) => {
-      dispatch(savePomoSessionSuccess(board));
+    .then((session) => {
+      dispatch(savePomoSessionSuccess(session));
     })
-    .catch((err) => {
-      dispatch(savePomoSessionError(err));
+    .catch((error) => {
+      dispatch(savePomoSessionError(error));
     });
-};
-
-export const sendSessionDuration = (
-  sessionDuration,
-  sessionName,
-  breakDurationSetting,
-  workDurationSetting
-) => {
-  let formattedPostRequest = {
-    name: sessionName,
-    work_duration: workDurationSetting,
-    break_duration: breakDurationSetting,
-    total_work_time: sessionDuration,
-    is_completed: true
-  };
-
-  const opts = {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Basic ${window.encodedAuthHeader}`
-    },
-    method: 'POST',
-    body: JSON.stringify(formattedPostRequest)
-  };
-  return (dispatch) => {
-    fetch('/api/sessions', opts)
-      .then(function(res) {
-        return res;
-      })
-      .catch((err) => {
-        dispatch(postSessionsError(err));
-      });
-  };
 };
 
 export const fetchSessions = (username, password) => (dispatch) => {

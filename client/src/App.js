@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import LogIn from './components/login';
+import LogIn from './components/login.jsx';
 import CreateUser from './components/create-user';
 import UserData from './components/user-data';
 import StartSession from './components/start-session';

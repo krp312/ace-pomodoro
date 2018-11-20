@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   countDownWorkTime,
   countDownBreakTime,
-  setTimerType
+  setTimerType,
+  savePomoSession
 } from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
 import './styles/timer.css';
@@ -23,6 +24,8 @@ export class Timer extends React.Component {
       workTimeRemaining,
       breakTimeRemaining,
       initialBreakMinutes,
+      initialWorkMinutes,
+      sessionName,
       dispatch
     } = this.props;
     // after the work timer has completed, set the timerType to `break`
@@ -32,6 +35,12 @@ export class Timer extends React.Component {
     // start the break timer
     if (timerType === 'break' && breakTimeRemaining === null) {
       this.countdownTimer(0, 0, initialBreakMinutes);
+    }
+    // when break timer ends, store session in database
+    if (breakTimeRemaining === '00:00:00') {
+      dispatch(
+        savePomoSession(initialWorkMinutes, initialBreakMinutes, sessionName)
+      );
     }
   }
 
@@ -76,12 +85,13 @@ export class Timer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   initialWorkMinutes: state.initialWorkMinutes,
   initialBreakMinutes: state.initialBreakMinutes,
   workTimeRemaining: state.workTimeRemaining,
   breakTimeRemaining: state.breakTimeRemaining,
-  timerType: state.timerType
+  timerType: state.timerType,
+  sessionName: state.sessionName
 });
 
 export default connect(mapStateToProps)(Timer);
