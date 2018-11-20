@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   countDownWorkTime,
   countDownBreakTime,
@@ -35,10 +36,6 @@ export class Timer extends React.Component {
     // after the work timer has completed, set the timerType to `break`
     if (timerType === 'work' && workTimeRemaining === '00:00:0-1') {
       dispatch(setTimerType('break'));
-    }
-    // start the break timer
-    if (timerType === 'break' && breakTimeRemaining === null) {
-      this.countdownTimer(0, 0, initialBreakMinutes);
     }
     // when break timer ends, store session in database
     if (breakTimeRemaining === '00:00:0-1' && savedSession === null) {
@@ -81,6 +78,17 @@ export class Timer extends React.Component {
     dispatch(setTimerType('work'));
   }
 
+  startBreakTimer() {
+    const {
+      timerType,
+      breakTimeRemaining,
+      initialBreakMinutes
+    } = this.props;
+    if (timerType === 'break' && breakTimeRemaining === null) {
+      this.countdownTimer(0, 0, initialBreakMinutes);
+    }
+  }
+
   render() {
     const { timerType, workTimeRemaining, breakTimeRemaining, savedSession } = this.props;
     let displayTimerType;
@@ -94,7 +102,8 @@ export class Timer extends React.Component {
     return (
       <div>
         <div>{savedSession !== null ? <button onClick={this.restartTimer.bind(this)}>Restart</button> : null}</div>
-        <div>{savedSession !== null ? <button>New</button> : null}</div>
+        <div>{savedSession !== null ? <button onClick={this.restartTimer.bind(this)}><Link to="/start-session">New</Link></button> : null}</div>
+        <div>{timerType === 'break' && breakTimeRemaining === null ? <button onClick={this.startBreakTimer.bind(this)}>Begin Break</button> : null}</div>
         <div>{timerType}</div>
         <div>{displayTimerType}</div>
       </div>

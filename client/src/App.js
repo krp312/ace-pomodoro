@@ -4,7 +4,7 @@ import LogIn from './components/login.jsx';
 import CreateUser from './components/create-user';
 import UserData from './components/user-data';
 import StartSession from './components/start-session';
-import Timer from './components/timer';
+import Timer from './components/timer.jsx';
 import PomoInfo from './components/pomo-info';
 import Header from './components/header';
 import './components/styles/container.css';
