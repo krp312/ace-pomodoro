@@ -6,7 +6,8 @@ import {
   setTimerType,
   savePomoSession,
   clearWorkTimeRemaining,
-  clearBreakTimeRemaining
+  clearBreakTimeRemaining,
+  clearSavedSession
 } from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
 import './styles/timer.css';
@@ -73,9 +74,11 @@ export class Timer extends React.Component {
   }
 
   restartTimer() {
-    this.props.dispatch(clearWorkTimeRemaining());
-    this.props.dispatch(clearBreakTimeRemaining());
-    this.props.dispatch(setTimerType('work'));
+    const { dispatch } = this.props;
+    dispatch(clearSavedSession());
+    dispatch(clearWorkTimeRemaining());
+    dispatch(clearBreakTimeRemaining());
+    dispatch(setTimerType('work'));
   }
 
   render() {
