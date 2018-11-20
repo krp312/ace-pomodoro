@@ -4,7 +4,8 @@ import {
   countDownWorkTime,
   countDownBreakTime,
   setTimerType,
-  savePomoSession
+  savePomoSession,
+  clearWorkTimeRemaining
 } from '../actions/index';
 import { HMStoMilliseconds, millisecondsToHMS } from '../timer_helpers';
 import './styles/timer.css';
@@ -26,7 +27,8 @@ export class Timer extends React.Component {
       initialBreakMinutes,
       initialWorkMinutes,
       sessionName,
-      dispatch
+      dispatch,
+      savedSession
     } = this.props;
     // after the work timer has completed, set the timerType to `break`
     if (timerType === 'work' && workTimeRemaining === '00:00:00') {
@@ -37,7 +39,7 @@ export class Timer extends React.Component {
       this.countdownTimer(0, 0, initialBreakMinutes);
     }
     // when break timer ends, store session in database
-    if (breakTimeRemaining === '00:00:00') {
+    if (breakTimeRemaining === '00:00:00' && savedSession === null) {
       dispatch(
         savePomoSession(initialWorkMinutes, initialBreakMinutes, sessionName)
       );
@@ -66,8 +68,15 @@ export class Timer extends React.Component {
     clock = setInterval(ticker, 1000);
   }
 
+  restartTimer() {
+    this.props.dispatch(clearWorkTimeRemaining());
+    this.props.dispatch(setTimerType('work'));
+    console.log(this.props.timerType);
+    this.countdownTimer(0, 0, this.props.initialWorkMinutes);
+  }
+
   render() {
-    const { timerType, workTimeRemaining, breakTimeRemaining } = this.props;
+    const { timerType, workTimeRemaining, breakTimeRemaining, savedSession } = this.props;
     let displayTimerType;
 
     if (timerType === 'work') {
@@ -78,6 +87,8 @@ export class Timer extends React.Component {
 
     return (
       <div>
+        <div>{savedSession !== null ? <button onClick={(e) => this.restartTimer(e)}>Restart</button> : null}</div>
+        <div>{savedSession !== null ? <button>New</button> : null}</div>
         <div>{timerType}</div>
         <div>{displayTimerType}</div>
       </div>
@@ -85,13 +96,14 @@ export class Timer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   initialWorkMinutes: state.initialWorkMinutes,
   initialBreakMinutes: state.initialBreakMinutes,
   workTimeRemaining: state.workTimeRemaining,
   breakTimeRemaining: state.breakTimeRemaining,
   timerType: state.timerType,
-  sessionName: state.sessionName
+  sessionName: state.sessionName,
+  savedSession: state.savedSession
 });
 
 export default connect(mapStateToProps)(Timer);
