@@ -30,11 +30,12 @@ describe('<Timer />', () => {
   it('dispatches setTimerType from componentDidUpdate', () => {
     const dispatch = jest.fn();
     const wrapper = shallow(
-      <Timer 
-        dispatch={dispatch} 
-        workTimeRemaining={'00:00:00'} 
-        timerType={'work'} 
-      />);
+      <Timer
+        dispatch={dispatch}
+        workTimeRemaining="00:00:0-1"
+        timerType="work"
+      />
+    );
     wrapper.instance().componentDidUpdate();
     expect(dispatch).toHaveBeenCalledWith({"timerType": "break", "type": "SET_TIMER_TYPE"});
   });
